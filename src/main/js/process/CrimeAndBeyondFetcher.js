@@ -38,8 +38,8 @@ define(["MysteryAward", "Book", "Nomination"],
             var nomination = new Nomination(award, this.category(), 2016);
 
             var titleAndAuthor = [
-              ["Blood On Snow", "Jo Nesbø"],
-              ["Crazy Love You", "Lisa Unger"],
+              // ["Blood On Snow", "Jo Nesbø"],
+              // ["Crazy Love You", "Lisa Unger"],
               ["The Killer Next Door", "Alex Marwood"],
               ["The Stranger", "Harlan Coben"],
               ["Vanishing Games", "Roger Hobbs"],
@@ -63,6 +63,17 @@ define(["MysteryAward", "Book", "Nomination"],
               ["The Black Widow", "Daniel Silva"],
               ["The Woman in Cabin 10", "Ruth Ware"],
               ["In a Dark, Dark Wood", "Ruth Ware"],
+              ["The Wrong Side of Goodbye", "Michael Connelly"],
+              ["Home", "Harlan Coben"],
+              ["The Nowhere Man", "Gregg Hurwitz"],
+              ["A Christmas Party", "Georgette Heyer"],
+            ];
+            addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+
+            nomination = new Nomination(award, this.category(), 2018);
+            titleAndAuthor = [
+              ["Every Last Lie", "Mary Kubica"],
+              ["I See You", "Clare Mackintosh"],
             ];
             addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
 

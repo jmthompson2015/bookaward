@@ -296,7 +296,7 @@ define(["Assessment", "BookComparator", "Library", "process/Action", "process/ui
             var image2;
             if (url2 !== undefined)
             {
-               image2 = this.createImageLink(3, url2, "../resources/DouglasCountyLibraries18.jpg", "Douglas County Libraries");
+               image2 = this.createImageLink(3, url2, "../resources/DouglasCountyLibraries18.png", "Douglas County Libraries");
             }
             var image3 = this.createImageLink(2, url3, "../resources/Goodreads16.png", "Goodreads");
             var imageSpan = React.DOM.span(
