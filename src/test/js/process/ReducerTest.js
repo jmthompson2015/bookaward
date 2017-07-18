@@ -8,7 +8,7 @@ define(["Assessment", "MysteryAward", "Book", "MysteryInitialState", "Nomination
       {
          // Setup.
          var state = new InitialState();
-         var length = 99;
+         var length = 102;
          assert.equal(state.books.length, length);
          var book = createBook1();
          var action = Action.addBook(book);

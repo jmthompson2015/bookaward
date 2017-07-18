@@ -12,12 +12,12 @@ define(["MysteryAward", "process/CrimeAndBeyondFetcher"],
          var callback = function(books, bookToNomination)
          {
             assert.ok(books);
-            var length = 20;
+            var length = 24;
             assert.equal(books.length, length);
 
             var i = 0;
-            assert.equal(books[i].title(), "Blood On Snow");
-            assert.equal(books[i].author(), "Jo Nesbø");
+            assert.equal(books[i].title(), "The Killer Next Door");
+            assert.equal(books[i].author(), "Alex Marwood");
             var nominations = bookToNomination[books[i]];
             assert.ok(nominations);
             assert.equal(nominations.length, 1);
@@ -26,7 +26,7 @@ define(["MysteryAward", "process/CrimeAndBeyondFetcher"],
             assert.equal(nominations[j].category(), category);
             assert.equal(nominations[j].year(), 2016);
 
-            i = 13;
+            i = 11;
             assert.equal(books[i].title(), "Fool Me Once");
             assert.equal(books[i].author(), "Harlan Coben");
             nominations = bookToNomination[books[i]];
@@ -38,15 +38,15 @@ define(["MysteryAward", "process/CrimeAndBeyondFetcher"],
             assert.equal(nominations[j].year(), 2017);
 
             i = length - 1;
-            assert.equal(books[i].title(), "In a Dark, Dark Wood");
-            assert.equal(books[i].author(), "Ruth Ware");
+            assert.equal(books[i].title(), "I See You");
+            assert.equal(books[i].author(), "Clare Mackintosh");
             nominations = bookToNomination[books[i]];
             assert.ok(nominations);
             assert.equal(nominations.length, 1);
             j = 0;
             assert.equal(nominations[j].award(), award);
             assert.equal(nominations[j].category(), category);
-            assert.equal(nominations[j].year(), 2017);
+            assert.equal(nominations[j].year(), 2018);
          };
          var fetcher = new CrimeAndBeyondFetcher(callback);
 
