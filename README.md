@@ -4,7 +4,7 @@ Provides an application to view book award nominees. Currently supports select M
 
 ## Applications
 
-* [Mystery Book Award Nominees](https://rawgit.com/jmthompson2015/bookaward/master/src/main/html/BookAward.html)
+* [Mystery Book Award Nominees](https://rawgit.com/jmthompson2015/bookaward/master/src/main/html/MysteryBookAward.html)
 * [Science Fiction Book Award Nominees](https://rawgit.com/jmthompson2015/bookaward/master/src/main/html/SciFiBookAward.html)
 
 ## Built With
