@@ -20,9 +20,9 @@ define(["Assessment", "MysteryInitialState"],
 
          assert.ok(result.bookToAssessment);
          assert.ok(result.bookToAssessment[result.books[0]]);
-         assert.equal(result.bookToAssessment[result.books[0]], Assessment.NOT_AVAILABLE);
+         assert.equal(result.bookToAssessment[result.books[0]], Assessment.NONE);
          assert.ok(result.bookToAssessment[result.books[length - 1]]);
-         assert.equal(result.bookToAssessment[result.books[length - 1]], Assessment.NOT_AVAILABLE);
+         assert.equal(result.bookToAssessment[result.books[length - 1]], Assessment.NONE);
 
          assert.ok(result.bookToDclUrl);
          //  assert.ok(result.bookToDclUrl[result.books[0]]);

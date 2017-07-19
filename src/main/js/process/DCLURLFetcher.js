@@ -40,6 +40,14 @@ define(["MysteryAward", "Book", "Library", "Nomination", "process/ui/UrlGenerato
             xmlDocument = xmlDocumentIn;
             LOGGER.trace("book = " + book);
             LOGGER.trace("xmlDocument = " + (new XMLSerializer()).serializeToString(xmlDocument));
+            var content = xmlDocument.children[0].children[0].children[0];
+            if (content !== undefined)
+            {
+               content = content.innerHTML;
+               content = content.replace(/&lt;/g, "<");
+               content = content.replace(/&gt;/g, ">");
+               xmlDocument.children[0].children[0].children[0].innerHTML = content;
+            }
             parse();
             LOGGER.debug("dclUrl = " + dclUrl);
             callback(book, dclUrl);
@@ -55,8 +63,8 @@ define(["MysteryAward", "Book", "Library", "Nomination", "process/ui/UrlGenerato
             var subject = book.toString();
             var sourceUrl = UrlGenerator.createLibrarySearchUrl(library, subject);
 
-            var query = "select * from html where url='" + sourceUrl + "'";
-            var answer = baseUrl + encodeURIComponent(query);
+            var query = "select * from htmlstring where url=\"" + sourceUrl + "\"";
+            var answer = baseUrl + encodeURIComponent(query) + "&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
             LOGGER.debug("url = " + answer);
 
             return answer;
@@ -67,20 +75,64 @@ define(["MysteryAward", "Book", "Library", "Nomination", "process/ui/UrlGenerato
             LOGGER.trace("DCLURLFetcher.parse() start");
 
             // This gives the book set.
-            var xpath = "//span[@class='title']/a/@title['(Book)' = substring(., string-length(.)- string-length('(Book)') +1)]/../@href";
+            var xpath = "//span[@class='title']/a/@title['(Book)' = substring(., string-length(.) - string-length('(Book)') + 1)]/../@href";
             var resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
             var rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
             var row = rows.iterateNext();
             LOGGER.trace("row = " + row);
-            var title = processTitle(book.title());
+
+            if (row)
+            {
+               var title = processTitle(book.title());
+               LOGGER.trace("title = " + title);
+
+               while (row)
+               {
+                  var myTitle = row.value;
+                  LOGGER.trace("myTitle = " + myTitle);
+
+                  if (myTitle.endsWith(title))
+                  {
+                     dclUrl = BASE_URL + row.value;
+                     break;
+                  }
+
+                  row = rows.iterateNext();
+               }
+
+               if (dclUrl === undefined)
+               {
+                  LOGGER.warn("missing row for book = " + book);
+               }
+            }
+            else
+            {
+               parse2();
+            }
+
+            LOGGER.trace("DCLURLFetcher.parse() end");
+         }
+
+         function parse2()
+         {
+            LOGGER.trace("DCLURLFetcher.parse2() start");
+
+            // This gives the book set.
+            var title = book.title();
+            title = title.replace(/'/g, "");
             LOGGER.trace("title = " + title);
+            var xpath = "//span/text()['Book' = substring(., string-length(.) - string-length('Book') + 1)]/../../../../../../../../../../../..//a[text()='" + title + "']/@href";
+            var resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
+            var rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
+            var row = rows.iterateNext();
+            LOGGER.trace("row = " + row);
 
             while (row)
             {
                var myTitle = row.value;
                LOGGER.trace("myTitle = " + myTitle);
 
-               if (myTitle.endsWith(title))
+               if (myTitle)
                {
                   dclUrl = BASE_URL + row.value;
                   break;
@@ -94,7 +146,7 @@ define(["MysteryAward", "Book", "Library", "Nomination", "process/ui/UrlGenerato
                LOGGER.warn("missing row for book = " + book);
             }
 
-            LOGGER.trace("DCLURLFetcher.parse() end");
+            LOGGER.trace("DCLURLFetcher.parse2() end");
          }
 
          function processTitle(title)

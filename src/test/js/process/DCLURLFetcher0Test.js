@@ -2,9 +2,9 @@ define(["MysteryAward", "Book", "process/DCLURLFetcher"],
    function(Award, Book, DCLURLFetcher)
    {
       "use strict";
-      QUnit.module("DCLURLFetcher");
+      QUnit.module("DCLURLFetcher0");
 
-      QUnit.test("receiveData() 0", function(assert)
+      QUnit.test("fetchData() 0", function(assert)
       {
          // Setup.
          var book = createBook0();
@@ -17,14 +17,31 @@ define(["MysteryAward", "Book", "process/DCLURLFetcher"],
             done();
          };
          var fetcher = new DCLURLFetcher(book, callback);
-         var xmlDocument = load(book);
 
          // Run.
          var done = assert.async();
-         fetcher.receiveData(xmlDocument);
+         fetcher.fetchData();
       });
 
-      QUnit.test("receiveData() 2", function(assert)
+      QUnit.test("fetchData() 1", function(assert)
+      {
+         // Setup.
+         var book = createBook1();
+         var callback = function(book, dclUrl)
+         {
+            // Verify.
+            assert.ok(book);
+            assert.equal(dclUrl, undefined);
+            done();
+         };
+         var fetcher = new DCLURLFetcher(book, callback);
+
+         // Run.
+         var done = assert.async();
+         fetcher.fetchData();
+      });
+
+      QUnit.test("fetchData() 2", function(assert)
       {
          // Setup.
          var book = createBook2();
@@ -37,14 +54,13 @@ define(["MysteryAward", "Book", "process/DCLURLFetcher"],
             done();
          };
          var fetcher = new DCLURLFetcher(book, callback);
-         var xmlDocument = load(book);
 
          // Run.
          var done = assert.async();
-         fetcher.receiveData(xmlDocument);
+         fetcher.fetchData();
       });
 
-      QUnit.test("receiveData() 3", function(assert)
+      QUnit.test("fetchData() 3", function(assert)
       {
          // Setup.
          var book = createBook3();
@@ -53,18 +69,17 @@ define(["MysteryAward", "Book", "process/DCLURLFetcher"],
             // Verify.
             assert.ok(book);
             assert.ok(dclUrl);
-            assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1300042114_orphan_x");
+            assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1300042114");
             done();
          };
          var fetcher = new DCLURLFetcher(book, callback);
-         var xmlDocument = load(book);
 
          // Run.
          var done = assert.async();
-         fetcher.receiveData(xmlDocument);
+         fetcher.fetchData();
       });
 
-      QUnit.test("receiveData() 4", function(assert)
+      QUnit.test("fetchData() 4", function(assert)
       {
          // Setup.
          var book = createBook4();
@@ -77,14 +92,13 @@ define(["MysteryAward", "Book", "process/DCLURLFetcher"],
             done();
          };
          var fetcher = new DCLURLFetcher(book, callback);
-         var xmlDocument = load(book);
 
          // Run.
          var done = assert.async();
-         fetcher.receiveData(xmlDocument);
+         fetcher.fetchData();
       });
 
-      QUnit.test("receiveData() 5", function(assert)
+      QUnit.test("fetchData() 5", function(assert)
       {
          // Setup.
          var book = createBook5();
@@ -97,11 +111,10 @@ define(["MysteryAward", "Book", "process/DCLURLFetcher"],
             done();
          };
          var fetcher = new DCLURLFetcher(book, callback);
-         var xmlDocument = load(book);
 
          // Run.
          var done = assert.async();
-         fetcher.receiveData(xmlDocument);
+         fetcher.fetchData();
       });
 
       function createBook0()
@@ -150,21 +163,5 @@ define(["MysteryAward", "Book", "process/DCLURLFetcher"],
          var author = "Noah Hawley";
 
          return new Book(title, author);
-      }
-
-      function load(book)
-      {
-         var name = book.title();
-         name = name.replace(/ /g, "_");
-         name = name.replace(/\u2019/g, "");
-         name = name.replace(/'/g, "");
-         var request = new XMLHttpRequest();
-         var url = "../resources/" + name + ".xml";
-         LOGGER.debug("url = " + url);
-         var isAsync = false;
-         request.open("GET", url, isAsync);
-         request.send();
-
-         return request.responseXML;
       }
    });
