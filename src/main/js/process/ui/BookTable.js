@@ -132,9 +132,9 @@ define(["Assessment", "BookComparator", "Library", "process/Action", "process/ui
             var url1 = UrlGenerator.createAmazonSearchUrl(author);
             var url2 = UrlGenerator.createGoodreadsSearchUrl(author);
             var url3 = UrlGenerator.createWikipediaSearchUrl(author);
-            var image1 = this.createImageLink(1, url1, "../resources/Amazon16.png", "Amazon");
-            var image2 = this.createImageLink(2, url2, "../resources/Goodreads16.png", "Goodreads");
-            var image3 = this.createImageLink(3, url3, "../resources/Wikipedia16.png", "Wikipedia");
+            var image1 = this.createImageLink(1, url1, "../resources/Amazon18.png", "Amazon");
+            var image2 = this.createImageLink(2, url2, "../resources/Goodreads18.png", "Goodreads");
+            var image3 = this.createImageLink(3, url3, "../resources/Wikipedia18.png", "Wikipedia");
             var imageSpan = React.DOM.span(
             {
                className: "imageBlock",
@@ -292,13 +292,13 @@ define(["Assessment", "BookComparator", "Library", "process/Action", "process/ui
             var url3 = UrlGenerator.createGoodreadsSearchUrl(nominee.book.toString());
             var title = nominee.book.title();
             var value = BookComparator.prepareName(nominee.book.title());
-            var image1 = this.createImageLink(1, url1, "../resources/Amazon16.png", "Amazon");
+            var image1 = this.createImageLink(1, url1, "../resources/Amazon18.png", "Amazon");
             var image2;
             if (url2 !== undefined)
             {
                image2 = this.createImageLink(3, url2, "../resources/DouglasCountyLibraries18.png", "Douglas County Libraries");
             }
-            var image3 = this.createImageLink(2, url3, "../resources/Goodreads16.png", "Goodreads");
+            var image3 = this.createImageLink(2, url3, "../resources/Goodreads18.png", "Goodreads");
             var imageSpan = React.DOM.span(
             {
                className: "imageBlock",
