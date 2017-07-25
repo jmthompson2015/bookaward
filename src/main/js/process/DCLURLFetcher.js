@@ -1,5 +1,5 @@
-define(["MysteryAward", "Book", "Library", "Nomination", "process/ui/UrlGenerator"],
-   function(Award, Book, Library, Nomination, UrlGenerator)
+define(["MysteryAward", "Book", "Library", "process/ui/UrlGenerator"],
+   function(Award, Book, Library, UrlGenerator)
    {
       "use strict";
 

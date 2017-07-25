@@ -1,5 +1,5 @@
-define(["Assessment", "MysteryAward", "Book", "Nomination", "UserSettings"],
-   function(Assessment, Award, Book, Nomination, UserSettings)
+define(["MysteryAward", "Book", "Nomination", "UserSettings"],
+   function(Award, Book, Nomination, UserSettings)
    {
       "use strict";
 
