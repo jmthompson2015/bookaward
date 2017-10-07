@@ -1,8 +1,8 @@
+"use strict";
+
 define(["MysteryAward", "Book", "Nomination"],
    function(Award, Book, Nomination)
    {
-      "use strict";
-
       function SYKMNomineeFetcher(award, callback)
       {
          InputValidator.validateNotNull("award", award);
@@ -13,7 +13,6 @@ define(["MysteryAward", "Book", "Nomination"],
             return award;
          };
 
-         var that = this;
          var books = [];
          var bookToNomination = {};
          var xmlDocument;

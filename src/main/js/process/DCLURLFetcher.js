@@ -1,8 +1,8 @@
+"use strict";
+
 define(["MysteryAward", "Book", "Library", "process/ui/UrlGenerator"],
    function(Award, Book, Library, UrlGenerator)
    {
-      "use strict";
-
       function DCLURLFetcher(book, callback)
       {
          InputValidator.validateNotNull("book", book);
@@ -13,7 +13,6 @@ define(["MysteryAward", "Book", "Library", "process/ui/UrlGenerator"],
             return book;
          };
 
-         var that = this;
          var dclUrl;
          var xmlDocument;
          var BASE_URL = "https://dcl.bibliocommons.com";

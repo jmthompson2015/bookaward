@@ -1,7 +1,7 @@
+"use strict";
+
 define(function()
 {
-   "use strict";
-
    var Library = {
       AL: "al",
       DPL: "dpl",
@@ -36,7 +36,7 @@ define(function()
             shortName: "DCL",
             image: "../resources/DouglasCountyLibraries18.png",
             url: "http://www.douglascountylibraries.org",
-            searchPrefix: "http://dcl.bibliocommons.com/search?utf8=✓&q=",
+            searchPrefix: "http://dcl.bibliocommons.com/search?q=",
             searchSuffix: "&t=smart&search_category=keyword",
             value: "dcl",
          },

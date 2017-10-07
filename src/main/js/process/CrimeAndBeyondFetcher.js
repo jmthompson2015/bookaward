@@ -1,8 +1,8 @@
+"use strict";
+
 define(["MysteryAward", "Book", "Nomination"],
    function(Award, Book, Nomination)
    {
-      "use strict";
-
       function CrimeAndBeyondFetcher(callback)
       {
          InputValidator.validateNotNull("callback", callback);
@@ -20,8 +20,6 @@ define(["MysteryAward", "Book", "Nomination"],
 
             return award.categories.properties[categoryKey];
          };
-
-         var that = this;
 
          this.fetchData = function()
          {

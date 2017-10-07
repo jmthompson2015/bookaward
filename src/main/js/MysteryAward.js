@@ -1,7 +1,7 @@
+"use strict";
+
 define(function()
 {
-   "use strict";
-
    var MysteryAward = {
       AGATHA: "agatha",
       ANTHONY: "anthony",
@@ -95,7 +95,7 @@ define(function()
 
       values: function()
       {
-         return Object.getOwnPropertyNames(MysteryAward.properties[Award.AGATHA].categories.properties);
+         return Object.getOwnPropertyNames(MysteryAward.properties[MysteryAward.AGATHA].categories.properties);
       },
    };
 
@@ -124,7 +124,7 @@ define(function()
 
       values: function()
       {
-         return Object.getOwnPropertyNames(MysteryAward.properties[Award.AGATHA].categories.properties);
+         return Object.getOwnPropertyNames(MysteryAward.properties[MysteryAward.ANTHONY].categories.properties);
       },
    };
 
@@ -180,27 +180,27 @@ define(function()
       {
          "first":
          {
-            name: "New Blood Dagger",
+            name: "New Blood Dagger Shortlist",
             value: "first",
          },
          "gold":
          {
-            name: "Gold Dagger",
+            name: "Gold Dagger Shortlist",
             value: "gold",
          },
          "historical":
          {
-            name: "Historical Dagger",
+            name: "Historical Dagger Shortlist",
             value: "historical",
          },
          "international":
          {
-            name: "International Dagger",
+            name: "International Dagger Shortlist",
             value: "international",
          },
          "steel":
          {
-            name: "Ian Fleming Steel Dagger",
+            name: "Ian Fleming Steel Dagger Shortlist",
             value: "steel",
          },
       },
