@@ -74,7 +74,7 @@ define(["MysteryAward", "Book", "Library", "process/ui/UrlGenerator"],
             LOGGER.trace("DCLURLFetcher.parse() start");
 
             // This gives the book set.
-            var xpath = "//span[@class='title']/a/@title['(Book)' = substring(., string-length(.) - string-length('(Book)') + 1)]/../@href";
+            var xpath = "//span/text()[', Book' = substring(., string-length(.) - string-length(', Book') + 1)]/../../../../a/@href";
             var resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
             var rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
             var row = rows.iterateNext();
@@ -82,22 +82,7 @@ define(["MysteryAward", "Book", "Library", "process/ui/UrlGenerator"],
 
             if (row)
             {
-               var title = processTitle(book.title());
-               LOGGER.trace("title = " + title);
-
-               while (row)
-               {
-                  var myTitle = row.value;
-                  LOGGER.trace("myTitle = " + myTitle);
-
-                  if (myTitle.endsWith(title))
-                  {
-                     dclUrl = BASE_URL + row.value;
-                     break;
-                  }
-
-                  row = rows.iterateNext();
-               }
+               dclUrl = BASE_URL + row.value;
 
                if (dclUrl === undefined)
                {
@@ -146,18 +131,6 @@ define(["MysteryAward", "Book", "Library", "process/ui/UrlGenerator"],
             }
 
             LOGGER.trace("DCLURLFetcher.parse2() end");
-         }
-
-         function processTitle(title)
-         {
-            var answer = title;
-
-            answer = answer.replace(/\u2019/g, "'");
-            answer = answer.replace(/'/g, "");
-            answer = answer.replace(/ /g, "_");
-            answer = answer.toLowerCase();
-
-            return answer;
          }
       }
 

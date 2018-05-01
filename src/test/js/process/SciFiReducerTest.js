@@ -8,7 +8,7 @@ define(["Assessment", "SciFiAward", "Book", "SciFiInitialState", "Nomination", "
       {
          // Setup.
          var state = new SciFiInitialState();
-         var length = 147;
+         var length = 155;
          assert.equal(state.books.length, length);
          var book = createBook1();
          var action = Action.addBook(book);

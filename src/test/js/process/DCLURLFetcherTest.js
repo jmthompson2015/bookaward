@@ -24,6 +24,25 @@ define(["MysteryAward", "Book", "process/DCLURLFetcher"],
          fetcher.receiveData(xmlDocument);
       });
 
+      QUnit.test("receiveData() 1", function(assert)
+      {
+         // Setup.
+         var book = createBook1();
+         var callback = function(book, dclUrl)
+         {
+            // Verify.
+            assert.ok(book);
+            assert.equal(dclUrl, undefined);
+            done();
+         };
+         var fetcher = new DCLURLFetcher(book, callback);
+         var xmlDocument = load(book);
+
+         // Run.
+         var done = assert.async();
+         fetcher.receiveData(xmlDocument);
+      });
+
       QUnit.test("receiveData() 2", function(assert)
       {
          // Setup.
@@ -33,7 +52,7 @@ define(["MysteryAward", "Book", "process/DCLURLFetcher"],
             // Verify.
             assert.ok(book);
             assert.ok(dclUrl);
-            assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1268318114_freedoms_child");
+            assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1268318114");
             done();
          };
          var fetcher = new DCLURLFetcher(book, callback);
@@ -53,7 +72,7 @@ define(["MysteryAward", "Book", "process/DCLURLFetcher"],
             // Verify.
             assert.ok(book);
             assert.ok(dclUrl);
-            assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1300042114_orphan_x");
+            assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1431233114");
             done();
          };
          var fetcher = new DCLURLFetcher(book, callback);
@@ -72,8 +91,7 @@ define(["MysteryAward", "Book", "process/DCLURLFetcher"],
          {
             // Verify.
             assert.ok(book);
-            assert.ok(dclUrl);
-            assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1285826114");
+            assert.equal(dclUrl, undefined);
             done();
          };
          var fetcher = new DCLURLFetcher(book, callback);

@@ -1,7 +1,8 @@
+"use strict";
+
 define(["MysteryAward", "process/SYKMNomineeFetcher"],
    function(Award, SYKMNomineeFetcher)
    {
-      "use strict";
       QUnit.module("SYKMNomineeFetcher0");
 
       QUnit.test("fetchData() Agatha", function(assert)
@@ -16,7 +17,7 @@ define(["MysteryAward", "process/SYKMNomineeFetcher"],
             assert.equal(books.length, 15);
 
             var i = 0;
-            assert.equal(books[i].title(), "A Great Reckoning");
+            assert.equal(books[i].title(), "Glass Houses");
             assert.equal(books[i].author(), "Louise Penny");
             var nominations = bookToNomination[books[i]];
             assert.ok(nominations);
@@ -25,12 +26,12 @@ define(["MysteryAward", "process/SYKMNomineeFetcher"],
             assert.equal(nominations[j].award(), award);
             var category = award.categories.properties[award.categories.CONTEMPORARY];
             assert.equal(nominations[j].category(), category);
-            assert.equal(nominations[j].year(), 2016);
+            assert.equal(nominations[j].year(), 2017);
             assert.ok(nominations[j].isWinner());
 
             i = books.length - 1;
-            assert.equal(books[i].title(), "Design for Dying");
-            assert.equal(books[i].author(), "Renee Patrick");
+            assert.equal(books[i].title(), "Protocol");
+            assert.equal(books[i].author(), "Kathleen Valenti");
             nominations = bookToNomination[books[i]];
             assert.ok(nominations);
             assert.equal(nominations.length, 1);
@@ -38,7 +39,7 @@ define(["MysteryAward", "process/SYKMNomineeFetcher"],
             assert.equal(nominations[j].award(), award);
             category = award.categories.properties[award.categories.FIRST];
             assert.equal(nominations[j].category(), category);
-            assert.equal(nominations[j].year(), 2016);
+            assert.equal(nominations[j].year(), 2017);
             assert.ok(!nominations[j].isWinner());
             done();
          };
@@ -49,7 +50,7 @@ define(["MysteryAward", "process/SYKMNomineeFetcher"],
          fetcher.fetchData();
       });
 
-      QUnit.skip("fetchData() Anthony", function(assert)
+      QUnit.test("fetchData() Anthony", function(assert)
       {
          // Setup.
          var award = Award.properties[Award.ANTHONY];
@@ -66,7 +67,7 @@ define(["MysteryAward", "process/SYKMNomineeFetcher"],
          fetcher.fetchData();
       });
 
-      QUnit.skip("fetchData() Barry", function(assert)
+      QUnit.test("fetchData() Barry", function(assert)
       {
          // Setup.
          var award = Award.properties[Award.BARRY];
@@ -83,7 +84,7 @@ define(["MysteryAward", "process/SYKMNomineeFetcher"],
          fetcher.fetchData();
       });
 
-      QUnit.skip("fetchData() Dagger", function(assert)
+      QUnit.test("fetchData() Dagger", function(assert)
       {
          // Setup.
          var award = Award.properties[Award.DAGGER];
@@ -100,7 +101,7 @@ define(["MysteryAward", "process/SYKMNomineeFetcher"],
          fetcher.fetchData();
       });
 
-      QUnit.skip("fetchData() Edgar", function(assert)
+      QUnit.test("fetchData() Edgar", function(assert)
       {
          // Setup.
          var award = Award.properties[Award.EDGAR];
@@ -117,7 +118,7 @@ define(["MysteryAward", "process/SYKMNomineeFetcher"],
          fetcher.fetchData();
       });
 
-      QUnit.skip("fetchData() Shamus", function(assert)
+      QUnit.test("fetchData() Shamus", function(assert)
       {
          // Setup.
          var award = Award.properties[Award.SHAMUS];

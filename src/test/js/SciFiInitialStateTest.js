@@ -10,7 +10,7 @@ define(["SciFiInitialState"], function(SciFiInitialState)
 
       // Verify.
       assert.ok(result.books);
-      assert.equal(result.books.length, 147);
+      assert.equal(result.books.length, 155);
       assert.ok(result.bookToNomination);
       assert.equal(result.bookToNomination[result.books[0]].length, 1);
       assert.equal(result.bookToNomination[result.books[result.books.length - 1]].length, 1);

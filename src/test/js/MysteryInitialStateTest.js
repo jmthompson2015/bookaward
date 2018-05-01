@@ -11,12 +11,12 @@ define(["Assessment", "MysteryInitialState"],
 
          // Verify.
          assert.ok(result.books);
-         var length = 102;
+         var length = 116;
          assert.equal(result.books.length, length);
 
          assert.ok(result.bookToNomination);
          assert.equal(result.bookToNomination[result.books[0]].length, 1);
-         assert.equal(result.bookToNomination[result.books[length - 1]].length, 1);
+         assert.equal(result.bookToNomination[result.books[length - 1]].length, 2);
 
          assert.ok(result.bookToAssessment);
          assert.ok(result.bookToAssessment[result.books[0]]);

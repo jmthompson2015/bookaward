@@ -1,7 +1,8 @@
+"use strict";
+
 define(["SciFiAward", "process/SFADBNomineeFetcher"],
    function(Award, NomineeFetcher)
    {
-      "use strict";
       QUnit.module("SFADBNomineeFetcher0");
 
       QUnit.test("fetchData() British Fantasy", function(assert)
@@ -50,7 +51,7 @@ define(["SciFiAward", "process/SFADBNomineeFetcher"],
          fetcher.fetchData();
       });
 
-      QUnit.skip("fetchData() British SF", function(assert)
+      QUnit.test("fetchData() British SF", function(assert)
       {
          // Setup.
          var award = Award.properties[Award.BRITISH_SF];
@@ -68,7 +69,7 @@ define(["SciFiAward", "process/SFADBNomineeFetcher"],
          fetcher.fetchData();
       });
 
-      QUnit.skip("fetchData() Hugo", function(assert)
+      QUnit.test("fetchData() Hugo", function(assert)
       {
          // Setup.
          var award = Award.properties[Award.HUGO];
@@ -86,7 +87,7 @@ define(["SciFiAward", "process/SFADBNomineeFetcher"],
          fetcher.fetchData();
       });
 
-      QUnit.skip("fetchData() Locus", function(assert)
+      QUnit.test("fetchData() Locus", function(assert)
       {
          // Setup.
          var award = Award.properties[Award.LOCUS];
@@ -104,7 +105,7 @@ define(["SciFiAward", "process/SFADBNomineeFetcher"],
          fetcher.fetchData();
       });
 
-      QUnit.skip("fetchData() Nebula", function(assert)
+      QUnit.test("fetchData() Nebula", function(assert)
       {
          // Setup.
          var award = Award.properties[Award.NEBULA];
