@@ -1,6 +1,6 @@
 "use strict";
 
-define(["Assessment", "MysteryAward", "core-util/InputValidator", "core-util/ObjectUtilities"],
+define(["Assessment", "MysteryAward", "util/InputValidator", "util/ObjectUtilities"],
    function(Assessment, Award, InputValidator, ObjectUtilities)
    {
       var UserSettings = {};

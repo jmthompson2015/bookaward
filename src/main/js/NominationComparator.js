@@ -1,6 +1,6 @@
 "use strict";
 
-define(["core-util/InputValidator"], function(InputValidator)
+define(["util/InputValidator"], function(InputValidator)
 {
    var NominationComparator = {
       compare: function(a, b)

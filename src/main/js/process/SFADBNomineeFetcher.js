@@ -1,6 +1,6 @@
 "use strict";
 
-define(["Book", "Nomination", "SciFiAward", "core-util/ArrayUtilities", "core-util/InputValidator"],
+define(["Book", "Nomination", "SciFiAward", "util/ArrayUtilities", "util/InputValidator"],
    function(Book, Nomination, SciFiAward, ArrayUtilities, InputValidator)
    {
       function SFADBNomineeFetcher(award, year, callback)

@@ -1,6 +1,6 @@
 "use strict";
 
-define(["Assessment", "BookComparator", "Library", "core-util/InputValidator", "process/Action", "process/ui/Select", "process/ui/UrlGenerator"],
+define(["Assessment", "BookComparator", "Library", "util/InputValidator", "process/Action", "process/ui/Select", "process/ui/UrlGenerator"],
    function(Assessment, BookComparator, Library, InputValidator, Action, Select, UrlGenerator)
    {
       var BookColumns = [

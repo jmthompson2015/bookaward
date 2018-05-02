@@ -1,6 +1,6 @@
 "use strict";
 
-define(["SciFiAward", "Book", "Nomination", "UserSettings", "core-util/ObjectUtilities"],
+define(["SciFiAward", "Book", "Nomination", "UserSettings", "util/ObjectUtilities"],
    function(Award, Book, Nomination, UserSettings, ObjectUtilities)
    {
       function SciFiInitialState()

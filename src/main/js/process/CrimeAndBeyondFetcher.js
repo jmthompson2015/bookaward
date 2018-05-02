@@ -1,6 +1,6 @@
 "use strict";
 
-define(["MysteryAward", "Book", "Nomination", "core-util/InputValidator"],
+define(["MysteryAward", "Book", "Nomination", "util/InputValidator"],
    function(Award, Book, Nomination, InputValidator)
    {
       function CrimeAndBeyondFetcher(callback)

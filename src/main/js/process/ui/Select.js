@@ -4,7 +4,7 @@
  */
 "use strict";
 
-define(["core-util/InputValidator"], function(InputValidator)
+define(["util/InputValidator"], function(InputValidator)
 {
    var Select = React.createClass(
    {

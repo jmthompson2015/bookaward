@@ -3,7 +3,7 @@
  */
 "use strict";
 
-define(["core-util/TimePrinter"], function(TimePrinter)
+define(["util/TimePrinter"], function(TimePrinter)
 {
    function Logger()
    {

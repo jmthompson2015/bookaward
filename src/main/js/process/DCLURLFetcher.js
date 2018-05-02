@@ -1,6 +1,6 @@
 "use strict";
 
-define(["MysteryAward", "Book", "Library", "core-util/InputValidator", "process/ui/UrlGenerator"],
+define(["MysteryAward", "Book", "Library", "util/InputValidator", "process/ui/UrlGenerator"],
    function(Award, Book, Library, InputValidator, UrlGenerator)
    {
       function DCLURLFetcher(book, callback)

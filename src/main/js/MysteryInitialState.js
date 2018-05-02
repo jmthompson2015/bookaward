@@ -1,6 +1,6 @@
 "use strict";
 
-define(["MysteryAward", "Book", "Nomination", "UserSettings", "core-util/ObjectUtilities"],
+define(["MysteryAward", "Book", "Nomination", "UserSettings", "util/ObjectUtilities"],
    function(Award, Book, Nomination, UserSettings, ObjectUtilities)
    {
       function MysteryInitialState()

@@ -1,6 +1,6 @@
 "use strict";
 
-define(["Assessment", "MysteryInitialState", "UserSettings", "core-util/ArrayUtilities", "core-util/ObjectUtilities", "process/Action"],
+define(["Assessment", "MysteryInitialState", "UserSettings", "util/ArrayUtilities", "util/ObjectUtilities", "process/Action"],
    function(Assessment, InitialState, UserSettings, ArrayUtilities, ObjectUtilities, Action)
    {
       var Reducer = {};

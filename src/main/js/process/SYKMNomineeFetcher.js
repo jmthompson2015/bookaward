@@ -1,6 +1,6 @@
 "use strict";
 
-define(["MysteryAward", "Book", "BookComparator", "Nomination", "core-util/ArrayUtilities", "core-util/InputValidator"],
+define(["MysteryAward", "Book", "BookComparator", "Nomination", "util/ArrayUtilities", "util/InputValidator"],
    function(Award, Book, BookComparator, Nomination, ArrayUtilities, InputValidator)
    {
       function SYKMNomineeFetcher(award, callback)

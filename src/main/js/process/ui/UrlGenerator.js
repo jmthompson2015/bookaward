@@ -1,6 +1,6 @@
 "use strict";
 
-define(["Library", "SciFiAward", "core-util/InputValidator"],
+define(["Library", "SciFiAward", "util/InputValidator"],
    function(Library, SciFiAward, InputValidator)
    {
       var UrlGenerator = {
