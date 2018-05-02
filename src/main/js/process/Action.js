@@ -1,6 +1,7 @@
-define(function()
+"use strict";
+
+define(["core-util/InputValidator"], function(InputValidator)
 {
-   "use strict";
    var Action = {};
 
    Action.ADD_BOOK = "addBook";

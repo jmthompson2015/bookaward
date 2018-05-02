@@ -1,7 +1,8 @@
+"use strict";
+
 define(["SciFiInitialState", "process/Reducer"],
    function(SciFiInitialState, Reducer)
    {
-      "use strict";
       var SciFiReducer = {};
 
       SciFiReducer.root = function(state, action)

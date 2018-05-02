@@ -8,12 +8,6 @@
 
 	<script src="../../../lib/jquery/jquery-3.2.1.min.js"></script>
 	<script src="../../../lib/require/require-2.3.3.min.js" data-main="../js/MysteryAward"></script>
-
-	<script src="../js/core-util/Logger.js"></script>
-	<script src="../js/core-util/InputValidator.js"></script>
-	<script src="../js/core-util/ArrayAugments.js"></script>
-	<script src="../js/core-util/StringAugments.js"></script>
-
 </head>
 <body>
 	<h1>Nominee Fetcher</h1>
@@ -23,14 +17,15 @@
 	<script>
 		"use strict";
 
-		var LOGGER = new Logger();
-		LOGGER.setTraceEnabled(false);
-		LOGGER.setDebugEnabled(false);
-
-		require(
-			["MysteryAward", "BookComparator", "NominationComparator", "process/CrimeAndBeyondFetcher", "process/DCLURLFetcher", "process/SYKMNomineeFetcher"],
-			function(Award, BookComparator, NominationComparator, CrimeAndBeyondFetcher, DCLURLFetcher, NomineeFetcher)
+		require(["MysteryAward", "BookComparator", "NominationComparator", "core-util/ArrayUtilities", "core-util/Logger", "process/CrimeAndBeyondFetcher",
+				"process/DCLURLFetcher", "process/SYKMNomineeFetcher"
+			],
+			function(Award, BookComparator, NominationComparator, ArrayUtilities, Logger, CrimeAndBeyondFetcher, DCLURLFetcher, NomineeFetcher)
 			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
 				document.getElementById("statusBar0").innerHTML = "Loading...";
 
 				var books = [];
@@ -61,7 +56,7 @@
 					LOGGER.info("newBooks.length = " + newBooks.length);
 					newBooks.forEach(function(book)
 					{
-						if (!books.vizziniContainsUsingEquals(book, BookComparator.equals))
+						if (!ArrayUtilities.containsUsingEquals(books, book, BookComparator.equals))
 						{
 							books.push(book);
 						}
@@ -75,7 +70,7 @@
 							nominations = [];
 							bookToNomination[key] = nominations;
 						}
-						nominations.vizziniAddAll(newBookToNomination[key]);
+						ArrayUtilities.addAll(nominations, newBookToNomination[key]);
 					});
 					count0++;
 

@@ -8,12 +8,6 @@
 
 	<script src="../../../lib/jquery/jquery-3.2.1.min.js"></script>
 	<script src="../../../lib/require/require-2.3.3.min.js" data-main="../js/SciFiAward"></script>
-
-	<script src="../js/core-util/Logger.js"></script>
-	<script src="../js/core-util/InputValidator.js"></script>
-	<script src="../js/core-util/ArrayAugments.js"></script>
-	<script src="../js/core-util/StringAugments.js"></script>
-
 </head>
 <body>
 	<h1>Nominee Fetcher</h1>
@@ -23,14 +17,16 @@
 	<script>
 		"use strict";
 
-		var LOGGER = new Logger();
-		LOGGER.setTraceEnabled(false);
-		LOGGER.setDebugEnabled(false);
-
 		require(
-			["SciFiAward", "BookComparator", "NominationComparator", "process/DCLURLFetcher", "process/SFADBNomineeFetcher"],
-			function(Award, BookComparator, NominationComparator, DCLURLFetcher, NomineeFetcher)
+			["SciFiAward", "BookComparator", "NominationComparator", "core-util/ArrayUtilities", "core-util/Logger", "process/DCLURLFetcher",
+				"process/SFADBNomineeFetcher"
+			],
+			function(Award, BookComparator, NominationComparator, ArrayUtilities, Logger, DCLURLFetcher, NomineeFetcher)
 			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
 				document.getElementById("statusBar0").innerHTML = "Loading...";
 
 				var books = [];
@@ -60,7 +56,7 @@
 				{
 					newBooks.forEach(function(book)
 					{
-						if (!books.vizziniContainsUsingEquals(book, BookComparator.equals))
+						if (!ArrayUtilities.containsUsingEquals(books, book, BookComparator.equals))
 						{
 							books.push(book);
 						}
@@ -73,7 +69,7 @@
 							nominations = [];
 							bookToNomination[key] = nominations;
 						}
-						nominations.vizziniAddAll(newBookToNomination[key]);
+						ArrayUtilities.addAll(nominations, newBookToNomination[key]);
 					});
 					count0++;
 

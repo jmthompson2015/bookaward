@@ -1,5 +1,7 @@
-define(["Assessment", "MysteryAward"],
-   function(Assessment, Award)
+"use strict";
+
+define(["Assessment", "MysteryAward", "core-util/InputValidator", "core-util/ObjectUtilities"],
+   function(Assessment, Award, InputValidator, ObjectUtilities)
    {
       var UserSettings = {};
 
@@ -15,7 +17,7 @@ define(["Assessment", "MysteryAward"],
 
             if (myBookToAssessment)
             {
-               Object.vizziniMerge(answer, myBookToAssessment);
+               ObjectUtilities.merge(answer, myBookToAssessment);
             }
          }
 

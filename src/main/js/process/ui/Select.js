@@ -2,10 +2,10 @@
  * Provides an HTML select with options derived from values and the label function.
  * Optionally provide client properties which can be retrieved from the event in your onChange function.
  */
-define(function()
-{
-   "use strict";
+"use strict";
 
+define(["core-util/InputValidator"], function(InputValidator)
+{
    var Select = React.createClass(
    {
       getInitialState: function()

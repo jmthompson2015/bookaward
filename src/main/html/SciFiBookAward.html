@@ -13,11 +13,6 @@
 	<script src="../../../lib/reactable/reactable-0.14.1.js"></script>
 	<script src="../../../lib/redux/redux-3.6.0.min.js"></script>
 	<script src="../../../lib/require/require-2.3.3.min.js" data-main="../js/MysteryAward"></script>
-
-	<script src="../js/core-util/Logger.js"></script>
-	<script src="../js/core-util/InputValidator.js"></script>
-	<script src="../js/core-util/ObjectAugments.js"></script>
-
 </head>
 <body>
 	<h1>Science Fiction Book Award Nominees</h1>
@@ -28,14 +23,13 @@
 	<script>
 		"use strict";
 
-		var LOGGER = new Logger();
-		LOGGER.setTraceEnabled(false);
-		LOGGER.setDebugEnabled(false);
-
-		require(
-			["UserSettings", "process/Action", "process/SciFiReducer", "process/ui/BookTable", "process/ui/Connector"],
-			function(UserSettings, Action, Reducer, BookTable, Connector)
+		require(["UserSettings", "core-util/Logger", "process/Action", "process/SciFiReducer", "process/ui/BookTable", "process/ui/Connector"],
+			function(UserSettings, Logger, Action, Reducer, BookTable, Connector)
 			{
+				window.LOGGER = new Logger();
+				LOGGER.setTraceEnabled(false);
+				LOGGER.setDebugEnabled(false);
+
 				var store = Redux.createStore(Reducer.root);
 
 				var connector = ReactRedux.connect(Connector.BookTable.mapStateToProps)(BookTable);

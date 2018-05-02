@@ -17,6 +17,7 @@
       "localStorage": false,
       "LOGGER": false,
       "QUnit": false,
+      "React": false,
       "Reactable": false,
       "require": false,
       "setTimeout": false,

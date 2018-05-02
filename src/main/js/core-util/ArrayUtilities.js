@@ -1,0 +1,81 @@
+/*
+ * Provides utility methods for arrays.
+ *
+ * @see http://modernweb.com/2013/12/23/45-useful-javascript-tips-tricks-and-best-practices/
+ */
+"use strict";
+
+define(function()
+{
+   var ArrayUtilities = {};
+
+   // Note: This function modifies array.
+   // array now contains array2 also.
+   // @see http://stackoverflow.com/questions/351409/appending-to-array
+   ArrayUtilities.addAll = function(array, array2)
+   {
+      Array.prototype.push.apply(array, array2);
+   };
+
+   ArrayUtilities.containsUsingEquals = function(array, element, equalsFunction)
+   {
+      var i = array.length;
+      while (i--)
+      {
+         if (equalsFunction(array[i], element))
+         {
+            return true;
+         }
+      }
+      return false;
+   };
+
+   ArrayUtilities.intersect = function(array, array2)
+   {
+      // Assumptions:
+      // - input is not necessarily sorted
+      // - an element only appears once in array and/or array2
+      var answer = [];
+
+      for (var i = 0; i < array.length; i++)
+      {
+         var n = array[i];
+
+         if (array2.indexOf(n) >= 0)
+         {
+            answer.push(n);
+         }
+      }
+
+      return answer;
+   };
+
+   ArrayUtilities.randomElement = function(array)
+   {
+      var index = Math.floor(Math.random() * array.length);
+
+      return array[index];
+   };
+
+   // Note: This function modifies array.
+   ArrayUtilities.remove = function(array, element)
+   {
+      var index = array.indexOf(element);
+
+      if (index >= 0)
+      {
+         array.splice(index, 1);
+      }
+   };
+
+   // Note: This function modifies array.
+   ArrayUtilities.shuffle = function(array)
+   {
+      array.sort(function()
+      {
+         return Math.random() - 0.5;
+      });
+   };
+
+   return ArrayUtilities;
+});

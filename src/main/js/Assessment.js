@@ -1,6 +1,7 @@
+"use strict";
+
 define(function()
 {
-   "use strict";
    var Assessment = {
       BOOK_CLUB_PICK: "bookClubPick",
       POSSIBLE_PICK: "possiblePick",

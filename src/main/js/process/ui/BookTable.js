@@ -1,34 +1,34 @@
-define(["Assessment", "BookComparator", "Library", "process/Action", "process/ui/Select", "process/ui/UrlGenerator"],
-   function(Assessment, BookComparator, Library, Action, Select, UrlGenerator)
-   {
-      "use strict";
+"use strict";
 
+define(["Assessment", "BookComparator", "Library", "core-util/InputValidator", "process/Action", "process/ui/Select", "process/ui/UrlGenerator"],
+   function(Assessment, BookComparator, Library, InputValidator, Action, Select, UrlGenerator)
+   {
       var BookColumns = [
          {
             key: "assessment",
             label: "Assessment",
             className: "textCell",
-            },
+         },
          {
             key: "title",
             label: "Title",
             className: "textCell",
-            },
+         },
          {
             key: "author",
             label: "Author",
             className: "textCell",
-            },
+         },
          {
             key: "nominations",
             label: "Nominations",
             className: "textCell",
-            },
+         },
          {
             key: "library",
             label: "Library Search",
             className: "textCell",
-            },
+         },
         ];
 
       var BookTable = React.createClass(

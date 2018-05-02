@@ -1,7 +1,7 @@
 "use strict";
 
-define(["SciFiAward", "Book", "Nomination", "UserSettings"],
-   function(Award, Book, Nomination, UserSettings)
+define(["SciFiAward", "Book", "Nomination", "UserSettings", "core-util/ObjectUtilities"],
+   function(Award, Book, Nomination, UserSettings, ObjectUtilities)
    {
       function SciFiInitialState()
       {
@@ -386,7 +386,7 @@ define(["SciFiAward", "Book", "Nomination", "UserSettings"],
       SciFiInitialState.prototype.loadBookToAssessment = function()
       {
          var myBookToAssessment = UserSettings.loadBookToAssessment();
-         Object.vizziniMerge(this.bookToAssessment, myBookToAssessment);
+         ObjectUtilities.merge(this.bookToAssessment, myBookToAssessment);
       };
 
       if (Object.freeze)

@@ -1,40 +1,40 @@
-define(function()
+"use strict";
+
+define(["core-util/InputValidator"], function(InputValidator)
 {
-    "use strict";
+   function Nomination(award, category, year, isWinnerIn)
+   {
+      InputValidator.validateNotNull("award", award);
+      InputValidator.validateNotNull("category", category);
+      InputValidator.validateNotNull("year", year);
 
-    function Nomination(award, category, year, isWinnerIn)
-    {
-        InputValidator.validateNotNull("award", award);
-        InputValidator.validateNotNull("category", category);
-        InputValidator.validateNotNull("year", year);
+      var isWinner = (isWinnerIn !== undefined ? isWinnerIn : false);
 
-        var isWinner = (isWinnerIn !== undefined ? isWinnerIn : false);
+      this.award = function()
+      {
+         return award;
+      };
 
-        this.award = function()
-        {
-            return award;
-        };
+      this.category = function()
+      {
+         return category;
+      };
 
-        this.category = function()
-        {
-            return category;
-        };
+      this.year = function()
+      {
+         return year;
+      };
 
-        this.year = function()
-        {
-            return year;
-        };
+      this.isWinner = function()
+      {
+         return isWinner;
+      };
 
-        this.isWinner = function()
-        {
-            return isWinner;
-        };
+      this.toString = function()
+      {
+         return year + " " + award.name + " " + category.name;
+      };
+   }
 
-        this.toString = function()
-        {
-            return year + " " + award.name + " " + category.name;
-        };
-    }
-
-    return Nomination;
+   return Nomination;
 });

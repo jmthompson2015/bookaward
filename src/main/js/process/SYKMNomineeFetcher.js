@@ -1,7 +1,7 @@
 "use strict";
 
-define(["MysteryAward", "Book", "Nomination"],
-   function(Award, Book, Nomination)
+define(["MysteryAward", "Book", "BookComparator", "Nomination", "core-util/ArrayUtilities", "core-util/InputValidator"],
+   function(Award, Book, BookComparator, Nomination, ArrayUtilities, InputValidator)
    {
       function SYKMNomineeFetcher(award, callback)
       {
@@ -207,7 +207,7 @@ define(["MysteryAward", "Book", "Nomination"],
 
          function add(book, nomination)
          {
-            if (!books.vizziniContainsUsingEquals(book, function(a, b)
+            if (!ArrayUtilities.containsUsingEquals(books, book, function(a, b)
                {
                   return a.title() === b.title() && a.author() === b.author();
                }))
@@ -217,7 +217,7 @@ define(["MysteryAward", "Book", "Nomination"],
             }
             var nominations = bookToNomination[book];
 
-            if (!nominations.vizziniContains(nomination))
+            if (!nominations.includes(nomination))
             {
                nominations.push(nomination);
             }
@@ -245,13 +245,18 @@ define(["MysteryAward", "Book", "Nomination"],
 
             var myTitleAuthor = titleAuthor.replace(/\n/g, " ");
             LOGGER.debug("myTitleAuthor = " + myTitleAuthor);
-            var index = myTitleAuthor.indexOf(" by ");
+            var index = myTitleAuthor.lastIndexOf(" by ");
             var title;
             var author;
 
             if (index >= 0)
             {
                title = myTitleAuthor.substring(0, index).trim();
+               title = title.replace(/    /g, " ");
+               title = title.replace(/   /g, " ");
+               title = title.replace(/  /g, " ");
+               title = title.replace(/  /g, " ");
+               title = title.replace(/ \)/g, ")");
                // Special case for 2016
                title = title.replace("Del and Louise", "Del & Louise");
                author = parseAuthor(myTitleAuthor.substring(index + 3).trim());

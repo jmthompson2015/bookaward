@@ -1,7 +1,7 @@
 "use strict";
 
-define(["MysteryAward", "Book", "Nomination", "UserSettings"],
-   function(Award, Book, Nomination, UserSettings)
+define(["MysteryAward", "Book", "Nomination", "UserSettings", "core-util/ObjectUtilities"],
+   function(Award, Book, Nomination, UserSettings, ObjectUtilities)
    {
       function MysteryInitialState()
       {
@@ -350,7 +350,7 @@ define(["MysteryAward", "Book", "Nomination", "UserSettings"],
       MysteryInitialState.prototype.loadBookToAssessment = function()
       {
          var myBookToAssessment = UserSettings.loadBookToAssessment();
-         Object.vizziniMerge(this.bookToAssessment, myBookToAssessment);
+         ObjectUtilities.merge(this.bookToAssessment, myBookToAssessment);
       };
 
       if (Object.freeze)

@@ -1,10 +1,11 @@
+"use strict";
+
 define(function()
 {
-   "use strict";
    var Connector = {};
 
    Connector.BookTable = {
-      mapStateToProps: function(state, ownProps)
+      mapStateToProps: function(state)
       {
          var nominees = [];
 

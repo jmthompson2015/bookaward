@@ -1,7 +1,8 @@
-define(["Assessment", "MysteryInitialState", "UserSettings", "process/Action"],
-   function(Assessment, InitialState, UserSettings, Action)
+"use strict";
+
+define(["Assessment", "MysteryInitialState", "UserSettings", "core-util/ArrayUtilities", "core-util/ObjectUtilities", "process/Action"],
+   function(Assessment, InitialState, UserSettings, ArrayUtilities, ObjectUtilities, Action)
    {
-      "use strict";
       var Reducer = {};
 
       Reducer.root = function(state, action)
@@ -20,7 +21,7 @@ define(["Assessment", "MysteryInitialState", "UserSettings", "process/Action"],
             case Action.ADD_BOOK:
                LOGGER.info("Reducer book = " + action.book);
                var newBooks = [];
-               newBooks.vizziniAddAll(state.books);
+               ArrayUtilities.addAll(newBooks, state.books);
                newBooks.push(action.book);
                newBookToNomination = Object.assign(
                {}, state.bookToNomination);
@@ -70,7 +71,7 @@ define(["Assessment", "MysteryInitialState", "UserSettings", "process/Action"],
                LOGGER.info("Reducer bookToAssessment = " + action.bookToAssessment);
                newBookToAssessment = Object.assign(
                {}, state.bookToAssessment);
-               Object.vizziniMerge(newBookToAssessment, action.bookToAssessment);
+               ObjectUtilities.merge(newBookToAssessment, action.bookToAssessment);
                UserSettings.storeBookToAssessment(newBookToAssessment);
                return Object.assign(
                {}, state,

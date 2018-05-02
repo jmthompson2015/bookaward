@@ -1,185 +1,192 @@
 /*
  * Provides a simple logger.
  */
-function Logger()
+"use strict";
+
+define(["core-util/TimePrinter"], function(TimePrinter)
 {
-   this.OFF = false;
-   this.FATAL = true;
-   this.ERROR = true;
-   this.WARN = true;
-   this.INFO = true;
-   this.DEBUG = true;
-   this.TRACE = true;
-   this.TIME = true;
-
-   this.isOffEnabled = function()
+   function Logger()
    {
-      return this.OFF;
-   };
+      this.OFF = false;
+      this.FATAL = true;
+      this.ERROR = true;
+      this.WARN = true;
+      this.INFO = true;
+      this.DEBUG = true;
+      this.TRACE = true;
+      this.TIME = true;
 
-   this.isFatalEnabled = function()
-   {
-      return this.FATAL;
-   };
-
-   this.isErrorEnabled = function()
-   {
-      return this.ERROR;
-   };
-
-   this.isWarnEnabled = function()
-   {
-      return this.WARN;
-   };
-
-   this.isInfoEnabled = function()
-   {
-      return this.INFO;
-   };
-
-   this.isDebugEnabled = function()
-   {
-      return this.DEBUG;
-   };
-
-   this.isTimeEnabled = function()
-   {
-      return this.TIME;
-   };
-
-   this.isTraceEnabled = function()
-   {
-      return this.TRACE;
-   };
-
-   this.setOffEnabled = function(isEnabled)
-   {
-      this.OFF = isEnabled;
-   };
-
-   this.setFatalEnabled = function(isEnabled)
-   {
-      this.FATAL = isEnabled;
-   };
-
-   this.setErrorEnabled = function(isEnabled)
-   {
-      this.ERROR = isEnabled;
-   };
-
-   this.setWarnEnabled = function(isEnabled)
-   {
-      this.WARN = isEnabled;
-   };
-
-   this.setInfoEnabled = function(isEnabled)
-   {
-      this.INFO = isEnabled;
-   };
-
-   this.setDebugEnabled = function(isEnabled)
-   {
-      this.DEBUG = isEnabled;
-   };
-
-   this.setTimeEnabled = function(isEnabled)
-   {
-      this.TIME = isEnabled;
-   };
-
-   this.setTraceEnabled = function(isEnabled)
-   {
-      this.TRACE = isEnabled;
-   };
-
-   this.fatal = function(message)
-   {
-      if (!this.OFF && this.FATAL)
+      this.isOffEnabled = function()
       {
-         console.log(getDateString() + " FATAL " + message);
-      }
-   };
+         return this.OFF;
+      };
 
-   this.error = function(message)
-   {
-      if (!this.OFF && this.ERROR)
+      this.isFatalEnabled = function()
       {
-         console.log(getDateString() + " ERROR " + message);
-      }
-   };
+         return this.FATAL;
+      };
 
-   this.warn = function(message)
-   {
-      if (!this.OFF && this.WARN)
+      this.isErrorEnabled = function()
       {
-         console.log(getDateString() + " WARN  " + message);
-      }
-   };
+         return this.ERROR;
+      };
 
-   this.info = function(message)
-   {
-      if (!this.OFF && this.INFO)
+      this.isWarnEnabled = function()
       {
-         console.log(getDateString() + " INFO  " + message);
-      }
-   };
+         return this.WARN;
+      };
 
-   this.debug = function(message)
-   {
-      if (!this.OFF && this.DEBUG)
+      this.isInfoEnabled = function()
       {
-         console.log(getDateString() + " DEBUG " + message);
-      }
-   };
+         return this.INFO;
+      };
 
-   this.time = function(title, start, end)
-   {
-      if (!this.OFF && this.TIME)
+      this.isDebugEnabled = function()
       {
-         var message = TimePrinter.formatElapsedTime(title, start, end);
-         console.log(getDateString() + " TIME  " + message);
-      }
-   };
+         return this.DEBUG;
+      };
 
-   this.trace = function(message)
-   {
-      if (!this.OFF && this.TRACE)
+      this.isTimeEnabled = function()
       {
-         console.log(getDateString() + " TRACE " + message);
-      }
-   };
+         return this.TIME;
+      };
 
-   function getDateString()
-   {
-      var date = new Date();
-      var hours = date.getHours();
-      if (hours < 10)
+      this.isTraceEnabled = function()
       {
-         hours = "0" + hours;
-      }
+         return this.TRACE;
+      };
 
-      var minutes = date.getMinutes();
-      if (minutes < 10)
+      this.setOffEnabled = function(isEnabled)
       {
-         minutes = "0" + minutes;
-      }
+         this.OFF = isEnabled;
+      };
 
-      var seconds = date.getSeconds();
-      if (seconds < 10)
+      this.setFatalEnabled = function(isEnabled)
       {
-         seconds = "0" + seconds;
-      }
+         this.FATAL = isEnabled;
+      };
 
-      var millis = date.getMilliseconds();
-      if (millis < 10)
+      this.setErrorEnabled = function(isEnabled)
       {
-         millis = "00" + millis;
-      }
-      else if (millis < 100)
-      {
-         millis = "0" + millis;
-      }
+         this.ERROR = isEnabled;
+      };
 
-      return hours + ":" + minutes + ":" + seconds + ":" + millis;
+      this.setWarnEnabled = function(isEnabled)
+      {
+         this.WARN = isEnabled;
+      };
+
+      this.setInfoEnabled = function(isEnabled)
+      {
+         this.INFO = isEnabled;
+      };
+
+      this.setDebugEnabled = function(isEnabled)
+      {
+         this.DEBUG = isEnabled;
+      };
+
+      this.setTimeEnabled = function(isEnabled)
+      {
+         this.TIME = isEnabled;
+      };
+
+      this.setTraceEnabled = function(isEnabled)
+      {
+         this.TRACE = isEnabled;
+      };
+
+      this.fatal = function(message)
+      {
+         if (!this.OFF && this.FATAL)
+         {
+            console.log(getDateString() + " FATAL " + message);
+         }
+      };
+
+      this.error = function(message)
+      {
+         if (!this.OFF && this.ERROR)
+         {
+            console.log(getDateString() + " ERROR " + message);
+         }
+      };
+
+      this.warn = function(message)
+      {
+         if (!this.OFF && this.WARN)
+         {
+            console.log(getDateString() + " WARN  " + message);
+         }
+      };
+
+      this.info = function(message)
+      {
+         if (!this.OFF && this.INFO)
+         {
+            console.log(getDateString() + " INFO  " + message);
+         }
+      };
+
+      this.debug = function(message)
+      {
+         if (!this.OFF && this.DEBUG)
+         {
+            console.log(getDateString() + " DEBUG " + message);
+         }
+      };
+
+      this.time = function(title, start, end)
+      {
+         if (!this.OFF && this.TIME)
+         {
+            var message = TimePrinter.formatElapsedTime(title, start, end);
+            console.log(getDateString() + " TIME  " + message);
+         }
+      };
+
+      this.trace = function(message)
+      {
+         if (!this.OFF && this.TRACE)
+         {
+            console.log(getDateString() + " TRACE " + message);
+         }
+      };
+
+      function getDateString()
+      {
+         var date = new Date();
+         var hours = date.getHours();
+         if (hours < 10)
+         {
+            hours = "0" + hours;
+         }
+
+         var minutes = date.getMinutes();
+         if (minutes < 10)
+         {
+            minutes = "0" + minutes;
+         }
+
+         var seconds = date.getSeconds();
+         if (seconds < 10)
+         {
+            seconds = "0" + seconds;
+         }
+
+         var millis = date.getMilliseconds();
+         if (millis < 10)
+         {
+            millis = "00" + millis;
+         }
+         else if (millis < 100)
+         {
+            millis = "0" + millis;
+         }
+
+         return hours + ":" + minutes + ":" + seconds + ":" + millis;
+      }
    }
-}
+
+   return Logger;
+});
