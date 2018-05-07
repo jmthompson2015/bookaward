@@ -1,0 +1,33 @@
+{
+  "name": "bookaward",
+  "version": "1.0.0",
+  "description": "Provides an application to view book award nominees. Currently supports select Mystery and Science Fiction book awards.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmthompson2015/bookaward.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmthompson2015/bookaward/issues"
+  },
+  "homepage": "https://github.com/jmthompson2015/bookaward#readme",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "redux": "^3.6.0"
+  },
+  "devDependencies": {
+    "qunit": "^2.6.0"
+  }
+}

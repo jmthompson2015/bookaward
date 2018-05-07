@@ -1,7 +1,7 @@
 import Logger from "../utility/Logger.js";
 
 import Action from "../model/Action.js";
-import Reducer from "../model/Reducer.js";
+import Reducer from "../model/SciFiReducer.js";
 import UserSettings from "../model/UserSettings.js";
 
 import BookTable from "../view/BookTable.js";
