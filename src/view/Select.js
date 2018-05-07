@@ -4,39 +4,25 @@
  */
 import InputValidator from "../utility/InputValidator.js";
 
-var Select = React.createClass(
+class Select extends React.Component
 {
-   getInitialState: function()
+   constructor(props)
    {
-      return (
-      {
+      super(props);
+
+      this.state = {
          selectedValue: this.props.initialSelectedValue,
-      });
-   },
+      };
+   }
 
-   handleChange: function(event)
-   {
-      this.setState(
-      {
-         selectedValue: event.target.value,
-      });
-
-      var onChange = this.props.onChange;
-
-      if (onChange)
-      {
-         onChange(event);
-      }
-   },
-
-   render: function()
+   render()
    {
       var values = this.props.values;
       InputValidator.validateNotEmpty("values", values);
 
       var selectProps = {
          value: this.state.selectedValue,
-         onChange: this.handleChange,
+         onChange: this.handleChange.bind(this),
       };
 
       var clientProps = this.props.clientProps;
@@ -57,29 +43,44 @@ var Select = React.createClass(
          var value = values[i];
          var label = (labelFunction ? labelFunction(value) : value);
 
-         options.push(React.DOM.option(
+         options.push(ReactDOMFactories.option(
          {
             key: i,
             value: value,
          }, label));
       }
 
-      return React.DOM.select(selectProps, options);
-   },
-});
+      return ReactDOMFactories.select(selectProps, options);
+   }
+
+   handleChange(event)
+   {
+      this.setState(
+      {
+         selectedValue: event.target.value,
+      });
+
+      var onChange = this.props.onChange;
+
+      if (onChange)
+      {
+         onChange(event);
+      }
+   }
+}
 
 Select.propTypes = {
    // Option values. (required)
-   values: React.PropTypes.array.isRequired,
+   values: PropTypes.array.isRequired,
 
    // Client properties. (optional)
-   clientProps: React.PropTypes.object,
+   clientProps: PropTypes.object,
    // Initially selected value. (optional)
-   initialSelectedValue: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.object]),
+   initialSelectedValue: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
    // Function which returns the label for a value. Defaults to simply return the value. (optional)
-   labelFunction: React.PropTypes.func,
+   labelFunction: PropTypes.func,
    // Function called when the selection changes. (optional)
-   onChange: React.PropTypes.func,
+   onChange: PropTypes.func,
 };
 
 export default Select;

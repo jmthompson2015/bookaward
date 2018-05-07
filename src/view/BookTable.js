@@ -37,24 +37,9 @@ var BookColumns = [
    },
   ];
 
-var BookTable = React.createClass(
+class BookTable extends React.Component
 {
-   contextTypes:
-   {
-      store: React.PropTypes.object.isRequired,
-   },
-
-   propTypes:
-   {
-      nominees: React.PropTypes.array.isRequired,
-   },
-
-   // Factories.
-   Table: React.createFactory(Reactable.Table),
-   Tr: React.createFactory(Reactable.Tr),
-   Td: React.createFactory(Reactable.Td),
-
-   render: function()
+   render()
    {
       var nominees = this.props.nominees;
       var rows = [];
@@ -64,7 +49,7 @@ var BookTable = React.createClass(
          rows.push(this.createRow(nominee, i));
       }.bind(this));
 
-      var table = this.Table(
+      var table = React.createElement(Reactable.Table,
       {
          className: "dataTable",
          columns: BookColumns,
@@ -74,25 +59,25 @@ var BookTable = React.createClass(
       var rows2 = [];
 
       var rowCount = "Row Count: " + nominees.length;
-      rows2.push(React.DOM.tr(
+      rows2.push(ReactDOMFactories.tr(
       {
          key: rows2.length
-      }, React.DOM.td(
+      }, ReactDOMFactories.td(
       {
          className: "rowCount"
       }, rowCount)));
-      rows2.push(React.DOM.tr(
+      rows2.push(ReactDOMFactories.tr(
       {
          key: rows2.length
-      }, React.DOM.td(
+      }, ReactDOMFactories.td(
       {}, table)));
 
-      return React.DOM.table(
-      {}, React.DOM.tbody(
+      return ReactDOMFactories.table(
+      {}, ReactDOMFactories.tbody(
       {}, rows2));
-   },
+   }
 
-   createAssessmentCell: function(key, column, nominee)
+   createAssessmentCell(key, column, nominee)
    {
       InputValidator.validateNotNull("key", key);
       InputValidator.validateNotNull("column", column);
@@ -110,7 +95,7 @@ var BookTable = React.createClass(
          values: Assessment.values(),
          initialSelectedValue: assessmentKey,
          labelFunction: labelFunction,
-         onChange: this.handleChange,
+         onChange: this.handleChange.bind(this),
          clientProps:
          {
             "data-booktitle": nominee.book.title(),
@@ -118,7 +103,7 @@ var BookTable = React.createClass(
          }
       });
 
-      var answer = this.Td(
+      var answer = React.createElement(Reactable.Td,
       {
          key: key,
          className: column.className,
@@ -127,9 +112,9 @@ var BookTable = React.createClass(
       }, selector);
 
       return answer;
-   },
+   }
 
-   createAuthorLinkCell: function(key, column, author)
+   createAuthorLinkCell(key, column, author)
    {
       InputValidator.validateNotNull("key", key);
       InputValidator.validateNotNull("column", column);
@@ -141,43 +126,43 @@ var BookTable = React.createClass(
       var image1 = this.createImageLink(1, url1, "../resource/image/Amazon18.png", "Amazon");
       var image2 = this.createImageLink(2, url2, "../resource/image/Goodreads18.png", "Goodreads");
       var image3 = this.createImageLink(3, url3, "../resource/image/Wikipedia18.png", "Wikipedia");
-      var imageSpan = React.DOM.span(
+      var imageSpan = ReactDOMFactories.span(
       {
          className: "imageBlock",
       }, image1, image2, image3);
 
-      return this.Td(
+      return React.createElement(Reactable.Td,
       {
          key: key,
          className: column.className,
          column: column.key,
          value: author,
-      }, React.DOM.span(
+      }, ReactDOMFactories.span(
       {}, author, imageSpan));
-   },
+   }
 
-   createImageLink: function(key, href, src, title)
+   createImageLink(key, href, src, title)
    {
       InputValidator.validateNotNull("key", key);
       InputValidator.validateNotNull("href", href);
       InputValidator.validateNotNull("src", src);
       InputValidator.validateNotNull("title", title);
 
-      return React.DOM.a(
+      return ReactDOMFactories.a(
       {
          key: key,
          className: "imageLink",
          href: href,
          target: "_blank",
          title: title,
-      }, React.DOM.img(
+      }, ReactDOMFactories.img(
       {
          src: src,
          title: title,
       }));
-   },
+   }
 
-   createLibraryLinkCell: function(key, column, nominee)
+   createLibraryLinkCell(key, column, nominee)
    {
       InputValidator.validateNotNull("key", key);
       InputValidator.validateNotNull("column", column);
@@ -195,31 +180,31 @@ var BookTable = React.createClass(
          value += library.shortName + " ";
       }, this);
 
-      var links = React.DOM.span(
+      var links = ReactDOMFactories.span(
       {}, cells);
 
-      return this.Td(
+      return React.createElement(Reactable.Td,
       {
          key: key,
          className: column.className,
          column: column.key,
          value: value,
       }, links);
-   },
+   }
 
-   createLink: function(href, label)
+   createLink(href, label)
    {
       InputValidator.validateNotNull("href", href);
       InputValidator.validateNotNull("label", label);
 
-      return React.DOM.a(
+      return ReactDOMFactories.a(
       {
          href: href,
          target: "_blank",
       }, label);
-   },
+   }
 
-   createNominationsCell: function(key, column, nominations)
+   createNominationsCell(key, column, nominations)
    {
       InputValidator.validateNotNull("key", key);
       InputValidator.validateNotNull("column", column);
@@ -232,7 +217,7 @@ var BookTable = React.createClass(
       {
          var winnerImage = this.context.store.getState().winnerImage;
          var prefix = (nomination.isWinner() ?
-            React.DOM.img(
+            ReactDOMFactories.img(
             {
                className: "winner",
                src: winnerImage,
@@ -241,34 +226,34 @@ var BookTable = React.createClass(
             "");
          var link = this.createLink(UrlGenerator.createAwardUrl(nomination.award(), nomination.year()), nomination.award().name);
 
-         var cell = React.DOM.td(
+         var cell = ReactDOMFactories.td(
          {}, prefix, nomination.year(), " ", link, " ", nomination.category().name);
          value += nomination.year() + " ";
          value += nomination.award().name + " ";
          value += nomination.category().name + " ";
 
-         rows.push(React.DOM.tr(
+         rows.push(ReactDOMFactories.tr(
          {
             key: rows.length,
          }, cell));
       }, this);
 
-      var nominationsTable = React.DOM.table(
+      var nominationsTable = ReactDOMFactories.table(
       {
          className: "nominationsTable",
-      }, React.DOM.tbody(
+      }, ReactDOMFactories.tbody(
       {}, rows));
 
-      return this.Td(
+      return React.createElement(Reactable.Td,
       {
          key: key,
          className: column.className,
          column: column.key,
          value: value,
       }, nominationsTable);
-   },
+   }
 
-   createRow: function(nominee, key)
+   createRow(nominee, key)
    {
       InputValidator.validateNotNull("nominee", nominee);
       InputValidator.validateNotNull("key", key);
@@ -281,13 +266,13 @@ var BookTable = React.createClass(
       cells.push(this.createNominationsCell(cells.length, BookColumns[i++], nominee.nominations));
       cells.push(this.createLibraryLinkCell(cells.length, BookColumns[i++], nominee));
 
-      return this.Tr(
+      return React.createElement(Reactable.Tr,
       {
          key: key,
       }, cells);
-   },
+   }
 
-   createTitleLinkCell: function(key, column, nominee)
+   createTitleLinkCell(key, column, nominee)
    {
       InputValidator.validateNotNull("key", key);
       InputValidator.validateNotNull("column", column);
@@ -305,24 +290,24 @@ var BookTable = React.createClass(
          image2 = this.createImageLink(3, url2, "../resource/image/DouglasCountyLibraries18.png", "Douglas County Libraries");
       }
       var image3 = this.createImageLink(2, url3, "../resource/image/Goodreads18.png", "Goodreads");
-      var imageSpan = React.DOM.span(
+      var imageSpan = ReactDOMFactories.span(
       {
          className: "imageBlock",
       }, image1, image2, image3);
 
-      return this.Td(
+      return React.createElement(Reactable.Td,
       {
          key: key,
          className: column.className,
          column: column.key,
          value: value,
-      }, React.DOM.span(
+      }, ReactDOMFactories.span(
       {
          className: "textImageLink",
       }, title, imageSpan));
-   },
+   }
 
-   findBook: function(title, author)
+   findBook(title, author)
    {
       var answer;
 
@@ -340,9 +325,9 @@ var BookTable = React.createClass(
       }
 
       return answer;
-   },
+   }
 
-   handleChange: function(event)
+   handleChange(event)
    {
       var selectedValue = event.currentTarget.value;
       var booktitle = event.currentTarget.dataset.booktitle;
@@ -350,7 +335,15 @@ var BookTable = React.createClass(
       var book = this.findBook(booktitle, bookauthor);
       LOGGER.debug("book = " + book);
       this.context.store.dispatch(Action.setAssessment(book, selectedValue));
-   },
-});
+   }
+}
+
+BookTable.contextTypes = {
+   store: PropTypes.object.isRequired,
+};
+
+BookTable.propTypes = {
+   nominees: PropTypes.array.isRequired,
+};
 
 export default BookTable;
