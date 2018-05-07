@@ -1,63 +1,63 @@
-"use strict";
+import MysteryAward from "./MysteryAward.js";
 
-define(["artifact/MysteryAward"], function(Award)
+QUnit.module("MysteryMysteryAward");
+
+QUnit.test("MysteryMysteryAward properties Agatha", function(assert)
 {
-   QUnit.module("MysteryAward");
+   var statusKey = MysteryAward.AGATHA;
+   var status = MysteryAward.properties[statusKey];
+   assert.equal(status.name, "Agatha");
+   assert.equal(status.value, statusKey);
+});
 
-   QUnit.test("MysteryAward properties Agatha", function(assert)
+QUnit.test("keys and values", function(assert)
+{
+   // Setup.
+
+   // Run.
+   var result = MysteryAward.values();
+   var ownPropertyNames = Object.getOwnPropertyNames(MysteryAward);
+
+   // Verify.
+   ownPropertyNames.forEach(function(key)
    {
-      var statusKey = Award.AGATHA;
-      var status = Award.properties[statusKey];
-      assert.equal(status.name, "Agatha");
-      assert.equal(status.value, statusKey);
+      var key2 = MysteryAward[key];
+
+      if (key !== "properties" && typeof key2 === "string")
+      {
+         assert.ok(MysteryAward.properties[key2], "Missing value for key = " + key);
+      }
    });
 
-   QUnit.test("keys and values", function(assert)
+   result.forEach(function(value)
    {
-      // Setup.
-
-      // Run.
-      var result = Award.values();
-      var ownPropertyNames = Object.getOwnPropertyNames(Award);
-
-      // Verify.
-      ownPropertyNames.forEach(function(key)
+      var p = ownPropertyNames.filter(function(key)
       {
-         var key2 = Award[key];
-
-         if (key !== "properties" && typeof key2 === "string")
-         {
-            assert.ok(Award.properties[key2], "Missing value for key = " + key);
-         }
+         return MysteryAward[key] === value;
       });
 
-      result.forEach(function(value)
-      {
-         var p = ownPropertyNames.filter(function(key)
-         {
-            return Award[key] === value;
-         });
-
-         assert.equal(p.length, 1, "Missing key for value = " + value);
-      });
-   });
-
-   QUnit.test("values()", function(assert)
-   {
-      // Run.
-      var result = Award.values();
-
-      // Verify.
-      assert.ok(result);
-      var length = 7;
-      assert.equal(result.length, length);
-      assert.equal(result[0], "agatha");
-      assert.equal(result[length - 1], "shamus");
-
-      var properties = Object.getOwnPropertyNames(Award);
-      var count = properties.length - 1 - // properties
-         1 - // values
-         1; // findByName
-      assert.equal(result.length, count);
+      assert.equal(p.length, 1, "Missing key for value = " + value);
    });
 });
+
+QUnit.test("values()", function(assert)
+{
+   // Run.
+   var result = MysteryAward.values();
+
+   // Verify.
+   assert.ok(result);
+   var length = 7;
+   assert.equal(result.length, length);
+   assert.equal(result[0], "agatha");
+   assert.equal(result[length - 1], "shamus");
+
+   var properties = Object.getOwnPropertyNames(MysteryAward);
+   var count = properties.length - 1 - // properties
+      1 - // values
+      1; // findByName
+   assert.equal(result.length, count);
+});
+
+var MysteryAwardTest = {};
+export default MysteryAwardTest;

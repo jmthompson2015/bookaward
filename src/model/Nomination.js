@@ -1,40 +1,37 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["utility/InputValidator"], function(InputValidator)
+function Nomination(award, category, year, isWinnerIn)
 {
-   function Nomination(award, category, year, isWinnerIn)
+   InputValidator.validateNotNull("award", award);
+   InputValidator.validateNotNull("category", category);
+   InputValidator.validateNotNull("year", year);
+
+   var isWinner = (isWinnerIn !== undefined ? isWinnerIn : false);
+
+   this.award = function()
    {
-      InputValidator.validateNotNull("award", award);
-      InputValidator.validateNotNull("category", category);
-      InputValidator.validateNotNull("year", year);
+      return award;
+   };
 
-      var isWinner = (isWinnerIn !== undefined ? isWinnerIn : false);
+   this.category = function()
+   {
+      return category;
+   };
 
-      this.award = function()
-      {
-         return award;
-      };
+   this.year = function()
+   {
+      return year;
+   };
 
-      this.category = function()
-      {
-         return category;
-      };
+   this.isWinner = function()
+   {
+      return isWinner;
+   };
 
-      this.year = function()
-      {
-         return year;
-      };
+   this.toString = function()
+   {
+      return year + " " + award.name + " " + category.name;
+   };
+}
 
-      this.isWinner = function()
-      {
-         return isWinner;
-      };
-
-      this.toString = function()
-      {
-         return year + " " + award.name + " " + category.name;
-      };
-   }
-
-   return Nomination;
-});
+export default Nomination;

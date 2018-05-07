@@ -1,130 +1,132 @@
-"use strict";
+import MysteryAward from "../artifact/MysteryAward.js";
 
-define(["artifact/MysteryAward", "model/Nomination", "model/NominationComparator"],
-   function(Award, Nomination, NominationComparator)
-   {
-      QUnit.module("NominationComparator");
+import Nomination from "./Nomination.js";
+import NominationComparator from "./NominationComparator.js";
 
-      QUnit.test("compare()", function(assert)
-      {
-         // Setup.
-         var nomination0 = createNomination0();
-         var nomination1 = createNomination1();
-         var nomination2 = createNomination1();
-         var nomination3 = createNomination3();
-         var nomination4 = createNomination4();
+QUnit.module("NominationComparator");
 
-         // Run / Verify.
-         assert.equal(NominationComparator.compare(nomination0, nomination0), 0);
-         assert.equal(NominationComparator.compare(nomination0, nomination1), -1);
-         assert.equal(NominationComparator.compare(nomination0, nomination2), -1);
-         assert.equal(NominationComparator.compare(nomination0, nomination3), -1);
-         assert.equal(NominationComparator.compare(nomination0, nomination4), -1);
+QUnit.test("compare()", function(assert)
+{
+   // Setup.
+   var nomination0 = createNomination0();
+   var nomination1 = createNomination1();
+   var nomination2 = createNomination1();
+   var nomination3 = createNomination3();
+   var nomination4 = createNomination4();
 
-         assert.equal(NominationComparator.compare(nomination1, nomination0), 1);
-         assert.equal(NominationComparator.compare(nomination1, nomination1), 0);
-         assert.equal(NominationComparator.compare(nomination1, nomination2), 0);
-         assert.equal(NominationComparator.compare(nomination1, nomination3), -1);
-         assert.equal(NominationComparator.compare(nomination1, nomination4), -1);
+   // Run / Verify.
+   assert.equal(NominationComparator.compare(nomination0, nomination0), 0);
+   assert.equal(NominationComparator.compare(nomination0, nomination1), -1);
+   assert.equal(NominationComparator.compare(nomination0, nomination2), -1);
+   assert.equal(NominationComparator.compare(nomination0, nomination3), -1);
+   assert.equal(NominationComparator.compare(nomination0, nomination4), -1);
 
-         assert.equal(NominationComparator.compare(nomination2, nomination0), 1);
-         assert.equal(NominationComparator.compare(nomination2, nomination1), 0);
-         assert.equal(NominationComparator.compare(nomination2, nomination2), 0);
-         assert.equal(NominationComparator.compare(nomination2, nomination3), -1);
-         assert.equal(NominationComparator.compare(nomination2, nomination4), -1);
+   assert.equal(NominationComparator.compare(nomination1, nomination0), 1);
+   assert.equal(NominationComparator.compare(nomination1, nomination1), 0);
+   assert.equal(NominationComparator.compare(nomination1, nomination2), 0);
+   assert.equal(NominationComparator.compare(nomination1, nomination3), -1);
+   assert.equal(NominationComparator.compare(nomination1, nomination4), -1);
 
-         assert.equal(NominationComparator.compare(nomination3, nomination0), 1);
-         assert.equal(NominationComparator.compare(nomination3, nomination1), 1);
-         assert.equal(NominationComparator.compare(nomination3, nomination2), 1);
-         assert.equal(NominationComparator.compare(nomination3, nomination3), 0);
-         assert.equal(NominationComparator.compare(nomination3, nomination4), -1);
+   assert.equal(NominationComparator.compare(nomination2, nomination0), 1);
+   assert.equal(NominationComparator.compare(nomination2, nomination1), 0);
+   assert.equal(NominationComparator.compare(nomination2, nomination2), 0);
+   assert.equal(NominationComparator.compare(nomination2, nomination3), -1);
+   assert.equal(NominationComparator.compare(nomination2, nomination4), -1);
 
-         assert.equal(NominationComparator.compare(nomination4, nomination0), 1);
-         assert.equal(NominationComparator.compare(nomination4, nomination1), 1);
-         assert.equal(NominationComparator.compare(nomination4, nomination2), 1);
-         assert.equal(NominationComparator.compare(nomination4, nomination3), 1);
-         assert.equal(NominationComparator.compare(nomination4, nomination4), 0);
-      });
+   assert.equal(NominationComparator.compare(nomination3, nomination0), 1);
+   assert.equal(NominationComparator.compare(nomination3, nomination1), 1);
+   assert.equal(NominationComparator.compare(nomination3, nomination2), 1);
+   assert.equal(NominationComparator.compare(nomination3, nomination3), 0);
+   assert.equal(NominationComparator.compare(nomination3, nomination4), -1);
 
-      QUnit.test("equals()", function(assert)
-      {
-         // Setup.
-         var nomination0 = createNomination0();
-         var nomination1 = createNomination1();
-         var nomination2 = createNomination1();
-         var nomination3 = createNomination3();
-         var nomination4 = createNomination4();
+   assert.equal(NominationComparator.compare(nomination4, nomination0), 1);
+   assert.equal(NominationComparator.compare(nomination4, nomination1), 1);
+   assert.equal(NominationComparator.compare(nomination4, nomination2), 1);
+   assert.equal(NominationComparator.compare(nomination4, nomination3), 1);
+   assert.equal(NominationComparator.compare(nomination4, nomination4), 0);
+});
 
-         // Run / Verify.
-         assert.equal(NominationComparator.equals(nomination0, nomination0), true);
-         assert.equal(NominationComparator.equals(nomination0, nomination1), false);
-         assert.equal(NominationComparator.equals(nomination0, nomination2), false);
-         assert.equal(NominationComparator.equals(nomination0, nomination3), false);
-         assert.equal(NominationComparator.equals(nomination0, nomination4), false);
+QUnit.test("equals()", function(assert)
+{
+   // Setup.
+   var nomination0 = createNomination0();
+   var nomination1 = createNomination1();
+   var nomination2 = createNomination1();
+   var nomination3 = createNomination3();
+   var nomination4 = createNomination4();
 
-         assert.equal(NominationComparator.equals(nomination1, nomination0), false);
-         assert.equal(NominationComparator.equals(nomination1, nomination1), true);
-         assert.equal(NominationComparator.equals(nomination1, nomination2), true);
-         assert.equal(NominationComparator.equals(nomination1, nomination3), false);
-         assert.equal(NominationComparator.equals(nomination1, nomination4), false);
+   // Run / Verify.
+   assert.equal(NominationComparator.equals(nomination0, nomination0), true);
+   assert.equal(NominationComparator.equals(nomination0, nomination1), false);
+   assert.equal(NominationComparator.equals(nomination0, nomination2), false);
+   assert.equal(NominationComparator.equals(nomination0, nomination3), false);
+   assert.equal(NominationComparator.equals(nomination0, nomination4), false);
 
-         assert.equal(NominationComparator.equals(nomination2, nomination0), false);
-         assert.equal(NominationComparator.equals(nomination2, nomination1), true);
-         assert.equal(NominationComparator.equals(nomination2, nomination2), true);
-         assert.equal(NominationComparator.equals(nomination2, nomination3), false);
-         assert.equal(NominationComparator.equals(nomination2, nomination4), false);
+   assert.equal(NominationComparator.equals(nomination1, nomination0), false);
+   assert.equal(NominationComparator.equals(nomination1, nomination1), true);
+   assert.equal(NominationComparator.equals(nomination1, nomination2), true);
+   assert.equal(NominationComparator.equals(nomination1, nomination3), false);
+   assert.equal(NominationComparator.equals(nomination1, nomination4), false);
 
-         assert.equal(NominationComparator.equals(nomination3, nomination0), false);
-         assert.equal(NominationComparator.equals(nomination3, nomination1), false);
-         assert.equal(NominationComparator.equals(nomination3, nomination2), false);
-         assert.equal(NominationComparator.equals(nomination3, nomination3), true);
-         assert.equal(NominationComparator.equals(nomination3, nomination4), false);
+   assert.equal(NominationComparator.equals(nomination2, nomination0), false);
+   assert.equal(NominationComparator.equals(nomination2, nomination1), true);
+   assert.equal(NominationComparator.equals(nomination2, nomination2), true);
+   assert.equal(NominationComparator.equals(nomination2, nomination3), false);
+   assert.equal(NominationComparator.equals(nomination2, nomination4), false);
 
-         assert.equal(NominationComparator.equals(nomination4, nomination0), false);
-         assert.equal(NominationComparator.equals(nomination4, nomination1), false);
-         assert.equal(NominationComparator.equals(nomination4, nomination2), false);
-         assert.equal(NominationComparator.equals(nomination4, nomination3), false);
-         assert.equal(NominationComparator.equals(nomination4, nomination4), true);
-      });
+   assert.equal(NominationComparator.equals(nomination3, nomination0), false);
+   assert.equal(NominationComparator.equals(nomination3, nomination1), false);
+   assert.equal(NominationComparator.equals(nomination3, nomination2), false);
+   assert.equal(NominationComparator.equals(nomination3, nomination3), true);
+   assert.equal(NominationComparator.equals(nomination3, nomination4), false);
 
-      function createNomination0()
-      {
-         var awardKey = Award.AGATHA;
-         var award = Award.properties[awardKey];
-         var categoryKey = award.categories.FIRST;
-         var category = award.categories.properties[categoryKey];
-         var isWinner = true;
+   assert.equal(NominationComparator.equals(nomination4, nomination0), false);
+   assert.equal(NominationComparator.equals(nomination4, nomination1), false);
+   assert.equal(NominationComparator.equals(nomination4, nomination2), false);
+   assert.equal(NominationComparator.equals(nomination4, nomination3), false);
+   assert.equal(NominationComparator.equals(nomination4, nomination4), true);
+});
 
-         return new Nomination(award, category, 2014, isWinner);
-      }
+function createNomination0()
+{
+   var awardKey = MysteryAward.AGATHA;
+   var award = MysteryAward.properties[awardKey];
+   var categoryKey = award.categories.FIRST;
+   var category = award.categories.properties[categoryKey];
+   var isWinner = true;
 
-      function createNomination1()
-      {
-         var awardKey = Award.AGATHA;
-         var award = Award.properties[awardKey];
-         var categoryKey = award.categories.FIRST;
-         var category = award.categories.properties[categoryKey];
+   return new Nomination(award, category, 2014, isWinner);
+}
 
-         return new Nomination(award, category, 2014);
-      }
+function createNomination1()
+{
+   var awardKey = MysteryAward.AGATHA;
+   var award = MysteryAward.properties[awardKey];
+   var categoryKey = award.categories.FIRST;
+   var category = award.categories.properties[categoryKey];
 
-      function createNomination3()
-      {
-         var awardKey = Award.BARRY;
-         var award = Award.properties[awardKey];
-         var categoryKey = award.categories.FIRST;
-         var category = award.categories.properties[categoryKey];
+   return new Nomination(award, category, 2014);
+}
 
-         return new Nomination(award, category, 2015);
-      }
+function createNomination3()
+{
+   var awardKey = MysteryAward.BARRY;
+   var award = MysteryAward.properties[awardKey];
+   var categoryKey = award.categories.FIRST;
+   var category = award.categories.properties[categoryKey];
 
-      function createNomination4()
-      {
-         var awardKey = Award.BARRY;
-         var award = Award.properties[awardKey];
-         var categoryKey = award.categories.FIRST;
-         var category = award.categories.properties[categoryKey];
+   return new Nomination(award, category, 2015);
+}
 
-         return new Nomination(award, category, 2016);
-      }
-   });
+function createNomination4()
+{
+   var awardKey = MysteryAward.BARRY;
+   var award = MysteryAward.properties[awardKey];
+   var categoryKey = award.categories.FIRST;
+   var category = award.categories.properties[categoryKey];
+
+   return new Nomination(award, category, 2016);
+}
+
+var NominationComparatorTest = {};
+export default NominationComparatorTest;

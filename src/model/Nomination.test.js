@@ -1,29 +1,30 @@
-"use strict";
+import MysteryAward from "../artifact/MysteryAward.js";
 
-define(["artifact/MysteryAward", "model/Nomination"],
-   function(Award, Nomination)
-   {
-      QUnit.module("Nomination");
+import Nomination from "./Nomination.js";
 
-      QUnit.test("Nomination()", function(assert)
-      {
-         // Setup.
-         var awardKey = Award.AGATHA;
-         var award = Award.properties[awardKey];
-         var categoryKey = award.categories.CONTEMPORARY;
-         var category = award.categories.properties[categoryKey];
-         assert.ok(category);
-         var year = 2016;
-         var isWinner = false;
+QUnit.module("Nomination");
 
-         // Run.
-         var result = new Nomination(award, category, year, isWinner);
+QUnit.test("Nomination()", function(assert)
+{
+   // Setup.
+   var awardKey = MysteryAward.AGATHA;
+   var award = MysteryAward.properties[awardKey];
+   var categoryKey = award.categories.CONTEMPORARY;
+   var category = award.categories.properties[categoryKey];
+   assert.ok(category);
+   var year = 2016;
+   var isWinner = false;
 
-         // Verify.
-         assert.ok(result);
-         assert.equal(result.award(), award);
-         assert.equal(result.category(), category);
-         assert.equal(result.year(), year);
-         assert.ok(!result.isWinner());
-      });
-   });
+   // Run.
+   var result = new Nomination(award, category, year, isWinner);
+
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.award(), award);
+   assert.equal(result.category(), category);
+   assert.equal(result.year(), year);
+   assert.ok(!result.isWinner());
+});
+
+var NominationTest = {};
+export default NominationTest;

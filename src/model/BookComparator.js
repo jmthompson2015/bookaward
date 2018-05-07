@@ -1,49 +1,46 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["utility/InputValidator"], function(InputValidator)
-{
-   var BookComparator = {
-      compare: function(a, b)
-      {
-         InputValidator.validateNotNull("a", a);
-         InputValidator.validateNotNull("b", b);
-
-         var answer = 0;
-         var aString = BookComparator.prepareName(a.toString());
-         var bString = BookComparator.prepareName(b.toString());
-
-         if (aString < bString)
-         {
-            answer = -1;
-         }
-         else if (aString > bString)
-         {
-            answer = 1;
-         }
-
-         return answer;
-      },
-
-      equals: function(a, b)
-      {
-         InputValidator.validateNotNull("a", a);
-         InputValidator.validateNotNull("b", b);
-
-         return a.title() === b.title() && a.author() === b.author();
-      },
-   };
-
-   BookComparator.prepareName = function(string)
+var BookComparator = {
+   compare: function(a, b)
    {
-      InputValidator.validateNotNull("string", string);
+      InputValidator.validateNotNull("a", a);
+      InputValidator.validateNotNull("b", b);
 
-      var answer = string;
+      var answer = 0;
+      var aString = BookComparator.prepareName(a.toString());
+      var bString = BookComparator.prepareName(b.toString());
 
-      answer = (answer.startsWith("A ") ? answer.replace("A ", "") : answer);
-      answer = (answer.startsWith("The ") ? answer.replace("The ", "") : answer);
+      if (aString < bString)
+      {
+         answer = -1;
+      }
+      else if (aString > bString)
+      {
+         answer = 1;
+      }
 
       return answer;
-   };
+   },
 
-   return BookComparator;
-});
+   equals: function(a, b)
+   {
+      InputValidator.validateNotNull("a", a);
+      InputValidator.validateNotNull("b", b);
+
+      return a.title() === b.title() && a.author() === b.author();
+   },
+};
+
+BookComparator.prepareName = function(string)
+{
+   InputValidator.validateNotNull("string", string);
+
+   var answer = string;
+
+   answer = (answer.startsWith("A ") ? answer.replace("A ", "") : answer);
+   answer = (answer.startsWith("The ") ? answer.replace("The ", "") : answer);
+
+   return answer;
+};
+
+export default BookComparator;

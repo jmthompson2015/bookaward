@@ -1,21 +1,21 @@
-"use strict";
+import Book from "./Book.js";
 
-define(["model/Book"], function(Book)
+QUnit.module("Book");
+
+QUnit.test("Book()", function(assert)
 {
-   QUnit.module("Book");
+   // Setup.
+   var title = "A Dark and Stormy Night";
+   var author = "Noah Boddy";
 
-   QUnit.test("Book()", function(assert)
-   {
-      // Setup.
-      var title = "A Dark and Stormy Night";
-      var author = "Noah Boddy";
+   // Run.
+   var result = new Book(title, author);
 
-      // Run.
-      var result = new Book(title, author);
-
-      // Verify.
-      assert.ok(result);
-      assert.equal(result.title(), title);
-      assert.equal(result.author(), author);
-   });
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.title(), title);
+   assert.equal(result.author(), author);
 });
+
+var BookTest = {};
+export default BookTest;

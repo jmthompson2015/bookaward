@@ -1,66 +1,63 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["utility/InputValidator"], function(InputValidator)
+var Action = {};
+
+Action.ADD_BOOK = "addBook";
+Action.ADD_NOMINATION = "addNomination";
+Action.SET_ASSESSMENT = "setAssessment";
+Action.SET_ASSESSMENTS = "setAssessments";
+
+Action.addBook = function(book)
 {
-   var Action = {};
+   InputValidator.validateNotNull("book", book);
 
-   Action.ADD_BOOK = "addBook";
-   Action.ADD_NOMINATION = "addNomination";
-   Action.SET_ASSESSMENT = "setAssessment";
-   Action.SET_ASSESSMENTS = "setAssessments";
-
-   Action.addBook = function(book)
+   return (
    {
-      InputValidator.validateNotNull("book", book);
+      type: Action.ADD_BOOK,
+      book: book,
+   });
+};
 
-      return (
-      {
-         type: Action.ADD_BOOK,
-         book: book,
-      });
-   };
+Action.addNomination = function(book, nomination)
+{
+   InputValidator.validateNotNull("book", book);
+   InputValidator.validateNotNull("nomination", nomination);
 
-   Action.addNomination = function(book, nomination)
+   return (
    {
-      InputValidator.validateNotNull("book", book);
-      InputValidator.validateNotNull("nomination", nomination);
+      type: Action.ADD_NOMINATION,
+      book: book,
+      nomination: nomination,
+   });
+};
 
-      return (
-      {
-         type: Action.ADD_NOMINATION,
-         book: book,
-         nomination: nomination,
-      });
-   };
+Action.setAssessment = function(book, assessment)
+{
+   InputValidator.validateNotNull("book", book);
+   InputValidator.validateNotNull("assessment", assessment);
 
-   Action.setAssessment = function(book, assessment)
+   return (
    {
-      InputValidator.validateNotNull("book", book);
-      InputValidator.validateNotNull("assessment", assessment);
+      type: Action.SET_ASSESSMENT,
+      book: book,
+      assessment: assessment,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_ASSESSMENT,
-         book: book,
-         assessment: assessment,
-      });
-   };
+Action.setAssessments = function(bookToAssessment)
+{
+   InputValidator.validateNotNull("bookToAssessment", bookToAssessment);
 
-   Action.setAssessments = function(bookToAssessment)
+   return (
    {
-      InputValidator.validateNotNull("bookToAssessment", bookToAssessment);
+      type: Action.SET_ASSESSMENTS,
+      bookToAssessment: bookToAssessment,
+   });
+};
 
-      return (
-      {
-         type: Action.SET_ASSESSMENTS,
-         bookToAssessment: bookToAssessment,
-      });
-   };
+if (Object.freeze)
+{
+   Object.freeze(Action);
+}
 
-   if (Object.freeze)
-   {
-      Object.freeze(Action);
-   }
-
-   return Action;
-});
+export default Action;

@@ -1,24 +1,21 @@
-"use strict";
+import Reducer from "./Reducer.js";
+import SciFiInitialState from "./SciFiInitialState.js";
 
-define(["model/SciFiInitialState", "model/Reducer"],
-   function(SciFiInitialState, Reducer)
+var SciFiReducer = {};
+
+SciFiReducer.root = function(state, action)
+{
+   if (typeof state === 'undefined')
    {
-      var SciFiReducer = {};
+      return new SciFiInitialState();
+   }
 
-      SciFiReducer.root = function(state, action)
-      {
-         if (typeof state === 'undefined')
-         {
-            return new SciFiInitialState();
-         }
+   return Reducer.root(state, action);
+};
 
-         return Reducer.root(state, action);
-      };
+if (Object.freeze)
+{
+   Object.freeze(SciFiReducer);
+}
 
-      if (Object.freeze)
-      {
-         Object.freeze(SciFiReducer);
-      }
-
-      return SciFiReducer;
-   });
+export default SciFiReducer;

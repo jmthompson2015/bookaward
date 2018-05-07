@@ -1,73 +1,73 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
+import ObjectUtilities from "../utility/ObjectUtilities.js";
 
-define(["artifact/Assessment", "artifact/MysteryAward", "utility/InputValidator", "utility/ObjectUtilities"],
-   function(Assessment, Award, InputValidator, ObjectUtilities)
+import Assessment from "../artifact/Assessment.js";
+import MysteryAward from "../artifact/MysteryAward.js";
+
+var UserSettings = {};
+
+UserSettings.loadBookToAssessment = function()
+{
+   var answer = {};
+
+   var bookToAssessment = localStorage.getItem("bookToAssessment");
+
+   if (bookToAssessment)
    {
-      var UserSettings = {};
+      var myBookToAssessment = JSON.parse(bookToAssessment);
 
-      UserSettings.loadBookToAssessment = function()
+      if (myBookToAssessment)
       {
-         var answer = {};
+         ObjectUtilities.merge(answer, myBookToAssessment);
+      }
+   }
 
-         var bookToAssessment = localStorage.getItem("bookToAssessment");
+   return answer;
+};
 
-         if (bookToAssessment)
-         {
-            var myBookToAssessment = JSON.parse(bookToAssessment);
+UserSettings.resetBookToAssessment = function(bookToAssessment, books, bookToDclUrl, bookToNomination)
+{
+   InputValidator.validateNotNull("bookToAssessment", bookToAssessment);
+   InputValidator.validateNotNull("books", books);
+   InputValidator.validateNotNull("bookToDclUrl", bookToDclUrl);
+   InputValidator.validateNotNull("bookToNomination", bookToNomination);
 
-            if (myBookToAssessment)
-            {
-               ObjectUtilities.merge(answer, myBookToAssessment);
-            }
-         }
+   var answer = Object.assign(
+   {}, bookToAssessment);
 
-         return answer;
-      };
+   books.forEach(function(book)
+   {
+      answer[book] = Assessment.NONE;
 
-      UserSettings.resetBookToAssessment = function(bookToAssessment, books, bookToDclUrl, bookToNomination)
+      var nominations = bookToNomination[book];
+
+      if (nominations)
       {
-         InputValidator.validateNotNull("bookToAssessment", bookToAssessment);
-         InputValidator.validateNotNull("books", books);
-         InputValidator.validateNotNull("bookToDclUrl", bookToDclUrl);
-         InputValidator.validateNotNull("bookToNomination", bookToNomination);
-
-         var answer = Object.assign(
-         {}, bookToAssessment);
-
-         books.forEach(function(book)
+         var clubNominations = nominations.filter(function(nomination)
          {
-            answer[book] = Assessment.NONE;
-
-            var nominations = bookToNomination[book];
-
-            if (nominations)
-            {
-               var clubNominations = nominations.filter(function(nomination)
-               {
-                  return nomination.award().value === Award.CRIME_AND_BEYOND;
-               });
-
-               if (clubNominations.length > 0)
-               {
-                  answer[book] = Assessment.BOOK_CLUB_PICK;
-               }
-               else if (bookToDclUrl[book] === undefined)
-               {
-                  answer[book] = Assessment.NOT_AVAILABLE;
-               }
-            }
+            return nomination.award().value === MysteryAward.CRIME_AND_BEYOND;
          });
 
-         return answer;
-      };
-
-      UserSettings.storeBookToAssessment = function(bookToAssessment)
-      {
-         InputValidator.validateNotNull("bookToAssessment", bookToAssessment);
-
-         localStorage.setItem("bookToAssessment", JSON.stringify(bookToAssessment));
-         LOGGER.debug("bookToAssessment stored to localStorage");
-      };
-
-      return UserSettings;
+         if (clubNominations.length > 0)
+         {
+            answer[book] = Assessment.BOOK_CLUB_PICK;
+         }
+         else if (bookToDclUrl[book] === undefined)
+         {
+            answer[book] = Assessment.NOT_AVAILABLE;
+         }
+      }
    });
+
+   return answer;
+};
+
+UserSettings.storeBookToAssessment = function(bookToAssessment)
+{
+   InputValidator.validateNotNull("bookToAssessment", bookToAssessment);
+
+   localStorage.setItem("bookToAssessment", JSON.stringify(bookToAssessment));
+   LOGGER.debug("bookToAssessment stored to localStorage");
+};
+
+export default UserSettings;

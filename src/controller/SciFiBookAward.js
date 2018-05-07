@@ -1,33 +1,37 @@
-"use strict";
+import Logger from "../utility/Logger.js";
 
-require(["model/UserSettings", "utility/Logger", "model/Action", "model/SciFiReducer", "view/BookTable", "controller/Connector"],
-   function(UserSettings, Logger, Action, Reducer, BookTable, Connector)
-   {
-      window.LOGGER = new Logger();
-      LOGGER.setTraceEnabled(false);
-      LOGGER.setDebugEnabled(false);
+import Action from "../model/Action.js";
+import Reducer from "../model/Reducer.js";
+import UserSettings from "../model/UserSettings.js";
 
-      var store = Redux.createStore(Reducer.root);
+import BookTable from "../view/BookTable.js";
 
-      var connector = ReactRedux.connect(Connector.BookTable.mapStateToProps)(BookTable);
-      var element = React.createElement(ReactRedux.Provider,
-      {
-         store: store,
-      }, React.createElement(connector));
+import Connector from "./Connector.js";
 
-      ReactDOM.render(element, document.getElementById("bookTablePanel"));
+window.LOGGER = new Logger();
+LOGGER.setTraceEnabled(false);
+LOGGER.setDebugEnabled(false);
 
-      document.getElementById("resetAssessmentsButton").onclick = resetAssessments;
+var store = Redux.createStore(Reducer.root);
 
-      function resetAssessments()
-      {
-         var bookToAssessment = store.getState().bookToAssessment;
-         var books = store.getState().books;
-         var bookToDclUrl = store.getState().bookToDclUrl;
-         var bookToNomination = store.getState().bookToNomination;
-         bookToAssessment = UserSettings.resetBookToAssessment(bookToAssessment, books, bookToDclUrl, bookToNomination);
+var connector = ReactRedux.connect(Connector.BookTable.mapStateToProps)(BookTable);
+var element = React.createElement(ReactRedux.Provider,
+{
+   store: store,
+}, React.createElement(connector));
 
-         UserSettings.storeBookToAssessment(bookToAssessment);
-         store.dispatch(Action.setAssessments(bookToAssessment));
-      }
-   });
+ReactDOM.render(element, document.getElementById("bookTablePanel"));
+
+document.getElementById("resetAssessmentsButton").onclick = resetAssessments;
+
+function resetAssessments()
+{
+   var bookToAssessment = store.getState().bookToAssessment;
+   var books = store.getState().books;
+   var bookToDclUrl = store.getState().bookToDclUrl;
+   var bookToNomination = store.getState().bookToNomination;
+   bookToAssessment = UserSettings.resetBookToAssessment(bookToAssessment, books, bookToDclUrl, bookToNomination);
+
+   UserSettings.storeBookToAssessment(bookToAssessment);
+   store.dispatch(Action.setAssessments(bookToAssessment));
+}

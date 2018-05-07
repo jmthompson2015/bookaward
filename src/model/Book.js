@@ -1,27 +1,24 @@
-"use strict";
+import InputValidator from "../utility/InputValidator.js";
 
-define(["utility/InputValidator"], function(InputValidator)
+function Book(title, author)
 {
-   function Book(title, author)
+   InputValidator.validateNotNull("title", title);
+   InputValidator.validateNotNull("author", author);
+
+   this.title = function()
    {
-      InputValidator.validateNotNull("title", title);
-      InputValidator.validateNotNull("author", author);
+      return title;
+   };
 
-      this.title = function()
-      {
-         return title;
-      };
+   this.author = function()
+   {
+      return author;
+   };
 
-      this.author = function()
-      {
-         return author;
-      };
+   this.toString = function()
+   {
+      return title + " by " + author;
+   };
+}
 
-      this.toString = function()
-      {
-         return title + " by " + author;
-      };
-   }
-
-   return Book;
-});
+export default Book;

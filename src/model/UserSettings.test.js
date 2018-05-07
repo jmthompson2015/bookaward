@@ -1,183 +1,187 @@
-"use strict";
+import Assessment from "../artifact/Assessment.js";
+import MysteryAward from "../artifact/MysteryAward.js";
 
-define(["artifact/Assessment", "artifact/MysteryAward", "model/Book", "model/Nomination", "model/UserSettings"],
-   function(Assessment, Award, Book, Nomination, UserSettings)
-   {
-      QUnit.module("UserSettings");
+import Book from "./Book.js";
+import Nomination from "./Nomination.js";
+import UserSettings from "./UserSettings.js";
 
-      QUnit.test("loadBookToAssessment()", function(assert)
-      {
-         // Setup.
-         // var books = createBooks();
-         var bookToAssessment = createBookToAssessment();
-         UserSettings.storeBookToAssessment(bookToAssessment);
+QUnit.module("UserSettings");
 
-         // Run.
-         var result = UserSettings.loadBookToAssessment();
+QUnit.test("loadBookToAssessment()", function(assert)
+{
+   // Setup.
+   // var books = createBooks();
+   var bookToAssessment = createBookToAssessment();
+   UserSettings.storeBookToAssessment(bookToAssessment);
 
-         // Verify.
-         verifyBookToAssessment1(assert, result);
+   // Run.
+   var result = UserSettings.loadBookToAssessment();
 
-         // Cleanup.
-         localStorage.removeItem("bookToAssessment");
-      });
+   // Verify.
+   verifyBookToAssessment1(assert, result);
 
-      QUnit.test("resetBookToAssessment()", function(assert)
-      {
-         // Setup.
-         var bookToAssessment = {};
-         var books = createBooks();
-         var bookToDclUrl = createBookToDclUrl();
-         var bookToNomination = createBookToNomination();
+   // Cleanup.
+   localStorage.removeItem("bookToAssessment");
+});
 
-         // Run.
-         var result = UserSettings.resetBookToAssessment(bookToAssessment, books, bookToDclUrl, bookToNomination);
+QUnit.test("resetBookToAssessment()", function(assert)
+{
+   // Setup.
+   var bookToAssessment = {};
+   var books = createBooks();
+   var bookToDclUrl = createBookToDclUrl();
+   var bookToNomination = createBookToNomination();
 
-         // Verify.
-         verifyBookToAssessment0(assert, result);
+   // Run.
+   var result = UserSettings.resetBookToAssessment(bookToAssessment, books, bookToDclUrl, bookToNomination);
 
-         // Cleanup.
-         localStorage.removeItem("bookToAssessment");
-      });
+   // Verify.
+   verifyBookToAssessment0(assert, result);
 
-      QUnit.test("storeBookToAssessment()", function(assert)
-      {
-         // Setup.
-         // var books = createBooks();
-         var bookToAssessment = createBookToAssessment();
+   // Cleanup.
+   localStorage.removeItem("bookToAssessment");
+});
 
-         // Run.
-         UserSettings.storeBookToAssessment(bookToAssessment);
-         var result = UserSettings.loadBookToAssessment();
+QUnit.test("storeBookToAssessment()", function(assert)
+{
+   // Setup.
+   // var books = createBooks();
+   var bookToAssessment = createBookToAssessment();
 
-         // Verify.
-         verifyBookToAssessment1(assert, result);
+   // Run.
+   UserSettings.storeBookToAssessment(bookToAssessment);
+   var result = UserSettings.loadBookToAssessment();
 
-         // Cleanup.
-         localStorage.removeItem("bookToAssessment");
-      });
+   // Verify.
+   verifyBookToAssessment1(assert, result);
 
-      function createBook0()
-      {
-         var title = "The Wrong Side of Goodbye";
-         var author = "Michael Connelly";
+   // Cleanup.
+   localStorage.removeItem("bookToAssessment");
+});
 
-         return new Book(title, author);
-      }
+function createBook0()
+{
+   var title = "The Wrong Side of Goodbye";
+   var author = "Michael Connelly";
 
-      function createBook1()
-      {
-         var title = "Make Me";
-         var author = "Lee Child";
+   return new Book(title, author);
+}
 
-         return new Book(title, author);
-      }
+function createBook1()
+{
+   var title = "Make Me";
+   var author = "Lee Child";
 
-      function createBook2()
-      {
-         var title = "In a Dark, Dark Wood";
-         var author = "Ruth Ware";
+   return new Book(title, author);
+}
 
-         return new Book(title, author);
-      }
+function createBook2()
+{
+   var title = "In a Dark, Dark Wood";
+   var author = "Ruth Ware";
 
-      function createBooks()
-      {
-         var answer = [];
+   return new Book(title, author);
+}
 
-         answer.push(createBook0());
-         answer.push(createBook1());
-         answer.push(createBook2());
+function createBooks()
+{
+   var answer = [];
 
-         return answer;
-      }
+   answer.push(createBook0());
+   answer.push(createBook1());
+   answer.push(createBook2());
 
-      function createBookToAssessment()
-      {
-         var answer = {};
+   return answer;
+}
 
-         answer[createBook0()] = Assessment.NONE;
-         answer[createBook1()] = Assessment.NOT_ENOUGH_COPIES;
-         answer[createBook2()] = Assessment.NOT_AVAILABLE;
+function createBookToAssessment()
+{
+   var answer = {};
 
-         return answer;
-      }
+   answer[createBook0()] = Assessment.NONE;
+   answer[createBook1()] = Assessment.NOT_ENOUGH_COPIES;
+   answer[createBook2()] = Assessment.NOT_AVAILABLE;
 
-      function createBookToDclUrl()
-      {
-         var answer = {};
+   return answer;
+}
 
-         answer[createBook0()] = "https://dcl.bibliocommons.com/item/show/1337567114_the_wrong_side_of_goodbye";
-         answer[createBook1()] = "https://dcl.bibliocommons.com/item/show/1264991114_make_me";
-         // answer[createBook2()] = "";
+function createBookToDclUrl()
+{
+   var answer = {};
 
-         return answer;
-      }
+   answer[createBook0()] = "https://dcl.bibliocommons.com/item/show/1337567114_the_wrong_side_of_goodbye";
+   answer[createBook1()] = "https://dcl.bibliocommons.com/item/show/1264991114_make_me";
+   // answer[createBook2()] = "";
 
-      function createBookToNomination()
-      {
-         var answer = {};
+   return answer;
+}
 
-         var book0 = createBook1();
-         answer[book0] = [];
-         answer[book0].push(createNomination0());
+function createBookToNomination()
+{
+   var answer = {};
 
-         var book1 = createBook2();
-         answer[book1] = [];
-         answer[book1].push(createNomination1_1());
-         answer[book1].push(createNomination1_2());
+   var book0 = createBook1();
+   answer[book0] = [];
+   answer[book0].push(createNomination0());
 
-         var book2 = createBook2();
-         answer[book2] = [];
+   var book1 = createBook2();
+   answer[book1] = [];
+   answer[book1].push(createNomination1_1());
+   answer[book1].push(createNomination1_2());
 
-         return answer;
-      }
+   var book2 = createBook2();
+   answer[book2] = [];
 
-      function createNomination0()
-      {
-         var awardKey = Award.BARRY;
-         var award = Award.properties[awardKey];
-         var categoryKey = award.categories.NOVEL;
-         var category = award.categories.properties[categoryKey];
+   return answer;
+}
 
-         return new Nomination(award, category, 2017);
-      }
+function createNomination0()
+{
+   var awardKey = MysteryAward.BARRY;
+   var award = MysteryAward.properties[awardKey];
+   var categoryKey = award.categories.NOVEL;
+   var category = award.categories.properties[categoryKey];
 
-      function createNomination1_1()
-      {
-         var awardKey = Award.CRIME_AND_BEYOND;
-         var award = Award.properties[awardKey];
-         var categoryKey = award.categories.CASE;
-         var category = award.categories.properties[categoryKey];
+   return new Nomination(award, category, 2017);
+}
 
-         return new Nomination(award, category, 2016);
-      }
+function createNomination1_1()
+{
+   var awardKey = MysteryAward.CRIME_AND_BEYOND;
+   var award = MysteryAward.properties[awardKey];
+   var categoryKey = award.categories.CASE;
+   var category = award.categories.properties[categoryKey];
 
-      function createNomination1_2()
-      {
-         var awardKey = Award.DAGGER;
-         var award = Award.properties[awardKey];
-         var categoryKey = award.categories.STEEL;
-         var category = award.categories.properties[categoryKey];
+   return new Nomination(award, category, 2016);
+}
 
-         return new Nomination(award, category, 2017);
-      }
+function createNomination1_2()
+{
+   var awardKey = MysteryAward.DAGGER;
+   var award = MysteryAward.properties[awardKey];
+   var categoryKey = award.categories.STEEL;
+   var category = award.categories.properties[categoryKey];
 
-      function verifyBookToAssessment0(assert, bookToAssessment)
-      {
-         assert.ok(bookToAssessment);
-         assert.equal(Object.keys(bookToAssessment).length, 3);
-         assert.equal(bookToAssessment[createBook0()], Assessment.NONE);
-         assert.equal(bookToAssessment[createBook1()], Assessment.NONE);
-         assert.equal(bookToAssessment[createBook2()], Assessment.NOT_AVAILABLE);
-      }
+   return new Nomination(award, category, 2017);
+}
 
-      function verifyBookToAssessment1(assert, bookToAssessment)
-      {
-         assert.ok(bookToAssessment);
-         assert.equal(Object.keys(bookToAssessment).length, 3);
-         assert.equal(bookToAssessment[createBook0()], Assessment.NONE);
-         assert.equal(bookToAssessment[createBook1()], Assessment.NOT_ENOUGH_COPIES);
-         assert.equal(bookToAssessment[createBook2()], Assessment.NOT_AVAILABLE);
-      }
-   });
+function verifyBookToAssessment0(assert, bookToAssessment)
+{
+   assert.ok(bookToAssessment);
+   assert.equal(Object.keys(bookToAssessment).length, 3);
+   assert.equal(bookToAssessment[createBook0()], Assessment.NONE);
+   assert.equal(bookToAssessment[createBook1()], Assessment.NONE);
+   assert.equal(bookToAssessment[createBook2()], Assessment.NOT_AVAILABLE);
+}
+
+function verifyBookToAssessment1(assert, bookToAssessment)
+{
+   assert.ok(bookToAssessment);
+   assert.equal(Object.keys(bookToAssessment).length, 3);
+   assert.equal(bookToAssessment[createBook0()], Assessment.NONE);
+   assert.equal(bookToAssessment[createBook1()], Assessment.NOT_ENOUGH_COPIES);
+   assert.equal(bookToAssessment[createBook2()], Assessment.NOT_AVAILABLE);
+}
+
+var UserSettingsTest = {};
+export default UserSettingsTest;

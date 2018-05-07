@@ -1,89 +1,93 @@
-"use strict";
+import Assessment from "../artifact/Assessment.js";
+import MysteryAward from "../artifact/MysteryAward.js";
 
-define(["artifact/Assessment", "artifact/MysteryAward", "model/Book", "model/Nomination", "model/Action"],
-   function(Assessment, Award, Book, Nomination, Action)
-   {
-      QUnit.module("Action");
+import Action from "./Action.js";
+import Book from "./Book.js";
+import Nomination from "./Nomination.js";
 
-      QUnit.test("addBook()", function(assert)
-      {
-         // Setup.
-         var book = createBook1();
+QUnit.module("Action");
 
-         // Run.
-         var result = Action.addBook(book);
+QUnit.test("addBook()", function(assert)
+{
+   // Setup.
+   var book = createBook1();
 
-         // Verify.
-         assert.ok(result);
-         assert.equal(result.type, Action.ADD_BOOK);
-         assert.equal(result.book, book);
-      });
+   // Run.
+   var result = Action.addBook(book);
 
-      QUnit.test("addNomination()", function(assert)
-      {
-         // Setup.
-         var book = createBook1();
-         var nomination = createNomination1();
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.type, Action.ADD_BOOK);
+   assert.equal(result.book, book);
+});
 
-         // Run.
-         var result = Action.addNomination(book, nomination);
+QUnit.test("addNomination()", function(assert)
+{
+   // Setup.
+   var book = createBook1();
+   var nomination = createNomination1();
 
-         // Verify.
-         assert.ok(result);
-         assert.equal(result.type, Action.ADD_NOMINATION);
-         assert.equal(result.book, book);
-         assert.equal(result.nomination, nomination);
-      });
+   // Run.
+   var result = Action.addNomination(book, nomination);
 
-      QUnit.test("setAssessment()", function(assert)
-      {
-         // Setup.
-         var book = createBook1();
-         var assessment = Assessment.POSSIBLE_PICK;
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.type, Action.ADD_NOMINATION);
+   assert.equal(result.book, book);
+   assert.equal(result.nomination, nomination);
+});
 
-         // Run.
-         var result = Action.setAssessment(book, assessment);
+QUnit.test("setAssessment()", function(assert)
+{
+   // Setup.
+   var book = createBook1();
+   var assessment = Assessment.POSSIBLE_PICK;
 
-         // Verify.
-         assert.ok(result);
-         assert.equal(result.type, Action.SET_ASSESSMENT);
-         assert.equal(result.book, book);
-         assert.equal(result.assessment, assessment);
-      });
+   // Run.
+   var result = Action.setAssessment(book, assessment);
 
-      QUnit.test("setAssessments()", function(assert)
-      {
-         // Setup.
-         var book = createBook1();
-         var assessment = Assessment.POSSIBLE_PICK;
-         var bookToAssessment = {};
-         bookToAssessment[book] = assessment;
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.type, Action.SET_ASSESSMENT);
+   assert.equal(result.book, book);
+   assert.equal(result.assessment, assessment);
+});
 
-         // Run.
-         var result = Action.setAssessments(bookToAssessment);
+QUnit.test("setAssessments()", function(assert)
+{
+   // Setup.
+   var book = createBook1();
+   var assessment = Assessment.POSSIBLE_PICK;
+   var bookToAssessment = {};
+   bookToAssessment[book] = assessment;
 
-         // Verify.
-         assert.ok(result);
-         assert.equal(result.type, Action.SET_ASSESSMENTS);
-         assert.equal(result.bookToAssessment, bookToAssessment);
-      });
+   // Run.
+   var result = Action.setAssessments(bookToAssessment);
 
-      function createBook1()
-      {
-         var title = "A Dark and Stormy Night";
-         var author = "Noah Boddy";
+   // Verify.
+   assert.ok(result);
+   assert.equal(result.type, Action.SET_ASSESSMENTS);
+   assert.equal(result.bookToAssessment, bookToAssessment);
+});
 
-         return new Book(title, author);
-      }
+function createBook1()
+{
+   var title = "A Dark and Stormy Night";
+   var author = "Noah Boddy";
 
-      function createNomination1()
-      {
-         var awardKey = Award.AGATHA;
-         var award = Award.properties[awardKey];
-         var categoryKey = award.categories.CONTEMPORARY;
-         var category = award.categories.properties[categoryKey];
-         var year = 2016;
+   return new Book(title, author);
+}
 
-         return new Nomination(award, category, year);
-      }
-   });
+function createNomination1()
+{
+   var awardKey = MysteryAward.AGATHA;
+   var award = MysteryAward.properties[awardKey];
+   var categoryKey = award.categories.CONTEMPORARY;
+   var category = award.categories.properties[categoryKey];
+   var year = 2016;
+
+   return new Nomination(award, category, year);
+}
+
+var ActionTest = {};
+export default ActionTest;
