@@ -11,7 +11,7 @@ QUnit.test("MysteryInitialState()", function(assert)
 
    // Verify.
    assert.ok(result.books);
-   var length = 116;
+   var length = 122;
    assert.equal(result.books.length, length);
 
    assert.ok(result.bookToNomination);
@@ -20,7 +20,7 @@ QUnit.test("MysteryInitialState()", function(assert)
 
    assert.ok(result.bookToAssessment);
    assert.ok(result.bookToAssessment[result.books[0]]);
-   assert.equal(result.bookToAssessment[result.books[0]], Assessment.NONE);
+   assert.equal(result.bookToAssessment[result.books[0]], Assessment.NOT_AVAILABLE);
    assert.ok(result.bookToAssessment[result.books[length - 1]]);
    assert.equal(result.bookToAssessment[result.books[length - 1]], Assessment.NONE);
 

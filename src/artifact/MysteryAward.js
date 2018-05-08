@@ -176,27 +176,27 @@ MysteryAward.properties[MysteryAward.DAGGER].categories = {
    {
       "first":
       {
-         name: "New Blood Dagger Shortlist",
+         name: "New Blood Dagger",
          value: "first",
       },
       "gold":
       {
-         name: "Gold Dagger Shortlist",
+         name: "Gold Dagger",
          value: "gold",
       },
       "historical":
       {
-         name: "Historical Dagger Shortlist",
+         name: "Historical Dagger",
          value: "historical",
       },
       "international":
       {
-         name: "International Dagger Shortlist",
+         name: "International Dagger",
          value: "international",
       },
       "steel":
       {
-         name: "Ian Fleming Steel Dagger Shortlist",
+         name: "Ian Fleming Steel Dagger",
          value: "steel",
       },
    },

@@ -169,8 +169,12 @@ function SYKMNomineeFetcher(award, callback)
 
    function parseNomineeDagger(xmlFragment, year)
    {
-      LOGGER.trace("SYKMNomineeFetcher.parseNominee() start");
+      LOGGER.trace("SYKMNomineeFetcher.parseNomineeDagger() start");
       LOGGER.trace("xmlFragment = " + (new XMLSerializer()).serializeToString(xmlFragment));
+
+      // HACK start
+      year--;
+      // HACK end
 
       var xpath0 = "tbody/tr/th";
       var resultType0 = XPathResult.FIRST_ORDERED_NODE_TYPE;
@@ -205,7 +209,7 @@ function SYKMNomineeFetcher(award, callback)
          }
       }
 
-      LOGGER.trace("SYKMNomineeFetcher.parseNominee() end");
+      LOGGER.trace("SYKMNomineeFetcher.parseNomineeDagger() end");
    }
 
    function add(book, nomination)

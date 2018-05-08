@@ -145,8 +145,8 @@ QUnit.test("receiveData() Dagger", function(assert)
       assert.equal(books.length, 28);
 
       var i = 0;
-      assert.equal(books[i].title(), "The Beautiful Dead");
-      assert.equal(books[i].author(), "Belinda Bauer");
+      assert.equal(books[i].title(), "The Dry");
+      assert.equal(books[i].author(), "Jane Harper");
       var nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
@@ -155,7 +155,7 @@ QUnit.test("receiveData() Dagger", function(assert)
       var category = award.categories.properties[award.categories.GOLD];
       assert.equal(nominations[j].category(), category);
       assert.equal(nominations[j].year(), 2017);
-      assert.ok(!nominations[j].isWinner());
+      assert.ok(nominations[j].isWinner());
 
       i = books.length - 1;
       assert.equal(books[i].title(), "A Climate of Fear");

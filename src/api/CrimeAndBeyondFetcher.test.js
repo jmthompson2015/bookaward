@@ -16,8 +16,8 @@ QUnit.test("receiveData()", function(assert)
       assert.equal(books.length, length);
 
       var i = 0;
-      assert.equal(books[i].title(), "The Killer Next Door");
-      assert.equal(books[i].author(), "Alex Marwood");
+      assert.equal(books[i].title(), "The Crossing");
+      assert.equal(books[i].author(), "Michael Connelly");
       var nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
@@ -26,7 +26,7 @@ QUnit.test("receiveData()", function(assert)
       assert.equal(nominations[j].category(), category);
       assert.equal(nominations[j].year(), 2016);
 
-      i = 11;
+      i = 5;
       assert.equal(books[i].title(), "Fool Me Once");
       assert.equal(books[i].author(), "Harlan Coben");
       nominations = bookToNomination[books[i]];
@@ -38,8 +38,8 @@ QUnit.test("receiveData()", function(assert)
       assert.equal(nominations[j].year(), 2017);
 
       i = length - 1;
-      assert.equal(books[i].title(), "I See You");
-      assert.equal(books[i].author(), "Clare Mackintosh");
+      assert.equal(books[i].title(), "Two Kinds of Truth");
+      assert.equal(books[i].author(), "Michael Connelly");
       nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);

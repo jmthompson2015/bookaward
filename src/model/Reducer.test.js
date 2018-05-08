@@ -13,7 +13,7 @@ QUnit.test("addBook()", function(assert)
 {
    // Setup.
    var state = new InitialState();
-   var length = 116;
+   var length = 122;
    assert.equal(state.books.length, length);
    var book = createBook1();
    var action = Action.addBook(book);

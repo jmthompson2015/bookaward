@@ -40,12 +40,12 @@ function CrimeAndBeyondFetcher(callback)
       var titleAndAuthor = [
         // ["Blood On Snow", "Jo Nesbø"],
         // ["Crazy Love You", "Lisa Unger"],
-        ["The Killer Next Door", "Alex Marwood"],
-        ["The Stranger", "Harlan Coben"],
-        ["Vanishing Games", "Roger Hobbs"],
-        ["Make Me", "Lee Child"],
-        ["The Promise", "Robert Crais"],
-        ["The Guilty", "David Baldacci"],
+        // ["The Killer Next Door", "Alex Marwood"],
+        // ["The Stranger", "Harlan Coben"],
+        // ["Vanishing Games", "Roger Hobbs"],
+        // ["Make Me", "Lee Child"],
+        // ["The Promise", "Robert Crais"],
+        // ["The Guilty", "David Baldacci"],
         ["The Crossing", "Michael Connelly"],
         ["The Travelers", "Chris Pavone"],
         ["Redemption Road", "John Hart"],
@@ -74,6 +74,12 @@ function CrimeAndBeyondFetcher(callback)
       titleAndAuthor = [
         ["Every Last Lie", "Mary Kubica"],
         ["I See You", "Clare Mackintosh"],
+        ["The Couple Next Door", "Shari Lapena"],
+        ["The Late Show", "Michael Connelly"],
+        ["Crime Scene", "Jonathan and Jesse Kellerman"],
+        ["Hellbent", "Gregg Hurwitz"],
+        ["I Know a Secret", "Tess Gerritsen"],
+        ["Two Kinds of Truth", "Michael Connelly"],
       ];
       addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
 

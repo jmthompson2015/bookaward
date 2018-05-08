@@ -13,7 +13,7 @@ QUnit.test("addBook()", function(assert)
 {
    // Setup.
    var state = new SciFiInitialState();
-   var length = 155;
+   var length = 92;
    assert.equal(state.books.length, length);
    var book = createBook1();
    var action = Action.addBook(book);
