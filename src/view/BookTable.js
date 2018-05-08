@@ -12,7 +12,7 @@ import Select from "./Select.js";
 var BookColumns = [
    {
       key: "assessment",
-      label: "artifact/Assessment",
+      label: "Assessment",
       className: "textCell",
    },
    {

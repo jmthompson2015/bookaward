@@ -4,9 +4,7 @@ import Action from "../model/Action.js";
 import Reducer from "../model/SciFiReducer.js";
 import UserSettings from "../model/UserSettings.js";
 
-import BookTable from "../view/BookTable.js";
-
-import Connector from "./Connector.js";
+import BookTableContainer from "./BookTableContainer.js";
 
 window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
@@ -14,11 +12,10 @@ LOGGER.setDebugEnabled(false);
 
 var store = Redux.createStore(Reducer.root);
 
-var connector = ReactRedux.connect(Connector.BookTable.mapStateToProps)(BookTable);
 var element = React.createElement(ReactRedux.Provider,
 {
    store: store,
-}, React.createElement(connector));
+}, React.createElement(BookTableContainer));
 
 ReactDOM.render(element, document.getElementById("bookTablePanel"));
 
