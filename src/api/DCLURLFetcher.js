@@ -2,7 +2,7 @@ import InputValidator from "../utility/InputValidator.js";
 
 import Library from "../artifact/Library.js";
 
-import UrlGenerator from "../view/UrlGenerator.js";
+import UrlGenerator from "../model/UrlGenerator.js";
 
 function DCLURLFetcher(book, callback)
 {

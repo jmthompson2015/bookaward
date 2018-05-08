@@ -5,9 +5,9 @@ import Library from "../artifact/Library.js";
 
 import Action from "../model/Action.js";
 import BookComparator from "../model/BookComparator.js";
+import UrlGenerator from "../model/UrlGenerator.js";
 
 import Select from "./Select.js";
-import UrlGenerator from "./UrlGenerator.js";
 
 var BookColumns = [
    {
