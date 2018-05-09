@@ -1,20 +1,22 @@
 import MysteryAward from "../artifact/MysteryAward.js";
 
-import NomineeFetcher from "./SYKMNomineeFetcher.js";
+import SYKMNomineeFetcher from "./SYKMNomineeFetcher.js";
 
 QUnit.module("SYKMNomineeFetcher");
 
-QUnit.test("receiveData() Agatha", function(assert)
+QUnit.test("fetchData() Agatha", function(assert)
 {
    // Setup.
    var award = MysteryAward.properties[MysteryAward.AGATHA];
    var callback = function(books, bookToNomination)
    {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 15);
 
       var i = 0;
-      assert.equal(books[i].title(), "A Great Reckoning");
+      assert.equal(books[i].title(), "Glass Houses");
       assert.equal(books[i].author(), "Louise Penny");
       var nominations = bookToNomination[books[i]];
       assert.ok(nominations);
@@ -23,12 +25,12 @@ QUnit.test("receiveData() Agatha", function(assert)
       assert.equal(nominations[j].award(), award);
       var category = award.categories.properties[award.categories.CONTEMPORARY];
       assert.equal(nominations[j].category(), category);
-      assert.equal(nominations[j].year(), 2016);
+      assert.equal(nominations[j].year(), 2017);
       assert.ok(nominations[j].isWinner());
 
       i = books.length - 1;
-      assert.equal(books[i].title(), "Design for Dying");
-      assert.equal(books[i].author(), "Renee Patrick");
+      assert.equal(books[i].title(), "Protocol");
+      assert.equal(books[i].author(), "Kathleen Valenti");
       nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
@@ -36,31 +38,31 @@ QUnit.test("receiveData() Agatha", function(assert)
       assert.equal(nominations[j].award(), award);
       category = award.categories.properties[award.categories.FIRST];
       assert.equal(nominations[j].category(), category);
-      assert.equal(nominations[j].year(), 2016);
+      assert.equal(nominations[j].year(), 2017);
       assert.ok(!nominations[j].isWinner());
+      done();
    };
-   var fetcher = new NomineeFetcher(award, callback);
-   var xmlDocument = load(award.name);
+   var fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   fetcher.receiveData(xmlDocument);
-
-   // Verify.
-   assert.ok(true);
+   var done = assert.async();
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() Anthony", function(assert)
+QUnit.test("fetchData() Anthony", function(assert)
 {
    // Setup.
    var award = MysteryAward.properties[MysteryAward.ANTHONY];
    var callback = function(books, bookToNomination)
    {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 11);
 
       var i = 0;
-      assert.equal(books[i].title(), "You Will Know Me");
-      assert.equal(books[i].author(), "Megan Abbott");
+      assert.equal(books[i].title(), "A Great Reckoning");
+      assert.equal(books[i].author(), "Louise Penny");
       var nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
@@ -71,8 +73,8 @@ QUnit.test("receiveData() Anthony", function(assert)
       assert.equal(nominations[j].year(), 2017);
 
       i = books.length - 1;
-      assert.equal(books[i].title(), "Heart of Stone");
-      assert.equal(books[i].author(), "James W. Ziskin");
+      assert.equal(books[i].title(), "How To Kill Friends and Implicate People");
+      assert.equal(books[i].author(), "Jay Stringer");
       nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
@@ -81,29 +83,29 @@ QUnit.test("receiveData() Anthony", function(assert)
       category = award.categories.properties[award.categories.PAPERBACK];
       assert.equal(nominations[j].category(), category);
       assert.equal(nominations[j].year(), 2017);
+      done();
    };
-   var fetcher = new NomineeFetcher(award, callback);
-   var xmlDocument = load(award.name);
+   var fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   fetcher.receiveData(xmlDocument);
-
-   // Verify.
-   assert.ok(true);
+   var done = assert.async();
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() Barry", function(assert)
+QUnit.test("fetchData() Barry", function(assert)
 {
    // Setup.
    var award = MysteryAward.properties[MysteryAward.BARRY];
    var callback = function(books, bookToNomination)
    {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 24);
 
       var i = 0;
-      assert.equal(books[i].title(), "Where It Hurts");
-      assert.equal(books[i].author(), "Reed Farrel Coleman");
+      assert.equal(books[i].title(), "The Late Show");
+      assert.equal(books[i].author(), "Michael Connelly");
       var nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
@@ -111,11 +113,11 @@ QUnit.test("receiveData() Barry", function(assert)
       assert.equal(nominations[j].award(), award);
       var category = award.categories.properties[award.categories.NOVEL];
       assert.equal(nominations[j].category(), category);
-      assert.equal(nominations[j].year(), 2017);
+      assert.equal(nominations[j].year(), 2018);
 
       i = books.length - 1;
-      assert.equal(books[i].title(), "Collecting the Dead");
-      assert.equal(books[i].author(), "Spencer Kope");
+      assert.equal(books[i].title(), "The Old Man");
+      assert.equal(books[i].author(), "Thomas Perry");
       nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
@@ -123,24 +125,24 @@ QUnit.test("receiveData() Barry", function(assert)
       assert.equal(nominations[j].award(), award);
       category = award.categories.properties[award.categories.THRILLER];
       assert.equal(nominations[j].category(), category);
-      assert.equal(nominations[j].year(), 2017);
+      assert.equal(nominations[j].year(), 2018);
+      done();
    };
-   var fetcher = new NomineeFetcher(award, callback);
-   var xmlDocument = load(award.name);
+   var fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   fetcher.receiveData(xmlDocument);
-
-   // Verify.
-   assert.ok(true);
+   var done = assert.async();
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() Dagger", function(assert)
+QUnit.test("fetchData() Dagger", function(assert)
 {
    // Setup.
    var award = MysteryAward.properties[MysteryAward.DAGGER];
    var callback = function(books, bookToNomination)
    {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 28);
 
@@ -169,29 +171,29 @@ QUnit.test("receiveData() Dagger", function(assert)
       assert.equal(nominations[j].category(), category);
       assert.equal(nominations[j].year(), 2017);
       assert.ok(!nominations[j].isWinner());
+      done();
    };
-   var fetcher = new NomineeFetcher(award, callback);
-   var xmlDocument = load(award.name);
+   var fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   fetcher.receiveData(xmlDocument);
-
-   // Verify.
-   assert.ok(true);
+   var done = assert.async();
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() Edgar", function(assert)
+QUnit.test("fetchData() Edgar", function(assert)
 {
    // Setup.
    var award = MysteryAward.properties[MysteryAward.EDGAR];
    var callback = function(books, bookToNomination)
    {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
       assert.ok(books);
-      assert.equal(books.length, 17);
+      assert.equal(books.length, 16);
 
       var i = 0;
-      assert.equal(books[i].title(), "Before the Fall");
-      assert.equal(books[i].author(), "Noah Hawley");
+      assert.equal(books[i].title(), "Bluebird, Bluebird");
+      assert.equal(books[i].author(), "Attica Locke");
       var nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
@@ -199,11 +201,11 @@ QUnit.test("receiveData() Edgar", function(assert)
       assert.equal(nominations[j].award(), award);
       var category = award.categories.properties[award.categories.NOVEL];
       assert.equal(nominations[j].category(), category);
-      assert.equal(nominations[j].year(), 2017);
+      assert.equal(nominations[j].year(), 2018);
 
       i = books.length - 1;
-      assert.equal(books[i].title(), "Heart of Stone");
-      assert.equal(books[i].author(), "James W. Ziskin");
+      assert.equal(books[i].title(), "The Rules of Backyard Cricket");
+      assert.equal(books[i].author(), "Jock Serong");
       nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
@@ -211,24 +213,24 @@ QUnit.test("receiveData() Edgar", function(assert)
       assert.equal(nominations[j].award(), award);
       category = award.categories.properties[award.categories.PAPERBACK];
       assert.equal(nominations[j].category(), category);
-      assert.equal(nominations[j].year(), 2017);
+      assert.equal(nominations[j].year(), 2018);
+      done();
    };
-   var fetcher = new NomineeFetcher(award, callback);
-   var xmlDocument = load(award.name);
+   var fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   fetcher.receiveData(xmlDocument);
-
-   // Verify.
-   assert.ok(true);
+   var done = assert.async();
+   fetcher.fetchData();
 });
 
-QUnit.skip("receiveData() Nero", function(assert)
+QUnit.skip("fetchData() Nero", function(assert)
 {
    // Setup.
    var award = MysteryAward.properties[MysteryAward.NERO];
    var callback = function(books, bookToNomination)
    {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 15);
 
@@ -255,23 +257,23 @@ QUnit.skip("receiveData() Nero", function(assert)
       category = award.categories.properties[award.categories.FIRST];
       assert.equal(nominations[j].category(), category);
       assert.equal(nominations[j].year(), 2015);
+      done();
    };
-   var fetcher = new NomineeFetcher(award, callback);
-   var xmlDocument = load(award.name);
+   var fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   fetcher.receiveData(xmlDocument);
-
-   // Verify.
-   assert.ok(true);
+   var done = assert.async();
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() Shamus", function(assert)
+QUnit.test("fetchData() Shamus", function(assert)
 {
    // Setup.
    var award = MysteryAward.properties[MysteryAward.SHAMUS];
    var callback = function(books, bookToNomination)
    {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 15);
 
@@ -298,28 +300,14 @@ QUnit.test("receiveData() Shamus", function(assert)
       category = award.categories.properties[award.categories.FIRST];
       assert.equal(nominations[j].category(), category);
       assert.equal(nominations[j].year(), 2017);
+      done();
    };
-   var fetcher = new NomineeFetcher(award, callback);
-   var xmlDocument = load(award.name);
+   var fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   fetcher.receiveData(xmlDocument);
-
-   // Verify.
-   assert.ok(true);
+   var done = assert.async();
+   fetcher.fetchData();
 });
-
-function load(name)
-{
-   var request = new XMLHttpRequest();
-   var url = "../resource/testdoc/" + name + ".xml";
-   LOGGER.debug("url = " + url);
-   var isAsync = false;
-   request.open("GET", url, isAsync);
-   request.send();
-
-   return request.responseXML;
-}
 
 var SYKMNomineeFetcherTest = {};
 export default SYKMNomineeFetcherTest;

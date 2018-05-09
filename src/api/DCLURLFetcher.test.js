@@ -4,7 +4,7 @@ import DCLURLFetcher from "./DCLURLFetcher.js";
 
 QUnit.module("DCLURLFetcher");
 
-QUnit.test("receiveData() 0", function(assert)
+QUnit.test("fetchData() 0", function(assert)
 {
    // Setup.
    var book = createBook0();
@@ -17,14 +17,13 @@ QUnit.test("receiveData() 0", function(assert)
       done();
    };
    var fetcher = new DCLURLFetcher(book, callback);
-   var xmlDocument = load(book);
 
    // Run.
    var done = assert.async();
-   fetcher.receiveData(xmlDocument);
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() 1", function(assert)
+QUnit.test("fetchData() 1", function(assert)
 {
    // Setup.
    var book = createBook1();
@@ -36,14 +35,13 @@ QUnit.test("receiveData() 1", function(assert)
       done();
    };
    var fetcher = new DCLURLFetcher(book, callback);
-   var xmlDocument = load(book);
 
    // Run.
    var done = assert.async();
-   fetcher.receiveData(xmlDocument);
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() 2", function(assert)
+QUnit.test("fetchData() 2", function(assert)
 {
    // Setup.
    var book = createBook2();
@@ -56,14 +54,13 @@ QUnit.test("receiveData() 2", function(assert)
       done();
    };
    var fetcher = new DCLURLFetcher(book, callback);
-   var xmlDocument = load(book);
 
    // Run.
    var done = assert.async();
-   fetcher.receiveData(xmlDocument);
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() 3", function(assert)
+QUnit.test("fetchData() 3", function(assert)
 {
    // Setup.
    var book = createBook3();
@@ -76,14 +73,13 @@ QUnit.test("receiveData() 3", function(assert)
       done();
    };
    var fetcher = new DCLURLFetcher(book, callback);
-   var xmlDocument = load(book);
 
    // Run.
    var done = assert.async();
-   fetcher.receiveData(xmlDocument);
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() 4", function(assert)
+QUnit.test("fetchData() 4", function(assert)
 {
    // Setup.
    var book = createBook4();
@@ -95,14 +91,13 @@ QUnit.test("receiveData() 4", function(assert)
       done();
    };
    var fetcher = new DCLURLFetcher(book, callback);
-   var xmlDocument = load(book);
 
    // Run.
    var done = assert.async();
-   fetcher.receiveData(xmlDocument);
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() 5", function(assert)
+QUnit.test("fetchData() 5", function(assert)
 {
    // Setup.
    var book = createBook5();
@@ -115,11 +110,10 @@ QUnit.test("receiveData() 5", function(assert)
       done();
    };
    var fetcher = new DCLURLFetcher(book, callback);
-   var xmlDocument = load(book);
 
    // Run.
    var done = assert.async();
-   fetcher.receiveData(xmlDocument);
+   fetcher.fetchData();
 });
 
 function createBook0()
@@ -168,22 +162,6 @@ function createBook5()
    var author = "Noah Hawley";
 
    return new Book(title, author);
-}
-
-function load(book)
-{
-   var name = book.title();
-   name = name.replace(/ /g, "_");
-   name = name.replace(/\u2019/g, "");
-   name = name.replace(/'/g, "");
-   var request = new XMLHttpRequest();
-   var url = "../resource/testdoc/" + name + ".xml";
-   LOGGER.debug("url = " + url);
-   var isAsync = false;
-   request.open("GET", url, isAsync);
-   request.send();
-
-   return request.responseXML;
 }
 
 var DCLURLFetcherTest = {};

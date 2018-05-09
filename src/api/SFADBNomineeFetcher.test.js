@@ -4,13 +4,15 @@ import NomineeFetcher from "./SFADBNomineeFetcher.js";
 
 QUnit.module("SFADBNomineeFetcher");
 
-QUnit.test("receiveData() British Fantasy", function(assert)
+QUnit.test("fetchData() British Fantasy", function(assert)
 {
    // Setup.
    var award = SciFiAward.properties[SciFiAward.BRITISH_FANTASY];
    var year = 2016;
    var callback = function(books, bookToNomination)
    {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 12);
 
@@ -39,24 +41,24 @@ QUnit.test("receiveData() British Fantasy", function(assert)
       assert.equal(nominations[j].category(), category);
       assert.equal(nominations[j].year(), 2016);
       assert.ok(!nominations[j].isWinner());
+      done();
    };
    var fetcher = new NomineeFetcher(award, year, callback);
-   var xmlDocument = load("British_Fantasy");
 
    // Run.
-   fetcher.receiveData(xmlDocument);
-
-   // Verify.
-   assert.ok(true);
+   var done = assert.async();
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() British SF", function(assert)
+QUnit.test("fetchData() British SF", function(assert)
 {
    // Setup.
    var award = SciFiAward.properties[SciFiAward.BRITISH_SF];
    var year = 2016;
    var callback = function(books, bookToNomination)
    {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 5);
 
@@ -84,24 +86,24 @@ QUnit.test("receiveData() British SF", function(assert)
       assert.equal(nominations[j].category(), category);
       assert.equal(nominations[j].year(), 2016);
       assert.ok(!nominations[j].isWinner());
+      done();
    };
    var fetcher = new NomineeFetcher(award, year, callback);
-   var xmlDocument = load("British_SF");
 
    // Run.
-   fetcher.receiveData(xmlDocument);
-
-   // Verify.
-   assert.ok(true);
+   var done = assert.async();
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() Hugo", function(assert)
+QUnit.test("fetchData() Hugo", function(assert)
 {
    // Setup.
    var award = SciFiAward.properties[SciFiAward.HUGO];
    var year = 2016;
    var callback = function(books, bookToNomination)
    {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 5);
 
@@ -130,24 +132,24 @@ QUnit.test("receiveData() Hugo", function(assert)
       assert.equal(nominations[j].category(), category);
       assert.equal(nominations[j].year(), 2016);
       assert.ok(!nominations[j].isWinner());
+      done();
    };
    var fetcher = new NomineeFetcher(award, year, callback);
-   var xmlDocument = load(award.name);
 
    // Run.
-   fetcher.receiveData(xmlDocument);
-
-   // Verify.
-   assert.ok(true);
+   var done = assert.async();
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() Locus", function(assert)
+QUnit.test("fetchData() Locus", function(assert)
 {
    // Setup.
    var award = SciFiAward.properties[SciFiAward.LOCUS];
    var year = 2016;
    var callback = function(books, bookToNomination)
    {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 15);
 
@@ -174,24 +176,24 @@ QUnit.test("receiveData() Locus", function(assert)
       category = award.categories.properties[award.categories.FIRST];
       assert.equal(nominations[j].category(), category);
       assert.equal(nominations[j].year(), 2016);
+      done();
    };
    var fetcher = new NomineeFetcher(award, year, callback);
-   var xmlDocument = load(award.name);
 
    // Run.
-   fetcher.receiveData(xmlDocument);
-
-   // Verify.
-   assert.ok(true);
+   var done = assert.async();
+   fetcher.fetchData();
 });
 
-QUnit.test("receiveData() Nebula", function(assert)
+QUnit.test("fetchData() Nebula", function(assert)
 {
    // Setup.
    var award = SciFiAward.properties[SciFiAward.NEBULA];
    var year = 2016;
    var callback = function(books, bookToNomination)
    {
+      // Verify.
+      assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 7);
 
@@ -218,28 +220,14 @@ QUnit.test("receiveData() Nebula", function(assert)
       // category = award.categories.properties[award.categories.PAPERBACK];
       assert.equal(nominations[j].category(), category);
       assert.equal(nominations[j].year(), 2016);
+      done();
    };
    var fetcher = new NomineeFetcher(award, year, callback);
-   var xmlDocument = load(award.name);
 
    // Run.
-   fetcher.receiveData(xmlDocument);
-
-   // Verify.
-   assert.ok(true);
+   var done = assert.async();
+   fetcher.fetchData();
 });
-
-function load(name)
-{
-   var request = new XMLHttpRequest();
-   var url = "../resource/testdoc/" + name + ".xml";
-   LOGGER.debug("url = " + url);
-   var isAsync = false;
-   request.open("GET", url, isAsync);
-   request.send();
-
-   return request.responseXML;
-}
 
 var SFADBNomineeFetcherTest = {};
 export default SFADBNomineeFetcherTest;
