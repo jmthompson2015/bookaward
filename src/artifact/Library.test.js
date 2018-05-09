@@ -4,8 +4,8 @@ QUnit.module("Library");
 
 QUnit.test("Library properties DCL", function(assert)
 {
-   var statusKey = Library.DCL;
-   var status = Library.properties[statusKey];
+   const statusKey = Library.DCL;
+   const status = Library.properties[statusKey];
    assert.equal(status.name, "Douglas County Libraries");
    assert.equal(status.url, "http://www.douglascountylibraries.org");
    assert.equal(status.value, statusKey);
@@ -16,13 +16,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = Library.values();
-   var ownPropertyNames = Object.getOwnPropertyNames(Library);
+   const result = Library.values();
+   const ownPropertyNames = Object.getOwnPropertyNames(Library);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = Library[key];
+      const key2 = Library[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -32,7 +32,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return Library[key] === value;
       });
@@ -44,20 +44,20 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("values()", function(assert)
 {
    // Run.
-   var result = Library.values();
+   const result = Library.values();
 
    // Verify.
    assert.ok(result);
-   var length = 4;
+   const length = 4;
    assert.equal(result.length, length);
    assert.equal(result[0], "al");
    assert.equal(result[length - 1], "jcpl");
 
-   var properties = Object.getOwnPropertyNames(Library);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(Library);
+   const count = properties.length - 1 - // properties
       1; // values
    assert.equal(result.length, count);
 });
 
-var LibraryTest = {};
+const LibraryTest = {};
 export default LibraryTest;

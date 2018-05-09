@@ -7,11 +7,11 @@ QUnit.module("MysteryInitialState");
 QUnit.test("MysteryInitialState()", function(assert)
 {
    // Run.
-   var result = new MysteryInitialState();
+   const result = new MysteryInitialState();
 
    // Verify.
    assert.ok(result.books);
-   var length = 122;
+   const length = 122;
    assert.equal(result.books.length, length);
 
    assert.ok(result.bookToNomination);
@@ -31,5 +31,5 @@ QUnit.test("MysteryInitialState()", function(assert)
    //  assert.equal(result.bookToDclUrl[result.books[length - 1]], "https://dcl.bibliocommons.com/item/show/1317759114_you_will_know_me");
 });
 
-var MysteryInitialStateTest = {};
+const MysteryInitialStateTest = {};
 export default MysteryInitialStateTest;

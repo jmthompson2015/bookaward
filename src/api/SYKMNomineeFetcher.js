@@ -16,15 +16,15 @@ function SYKMNomineeFetcher(award, callback)
       return award;
    };
 
-   var books = [];
-   var bookToNomination = {};
-   var xmlDocument;
+   const books = [];
+   const bookToNomination = {};
+   let xmlDocument;
 
    this.fetchData = function()
    {
       LOGGER.trace("SYKMNomineeFetcher.fetchData() start");
 
-      var url = createUrl();
+      const url = createUrl();
       $.ajax(url).done(this.receiveData).fail(function(jqXHR, textStatus, errorThrown)
       {
          LOGGER.error(errorThrown);
@@ -42,7 +42,7 @@ function SYKMNomineeFetcher(award, callback)
       xmlDocument = xmlDocumentIn;
       LOGGER.trace("award = " + award.name);
       LOGGER.trace("xmlDocument = " + (new XMLSerializer()).serializeToString(xmlDocument));
-      var content = xmlDocument.children[0].children[0].children[0];
+      let content = xmlDocument.children[0].children[0].children[0];
       content = content.innerHTML;
       content = content.replace(/&lt;/g, "<");
       content = content.replace(/&gt;/g, ">");
@@ -56,11 +56,11 @@ function SYKMNomineeFetcher(award, callback)
 
    function createUrl()
    {
-      var baseUrl = "https://query.yahooapis.com/v1/public/yql?q=";
-      var sourceUrl = award.url;
+      const baseUrl = "https://query.yahooapis.com/v1/public/yql?q=";
+      const sourceUrl = award.url;
 
-      var query = "select * from htmlstring where url=\"" + sourceUrl + "\"";
-      var answer = baseUrl + encodeURIComponent(query) + "&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+      const query = "select * from htmlstring where url=\"" + sourceUrl + "\"";
+      const answer = baseUrl + encodeURIComponent(query) + "&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
       LOGGER.debug("url = " + answer);
 
       return answer;
@@ -68,7 +68,7 @@ function SYKMNomineeFetcher(award, callback)
 
    function forEachRow(rows, callback)
    {
-      var thisRow = rows.iterateNext();
+      let thisRow = rows.iterateNext();
 
       while (thisRow)
       {
@@ -83,9 +83,9 @@ function SYKMNomineeFetcher(award, callback)
       LOGGER.trace("SYKMNomineeFetcher.parse() start");
 
       // This gives the year set.
-      var xpath = "//p[@class='AuthorSub']/parent::td";
-      var resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
-      var rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
+      const xpath = "//p[@class='AuthorSub']/parent::td";
+      const resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
+      const rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
       forEachRow(rows, parseNominees);
 
       LOGGER.trace("SYKMNomineeFetcher.parse() end");
@@ -97,14 +97,14 @@ function SYKMNomineeFetcher(award, callback)
       LOGGER.trace("xmlFragment = " + (new XMLSerializer()).serializeToString(xmlFragment));
 
       // This gives the year.
-      var xpath0 = "p[@class='AuthorSub']";
-      var resultType0 = XPathResult.FIRST_ORDERED_NODE_TYPE;
-      var element = xmlDocument.evaluate(xpath0, xmlFragment, null, resultType0, null);
+      const xpath0 = "p[@class='AuthorSub']";
+      const resultType0 = XPathResult.FIRST_ORDERED_NODE_TYPE;
+      const element = xmlDocument.evaluate(xpath0, xmlFragment, null, resultType0, null);
       LOGGER.debug("element.singleNodeValue = " + element.singleNodeValue);
       LOGGER.debug("element.singleNodeValue.textContent = " + element.singleNodeValue.textContent);
-      var year = Number(element.singleNodeValue.textContent.trim().substring(0, 4));
+      const year = Number(element.singleNodeValue.textContent.trim().substring(0, 4));
       LOGGER.debug("year = " + year);
-      var callback;
+      let callback;
 
       if (award.value === MysteryAward.DAGGER)
       {
@@ -121,14 +121,14 @@ function SYKMNomineeFetcher(award, callback)
          };
       }
 
-      var maxTables = (award.value === MysteryAward.DAGGER ? 9 : 5);
+      const maxTables = (award.value === MysteryAward.DAGGER ? 9 : 5);
 
-      for (var j = 1; j < maxTables; j++)
+      for (let j = 1; j < maxTables; j++)
       {
          // This gives the year set.
-         var xpath = "table[" + j + "]";
-         var resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
-         var rows = xmlDocument.evaluate(xpath, xmlFragment, null, resultType, null);
+         const xpath = "table[" + j + "]";
+         const resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
+         const rows = xmlDocument.evaluate(xpath, xmlFragment, null, resultType, null);
          forEachRow(rows, callback);
       }
 
@@ -141,25 +141,25 @@ function SYKMNomineeFetcher(award, callback)
       LOGGER.trace("xmlFragment = " + (new XMLSerializer()).serializeToString(xmlFragment));
 
       // This gives the data cells (td).
-      var xpath = "tbody/tr/td";
-      var resultType = XPathResult.ORDERED_NODE_SNAPSHOT_TYPE;
-      var cells = xmlDocument.evaluate(xpath, xmlFragment, null, resultType, null);
-      for (var i = 0; i < cells.snapshotLength; i++)
+      const xpath = "tbody/tr/td";
+      const resultType = XPathResult.ORDERED_NODE_SNAPSHOT_TYPE;
+      const cells = xmlDocument.evaluate(xpath, xmlFragment, null, resultType, null);
+      for (let i = 0; i < cells.snapshotLength; i++)
       {
          LOGGER.debug(i + " snapshotItem = " + cells.snapshotItem(i).textContent);
       }
 
-      var category = parseCategory(cells.snapshotItem(0).textContent.trim());
+      const category = parseCategory(cells.snapshotItem(0).textContent.trim());
       LOGGER.debug("category = " + category);
 
       if (category !== undefined)
       {
-         for (var j = 2; j < cells.snapshotLength; j += 2)
+         for (let j = 2; j < cells.snapshotLength; j += 2)
          {
-            var isWinner = (cells.snapshotItem(j - 1).textContent.trim() === "*");
+            const isWinner = (cells.snapshotItem(j - 1).textContent.trim() === "*");
             LOGGER.debug("isWinner ? " + isWinner);
-            var book = parseBook(cells.snapshotItem(j).textContent.trim());
-            var nomination = new Nomination(award, category, year, isWinner);
+            const book = parseBook(cells.snapshotItem(j).textContent.trim());
+            const nomination = new Nomination(award, category, year, isWinner);
             add(book, nomination);
          }
       }
@@ -176,34 +176,34 @@ function SYKMNomineeFetcher(award, callback)
       year--;
       // HACK end
 
-      var xpath0 = "tbody/tr/th";
-      var resultType0 = XPathResult.FIRST_ORDERED_NODE_TYPE;
-      var element = xmlDocument.evaluate(xpath0, xmlFragment, null, resultType0, null);
+      const xpath0 = "tbody/tr/th";
+      const resultType0 = XPathResult.FIRST_ORDERED_NODE_TYPE;
+      const element = xmlDocument.evaluate(xpath0, xmlFragment, null, resultType0, null);
       LOGGER.debug("element.singleNodeValue = " + element.singleNodeValue);
 
       if (element.singleNodeValue)
       {
          LOGGER.debug("element.singleNodeValue.textContent = " + element.singleNodeValue.textContent);
-         var category = parseCategory(element.singleNodeValue.textContent.trim());
+         const category = parseCategory(element.singleNodeValue.textContent.trim());
          LOGGER.debug("category = " + category);
 
          if (category !== undefined)
          {
             // This gives the data cells (td).
-            var xpath = "tbody/tr/td";
-            var resultType = XPathResult.ORDERED_NODE_SNAPSHOT_TYPE;
-            var cells = xmlDocument.evaluate(xpath, xmlFragment, null, resultType, null);
-            for (var i = 0; i < cells.snapshotLength; i++)
+            const xpath = "tbody/tr/td";
+            const resultType = XPathResult.ORDERED_NODE_SNAPSHOT_TYPE;
+            const cells = xmlDocument.evaluate(xpath, xmlFragment, null, resultType, null);
+            for (let i = 0; i < cells.snapshotLength; i++)
             {
                LOGGER.debug(i + " snapshotItem = " + cells.snapshotItem(i).textContent);
             }
 
-            for (var j = 1; j < cells.snapshotLength; j += 2)
+            for (let j = 1; j < cells.snapshotLength; j += 2)
             {
-               var isWinner = (cells.snapshotItem(j - 1).textContent.trim() === "*");
+               const isWinner = (cells.snapshotItem(j - 1).textContent.trim() === "*");
                LOGGER.debug("isWinner ? " + isWinner);
-               var book = parseBook(cells.snapshotItem(j).textContent.trim());
-               var nomination = new Nomination(award, category, year, isWinner);
+               const book = parseBook(cells.snapshotItem(j).textContent.trim());
+               const nomination = new Nomination(award, category, year, isWinner);
                add(book, nomination);
             }
          }
@@ -222,7 +222,7 @@ function SYKMNomineeFetcher(award, callback)
          books.push(book);
          bookToNomination[book] = [];
       }
-      var nominations = bookToNomination[book];
+      const nominations = bookToNomination[book];
 
       if (!nominations.includes(nomination))
       {
@@ -234,9 +234,9 @@ function SYKMNomineeFetcher(award, callback)
    {
       InputValidator.validateNotNull("author", author);
 
-      var answer = author;
+      let answer = author;
 
-      var index = answer.indexOf("[");
+      const index = answer.indexOf("[");
 
       if (index >= 0)
       {
@@ -250,11 +250,11 @@ function SYKMNomineeFetcher(award, callback)
    {
       InputValidator.validateNotNull("titleAuthor", titleAuthor);
 
-      var myTitleAuthor = titleAuthor.replace(/\n/g, " ");
+      const myTitleAuthor = titleAuthor.replace(/\n/g, " ");
       LOGGER.debug("myTitleAuthor = " + myTitleAuthor);
-      var index = myTitleAuthor.lastIndexOf(" by ");
-      var title;
-      var author;
+      const index = myTitleAuthor.lastIndexOf(" by ");
+      let title;
+      let author;
 
       if (index >= 0)
       {
@@ -279,10 +279,10 @@ function SYKMNomineeFetcher(award, callback)
    {
       InputValidator.validateNotNull("categoryName", categoryName);
 
-      var myCategoryName = categoryName.replace("  ", " ");
+      let myCategoryName = categoryName.replace("  ", " ");
       myCategoryName = myCategoryName.replace(":", "");
       LOGGER.debug("myCategoryName = _" + myCategoryName + "_");
-      var properties = award.categories.properties;
+      const properties = award.categories.properties;
 
       return MysteryAward.findByName(properties, myCategoryName);
    }

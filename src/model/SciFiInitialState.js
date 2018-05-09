@@ -14,11 +14,11 @@ function SciFiInitialState()
    this.bookToNomination = {};
    this.bookToAssessment = {};
 
-   var britishFantasy = SciFiAward.properties.britishFantasy;
-   var britishSf = SciFiAward.properties.britishSf;
-   var hugo = SciFiAward.properties.hugo;
-   var locus = SciFiAward.properties.locus;
-   var nebula = SciFiAward.properties.nebula;
+   const britishFantasy = SciFiAward.properties.britishFantasy;
+   const britishSf = SciFiAward.properties.britishSf;
+   const hugo = SciFiAward.properties.hugo;
+   const locus = SciFiAward.properties.locus;
+   const nebula = SciFiAward.properties.nebula;
 
    this.books.push(new Book("13 Minutes", "Sarah Pinborough"));
    this.books.push(new Book("The Aeronaut's Windlass", "Jim Butcher"));
@@ -325,7 +325,7 @@ SciFiInitialState.prototype.initializeBookToNomination = function()
 
 SciFiInitialState.prototype.loadBookToAssessment = function()
 {
-   var myBookToAssessment = UserSettings.loadBookToAssessment();
+   const myBookToAssessment = UserSettings.loadBookToAssessment();
    ObjectUtilities.merge(this.bookToAssessment, myBookToAssessment);
 };
 

@@ -14,15 +14,15 @@ function DCLURLFetcher(book, callback)
       return book;
    };
 
-   var dclUrl;
-   var xmlDocument;
-   var BASE_URL = "https://dcl.bibliocommons.com";
+   let dclUrl;
+   let xmlDocument;
+   const BASE_URL = "https://dcl.bibliocommons.com";
 
    this.fetchData = function()
    {
       LOGGER.trace("DCLURLFetcher.fetchData() start");
 
-      var url = createUrl();
+      const url = createUrl();
       $.ajax(url).done(this.receiveData).fail(function(jqXHR, textStatus, errorThrown)
       {
          LOGGER.error(errorThrown);
@@ -40,7 +40,7 @@ function DCLURLFetcher(book, callback)
       xmlDocument = xmlDocumentIn;
       LOGGER.trace("book = " + book);
       LOGGER.trace("xmlDocument = " + (new XMLSerializer()).serializeToString(xmlDocument));
-      var content = xmlDocument.children[0].children[0].children[0];
+      let content = xmlDocument.children[0].children[0].children[0];
       if (content !== undefined)
       {
          content = content.innerHTML;
@@ -57,14 +57,14 @@ function DCLURLFetcher(book, callback)
 
    function createUrl()
    {
-      var baseUrl = "https://query.yahooapis.com/v1/public/yql?q=";
+      const baseUrl = "https://query.yahooapis.com/v1/public/yql?q=";
 
-      var library = Library.properties[Library.DCL];
-      var subject = book.toString();
-      var sourceUrl = UrlGenerator.createLibrarySearchUrl(library, subject);
+      const library = Library.properties[Library.DCL];
+      const subject = book.toString();
+      const sourceUrl = UrlGenerator.createLibrarySearchUrl(library, subject);
 
-      var query = "select * from htmlstring where url=\"" + sourceUrl + "\"";
-      var answer = baseUrl + encodeURIComponent(query) + "&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+      const query = "select * from htmlstring where url=\"" + sourceUrl + "\"";
+      const answer = baseUrl + encodeURIComponent(query) + "&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
       LOGGER.debug("url = " + answer);
 
       return answer;
@@ -75,10 +75,10 @@ function DCLURLFetcher(book, callback)
       LOGGER.trace("DCLURLFetcher.parse() start");
 
       // This gives the book set.
-      var xpath = "//span/text()[', Book' = substring(., string-length(.) - string-length(', Book') + 1)]/../../../../a/@href";
-      var resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
-      var rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
-      var row = rows.iterateNext();
+      const xpath = "//span/text()[', Book' = substring(., string-length(.) - string-length(', Book') + 1)]/../../../../a/@href";
+      const resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
+      const rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
+      const row = rows.iterateNext();
       LOGGER.trace("row = " + row);
 
       if (row)
@@ -103,18 +103,18 @@ function DCLURLFetcher(book, callback)
       LOGGER.trace("DCLURLFetcher.parse2() start");
 
       // This gives the book set.
-      var title = book.title;
+      let title = book.title;
       title = title.replace(/'/g, "");
       LOGGER.trace("title = " + title);
-      var xpath = "//span/text()['Book' = substring(., string-length(.) - string-length('Book') + 1)]/../../../../../../../../../../../..//a[text()='" + title + "']/@href";
-      var resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
-      var rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
-      var row = rows.iterateNext();
+      const xpath = "//span/text()['Book' = substring(., string-length(.) - string-length('Book') + 1)]/../../../../../../../../../../../..//a[text()='" + title + "']/@href";
+      const resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
+      const rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
+      let row = rows.iterateNext();
       LOGGER.trace("row = " + row);
 
       while (row)
       {
-         var myTitle = row.value;
+         const myTitle = row.value;
          LOGGER.trace("myTitle = " + myTitle);
 
          if (myTitle)

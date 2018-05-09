@@ -2,7 +2,7 @@ import BookTable from "../view/BookTable.js";
 
 function mapStateToProps(state)
 {
-   var nominees = [];
+   const nominees = [];
 
    state.books.forEach(function(book)
    {

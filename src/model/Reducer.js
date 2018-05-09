@@ -7,7 +7,7 @@ import Action from "./Action.js";
 import MysteryInitialState from "./MysteryInitialState.js";
 import UserSettings from "./UserSettings.js";
 
-var Reducer = {};
+const Reducer = {};
 
 Reducer.root = function(state, action)
 {
@@ -18,13 +18,13 @@ Reducer.root = function(state, action)
       return new MysteryInitialState();
    }
 
-   var newBookToAssessment, newBookToNomination;
+   let newBookToAssessment, newBookToNomination;
 
    switch (action.type)
    {
       case Action.ADD_BOOK:
          LOGGER.info("Reducer book = " + action.book);
-         var newBooks = [];
+         const newBooks = [];
          ArrayUtilities.addAll(newBooks, state.books);
          newBooks.push(action.book);
          newBookToNomination = Object.assign(

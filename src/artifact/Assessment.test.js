@@ -4,8 +4,8 @@ QUnit.module("Assessment");
 
 QUnit.test("Assessment properties Possible pick", function(assert)
 {
-   var assessmentKey = Assessment.POSSIBLE_PICK;
-   var assessment = Assessment.properties[assessmentKey];
+   const assessmentKey = Assessment.POSSIBLE_PICK;
+   const assessment = Assessment.properties[assessmentKey];
    assert.equal(assessment.name, "Possible pick");
    assert.equal(assessment.value, assessmentKey);
 });
@@ -15,13 +15,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = Assessment.values();
-   var ownPropertyNames = Object.getOwnPropertyNames(Assessment);
+   const result = Assessment.values();
+   const ownPropertyNames = Object.getOwnPropertyNames(Assessment);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = Assessment[key];
+      const key2 = Assessment[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -31,7 +31,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return Assessment[key] === value;
       });
@@ -43,20 +43,20 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("values()", function(assert)
 {
    // Run.
-   var result = Assessment.values();
+   const result = Assessment.values();
 
    // Verify.
    assert.ok(result);
-   var length = 7;
+   const length = 7;
    assert.equal(result.length, length);
    assert.equal(result[0], "bookClubPick");
    assert.equal(result[length - 1], "read");
 
-   var properties = Object.getOwnPropertyNames(Assessment);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(Assessment);
+   const count = properties.length - 1 - // properties
       1; // values
    assert.equal(result.length, count);
 });
 
-var AssessmentTest = {};
+const AssessmentTest = {};
 export default AssessmentTest;

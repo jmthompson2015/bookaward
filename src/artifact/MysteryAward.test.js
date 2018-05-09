@@ -4,8 +4,8 @@ QUnit.module("MysteryMysteryAward");
 
 QUnit.test("MysteryMysteryAward properties Agatha", function(assert)
 {
-   var statusKey = MysteryAward.AGATHA;
-   var status = MysteryAward.properties[statusKey];
+   const statusKey = MysteryAward.AGATHA;
+   const status = MysteryAward.properties[statusKey];
    assert.equal(status.name, "Agatha");
    assert.equal(status.value, statusKey);
 });
@@ -15,13 +15,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = MysteryAward.values();
-   var ownPropertyNames = Object.getOwnPropertyNames(MysteryAward);
+   const result = MysteryAward.values();
+   const ownPropertyNames = Object.getOwnPropertyNames(MysteryAward);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = MysteryAward[key];
+      const key2 = MysteryAward[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -31,7 +31,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return MysteryAward[key] === value;
       });
@@ -43,21 +43,21 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("values()", function(assert)
 {
    // Run.
-   var result = MysteryAward.values();
+   const result = MysteryAward.values();
 
    // Verify.
    assert.ok(result);
-   var length = 7;
+   const length = 7;
    assert.equal(result.length, length);
    assert.equal(result[0], "agatha");
    assert.equal(result[length - 1], "shamus");
 
-   var properties = Object.getOwnPropertyNames(MysteryAward);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(MysteryAward);
+   const count = properties.length - 1 - // properties
       1 - // values
       1; // findByName
    assert.equal(result.length, count);
 });
 
-var MysteryAwardTest = {};
+const MysteryAwardTest = {};
 export default MysteryAwardTest;

@@ -14,13 +14,13 @@ function MysteryInitialState()
    this.bookToNomination = {};
    this.bookToAssessment = {};
 
-   var agatha = MysteryAward.properties.agatha;
-   var anthony = MysteryAward.properties.anthony;
-   var barry = MysteryAward.properties.barry;
-   var crimeAndBeyond = MysteryAward.properties.crimeAndBeyond;
-   var dagger = MysteryAward.properties.dagger;
-   var edgar = MysteryAward.properties.edgar;
-   var shamus = MysteryAward.properties.shamus;
+   const agatha = MysteryAward.properties.agatha;
+   const anthony = MysteryAward.properties.anthony;
+   const barry = MysteryAward.properties.barry;
+   const crimeAndBeyond = MysteryAward.properties.crimeAndBeyond;
+   const dagger = MysteryAward.properties.dagger;
+   const edgar = MysteryAward.properties.edgar;
+   const shamus = MysteryAward.properties.shamus;
 
    this.books.push(new Book("Adrift", "Micki Browning"));
    this.books.push(new Book("The Ashes of Berlin", "Luke McCallin"));
@@ -400,7 +400,7 @@ MysteryInitialState.prototype.initializeBookToNomination = function()
 
 MysteryInitialState.prototype.loadBookToAssessment = function()
 {
-   var myBookToAssessment = UserSettings.loadBookToAssessment();
+   const myBookToAssessment = UserSettings.loadBookToAssessment();
    ObjectUtilities.merge(this.bookToAssessment, myBookToAssessment);
 };
 

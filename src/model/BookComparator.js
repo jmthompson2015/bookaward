@@ -1,14 +1,14 @@
 import InputValidator from "../utility/InputValidator.js";
 
-var BookComparator = {
+const BookComparator = {
    compare: function(a, b)
    {
       InputValidator.validateNotNull("a", a);
       InputValidator.validateNotNull("b", b);
 
-      var answer = 0;
-      var aString = BookComparator.prepareName(a.toString());
-      var bString = BookComparator.prepareName(b.toString());
+      let answer = 0;
+      const aString = BookComparator.prepareName(a.toString());
+      const bString = BookComparator.prepareName(b.toString());
 
       if (aString < bString)
       {
@@ -35,7 +35,7 @@ BookComparator.prepareName = function(string)
 {
    InputValidator.validateNotNull("string", string);
 
-   var answer = string;
+   let answer = string;
 
    answer = (answer.startsWith("A ") ? answer.replace("A ", "") : answer);
    answer = (answer.startsWith("The ") ? answer.replace("The ", "") : answer);

@@ -1,4 +1,4 @@
-var Library = {
+const Library = {
    AL: "al",
    DPL: "dpl",
    DCL: "dcl",

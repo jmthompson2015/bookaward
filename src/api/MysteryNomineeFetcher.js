@@ -16,23 +16,23 @@ LOGGER.setDebugEnabled(false);
 
 document.getElementById("statusBar0").innerHTML = "Loading...";
 
-var books = [];
-var bookToDclUrl = {};
-var bookToNomination = {};
-var count0 = 0;
-var count1 = 0;
-var missingCount = 0;
+const books = [];
+const bookToDclUrl = {};
+const bookToNomination = {};
+let count0 = 0;
+let count1 = 0;
+let missingCount = 0;
 
 MysteryAward.values().forEach(function(awardKey)
 {
-   var fetcher;
+   let fetcher;
    if (awardKey === MysteryAward.CRIME_AND_BEYOND)
    {
       fetcher = new CrimeAndBeyondFetcher(callback0);
    }
    else
    {
-      var award = MysteryAward.properties[awardKey];
+      const award = MysteryAward.properties[awardKey];
       fetcher = new NomineeFetcher(award, callback0);
    }
 
@@ -52,7 +52,7 @@ function callback0(newBooks, newBookToNomination)
    LOGGER.info("Object.keys(newBookToNomination).length = " + Object.keys(newBookToNomination).length);
    Object.keys(newBookToNomination).forEach(function(key)
    {
-      var nominations = bookToNomination[key];
+      let nominations = bookToNomination[key];
       if (nominations === undefined)
       {
          nominations = [];
@@ -74,7 +74,7 @@ function callback0(newBooks, newBookToNomination)
       // Sort the nominations.
       books.forEach(function(book)
       {
-         var nominations = bookToNomination[book];
+         const nominations = bookToNomination[book];
          if (nominations.length > 1)
          {
             nominations.sort(NominationComparator.compare);
@@ -84,7 +84,7 @@ function callback0(newBooks, newBookToNomination)
       // Fetch the Douglas County Libraries URLs.
       books.forEach(function(book)
       {
-         var fetcher = new DCLURLFetcher(book, callback1);
+         const fetcher = new DCLURLFetcher(book, callback1);
          setTimeout(fetcher.fetchData(), 500);
       });
    }
@@ -105,15 +105,15 @@ function callback1(book, dclUrl)
    {
       LOGGER.info("Object.keys(bookToDclUrl).length = " + Object.keys(bookToDclUrl).length);
       LOGGER.info("missingCount = " + missingCount);
-      var content = MysteryAward.values().reduce(function(previousValue, awardKey)
+      let content = MysteryAward.values().reduce(function(previousValue, awardKey)
       {
-         var awardString = "var " + awardKey + " = MysteryAward.properties." + awardKey + ";<br/>";
+         const awardString = "const " + awardKey + " = MysteryAward.properties." + awardKey + ";<br/>";
          return previousValue + awardString;
       }, "");
       content += "<br/>";
       content += books.reduce(function(previousValue, book)
       {
-         var bookString = "this.books.push(new Book(";
+         let bookString = "this.books.push(new Book(";
          bookString += "\"" + book.title + "\", ";
          bookString += "\"" + book.author + "\"));<br/>";
          return previousValue + bookString;
@@ -121,8 +121,8 @@ function callback1(book, dclUrl)
       content += "<br/>";
       content += books.reduce(function(previousValue, book, i)
       {
-         var bookString = "";
-         var dclUrl = bookToDclUrl[book];
+         let bookString = "";
+         const dclUrl = bookToDclUrl[book];
          if (dclUrl !== undefined)
          {
             bookString = "this.bookToDclUrl[this.books[" + i + "]] = ";
@@ -133,10 +133,10 @@ function callback1(book, dclUrl)
       content += "<br/>this.initializeBookToNomination();<br/><br/>";
       content += books.reduce(function(previousValue, book, i)
       {
-         var nominations = bookToNomination[book];
-         var nominationsString = nominations.reduce(function(previousValue2, nomination)
+         const nominations = bookToNomination[book];
+         const nominationsString = nominations.reduce(function(previousValue2, nomination)
          {
-            var nominationString = "this.bookToNomination[this.books[" + i + "]].push(new Nomination(";
+            let nominationString = "this.bookToNomination[this.books[" + i + "]].push(new Nomination(";
             nominationString += nomination.award.value + ", ";
             nominationString += nomination.award.value + ".categories.properties." + nomination.category.value + ", ";
             nominationString += nomination.year + ", ";

@@ -8,11 +8,11 @@ QUnit.module("NominationComparator");
 QUnit.test("compare()", function(assert)
 {
    // Setup.
-   var nomination0 = createNomination0();
-   var nomination1 = createNomination1();
-   var nomination2 = createNomination1();
-   var nomination3 = createNomination3();
-   var nomination4 = createNomination4();
+   const nomination0 = createNomination0();
+   const nomination1 = createNomination1();
+   const nomination2 = createNomination1();
+   const nomination3 = createNomination3();
+   const nomination4 = createNomination4();
 
    // Run / Verify.
    assert.equal(NominationComparator.compare(nomination0, nomination0), 0);
@@ -49,11 +49,11 @@ QUnit.test("compare()", function(assert)
 QUnit.test("equals()", function(assert)
 {
    // Setup.
-   var nomination0 = createNomination0();
-   var nomination1 = createNomination1();
-   var nomination2 = createNomination1();
-   var nomination3 = createNomination3();
-   var nomination4 = createNomination4();
+   const nomination0 = createNomination0();
+   const nomination1 = createNomination1();
+   const nomination2 = createNomination1();
+   const nomination3 = createNomination3();
+   const nomination4 = createNomination4();
 
    // Run / Verify.
    assert.equal(NominationComparator.equals(nomination0, nomination0), true);
@@ -89,44 +89,44 @@ QUnit.test("equals()", function(assert)
 
 function createNomination0()
 {
-   var awardKey = MysteryAward.AGATHA;
-   var award = MysteryAward.properties[awardKey];
-   var categoryKey = award.categories.FIRST;
-   var category = award.categories.properties[categoryKey];
-   var isWinner = true;
+   const awardKey = MysteryAward.AGATHA;
+   const award = MysteryAward.properties[awardKey];
+   const categoryKey = award.categories.FIRST;
+   const category = award.categories.properties[categoryKey];
+   const isWinner = true;
 
    return new Nomination(award, category, 2014, isWinner);
 }
 
 function createNomination1()
 {
-   var awardKey = MysteryAward.AGATHA;
-   var award = MysteryAward.properties[awardKey];
-   var categoryKey = award.categories.FIRST;
-   var category = award.categories.properties[categoryKey];
+   const awardKey = MysteryAward.AGATHA;
+   const award = MysteryAward.properties[awardKey];
+   const categoryKey = award.categories.FIRST;
+   const category = award.categories.properties[categoryKey];
 
    return new Nomination(award, category, 2014);
 }
 
 function createNomination3()
 {
-   var awardKey = MysteryAward.BARRY;
-   var award = MysteryAward.properties[awardKey];
-   var categoryKey = award.categories.FIRST;
-   var category = award.categories.properties[categoryKey];
+   const awardKey = MysteryAward.BARRY;
+   const award = MysteryAward.properties[awardKey];
+   const categoryKey = award.categories.FIRST;
+   const category = award.categories.properties[categoryKey];
 
    return new Nomination(award, category, 2015);
 }
 
 function createNomination4()
 {
-   var awardKey = MysteryAward.BARRY;
-   var award = MysteryAward.properties[awardKey];
-   var categoryKey = award.categories.FIRST;
-   var category = award.categories.properties[categoryKey];
+   const awardKey = MysteryAward.BARRY;
+   const award = MysteryAward.properties[awardKey];
+   const categoryKey = award.categories.FIRST;
+   const category = award.categories.properties[categoryKey];
 
    return new Nomination(award, category, 2016);
 }
 
-var NominationComparatorTest = {};
+const NominationComparatorTest = {};
 export default NominationComparatorTest;

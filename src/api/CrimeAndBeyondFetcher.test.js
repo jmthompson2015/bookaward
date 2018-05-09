@@ -7,21 +7,21 @@ QUnit.module("CrimeAndBeyondFetcher");
 QUnit.test("receiveData()", function(assert)
 {
    // Setup.
-   var award = MysteryAward.properties[MysteryAward.CRIME_AND_BEYOND];
-   var category = award.categories.properties[award.categories.CASE];
-   var callback = function(books, bookToNomination)
+   const award = MysteryAward.properties[MysteryAward.CRIME_AND_BEYOND];
+   const category = award.categories.properties[award.categories.CASE];
+   const callback = function(books, bookToNomination)
    {
       assert.ok(books);
-      var length = 24;
+      const length = 24;
       assert.equal(books.length, length);
 
-      var i = 0;
+      let i = 0;
       assert.equal(books[i].title, "The Crossing");
       assert.equal(books[i].author, "Michael Connelly");
-      var nominations = bookToNomination[books[i]];
+      let nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
-      var j = 0;
+      let j = 0;
       assert.equal(nominations[j].award, award);
       assert.equal(nominations[j].category, category);
       assert.equal(nominations[j].year, 2016);
@@ -51,7 +51,7 @@ QUnit.test("receiveData()", function(assert)
       assert.equal(nominations[j].year, 2018);
       assert.equal(nominations[j].isWinner, false);
    };
-   var fetcher = new CrimeAndBeyondFetcher(callback);
+   const fetcher = new CrimeAndBeyondFetcher(callback);
 
    // Run.
    fetcher.receiveData();
@@ -60,5 +60,5 @@ QUnit.test("receiveData()", function(assert)
    assert.ok(true);
 });
 
-var CrimeAndBeyondFetcherTest = {};
+const CrimeAndBeyondFetcherTest = {};
 export default CrimeAndBeyondFetcherTest;

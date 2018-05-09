@@ -12,14 +12,14 @@ QUnit.module("SciFiReducer");
 QUnit.test("addBook()", function(assert)
 {
    // Setup.
-   var state = new SciFiInitialState();
-   var length = 92;
+   const state = new SciFiInitialState();
+   const length = 92;
    assert.equal(state.books.length, length);
-   var book = createBook1();
-   var action = Action.addBook(book);
+   const book = createBook1();
+   const action = Action.addBook(book);
 
    // Run.
-   var result = SciFiReducer.root(state, action);
+   const result = SciFiReducer.root(state, action);
 
    // Verify.
    assert.ok(result);
@@ -29,17 +29,17 @@ QUnit.test("addBook()", function(assert)
 QUnit.test("addNomination()", function(assert)
 {
    // Setup.
-   var state = new SciFiInitialState();
-   var book = createBook1();
+   let state = new SciFiInitialState();
+   const book = createBook1();
    state = SciFiReducer.root(state, Action.addBook(book));
-   var nomination = createNomination1();
+   const nomination = createNomination1();
    assert.ok(state.bookToNomination[book]);
    assert.ok(Array.isArray(state.bookToNomination[book]));
    assert.equal(state.bookToNomination[book].length, 0);
-   var action = Action.addNomination(book, nomination);
+   const action = Action.addNomination(book, nomination);
 
    // Run.
-   var result = SciFiReducer.root(state, action);
+   const result = SciFiReducer.root(state, action);
 
    // Verify.
    assert.ok(result);
@@ -52,15 +52,15 @@ QUnit.test("addNomination()", function(assert)
 QUnit.test("setAssessment()", function(assert)
 {
    // Setup.
-   var state = new SciFiInitialState();
-   var book = createBook1();
+   let state = new SciFiInitialState();
+   const book = createBook1();
    state = SciFiReducer.root(state, Action.addBook(book));
-   var assessment = Assessment.POSSIBLE_PICK;
+   const assessment = Assessment.POSSIBLE_PICK;
    assert.equal(state.bookToAssessment[book], Assessment.NONE);
-   var action = Action.setAssessment(book, assessment);
+   const action = Action.setAssessment(book, assessment);
 
    // Run.
-   var result = SciFiReducer.root(state, action);
+   const result = SciFiReducer.root(state, action);
 
    // Verify.
    assert.ok(result);
@@ -69,22 +69,22 @@ QUnit.test("setAssessment()", function(assert)
 
 function createBook1()
 {
-   var title = "A Dark and Stormy Night";
-   var author = "Noah Boddy";
+   const title = "A Dark and Stormy Night";
+   const author = "Noah Boddy";
 
    return new Book(title, author);
 }
 
 function createNomination1()
 {
-   var awardKey = SciFiAward.HUGO;
-   var award = SciFiAward.properties[awardKey];
-   var categoryKey = award.categories.NOVEL;
-   var category = award.categories.properties[categoryKey];
-   var year = 2016;
+   const awardKey = SciFiAward.HUGO;
+   const award = SciFiAward.properties[awardKey];
+   const categoryKey = award.categories.NOVEL;
+   const category = award.categories.properties[categoryKey];
+   const year = 2016;
 
    return new Nomination(award, category, year);
 }
 
-var SciFiReducerTest = {};
+const SciFiReducerTest = {};
 export default SciFiReducerTest;

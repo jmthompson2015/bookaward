@@ -17,15 +17,15 @@ class Select extends React.Component
 
    render()
    {
-      var values = this.props.values;
+      const values = this.props.values;
       InputValidator.validateNotEmpty("values", values);
 
-      var selectProps = {
+      const selectProps = {
          value: this.state.selectedValue,
          onChange: this.handleChange.bind(this),
       };
 
-      var clientProps = this.props.clientProps;
+      const clientProps = this.props.clientProps;
 
       if (clientProps)
       {
@@ -35,13 +35,13 @@ class Select extends React.Component
          });
       }
 
-      var labelFunction = this.props.labelFunction;
-      var options = [];
+      const labelFunction = this.props.labelFunction;
+      const options = [];
 
-      for (var i = 0; i < values.length; i++)
+      for (let i = 0; i < values.length; i++)
       {
-         var value = values[i];
-         var label = (labelFunction ? labelFunction(value) : value);
+         const value = values[i];
+         const label = (labelFunction ? labelFunction(value) : value);
 
          options.push(ReactDOMFactories.option(
          {
@@ -60,7 +60,7 @@ class Select extends React.Component
          selectedValue: event.target.value,
       });
 
-      var onChange = this.props.onChange;
+      const onChange = this.props.onChange;
 
       if (onChange)
       {

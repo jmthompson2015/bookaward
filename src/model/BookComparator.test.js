@@ -6,10 +6,10 @@ QUnit.module("BookComparator");
 QUnit.test("compare()", function(assert)
 {
    // Setup.
-   var book0 = new Book("A", "Alpha");
-   var book1 = new Book("B", "Bravo");
-   var book2 = new Book("C", "Charlie");
-   var book3 = new Book("A", "Alpha");
+   const book0 = new Book("A", "Alpha");
+   const book1 = new Book("B", "Bravo");
+   const book2 = new Book("C", "Charlie");
+   const book3 = new Book("A", "Alpha");
 
    // Run / Verify.
    assert.equal(BookComparator.compare(book0, book0), 0);
@@ -36,10 +36,10 @@ QUnit.test("compare()", function(assert)
 QUnit.test("equals()", function(assert)
 {
    // Setup.
-   var book0 = new Book("A", "Alpha");
-   var book1 = new Book("B", "Bravo");
-   var book2 = new Book("C", "Charlie");
-   var book3 = new Book("A", "Alpha");
+   const book0 = new Book("A", "Alpha");
+   const book1 = new Book("B", "Bravo");
+   const book2 = new Book("C", "Charlie");
+   const book3 = new Book("A", "Alpha");
 
    // Run / Verify.
    assert.equal(BookComparator.equals(book0, book0), true);
@@ -63,5 +63,5 @@ QUnit.test("equals()", function(assert)
    assert.equal(BookComparator.equals(book3, book3), true);
 });
 
-var BookComparatorTest = {};
+const BookComparatorTest = {};
 export default BookComparatorTest;

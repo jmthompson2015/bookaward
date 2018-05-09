@@ -1,6 +1,6 @@
 import InputValidator from "../utility/InputValidator.js";
 
-var Action = {};
+const Action = {};
 
 Action.ADD_BOOK = "addBook";
 Action.ADD_NOMINATION = "addNomination";

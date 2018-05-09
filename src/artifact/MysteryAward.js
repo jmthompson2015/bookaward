@@ -1,4 +1,4 @@
-var MysteryAward = {
+const MysteryAward = {
    AGATHA: "agatha",
    ANTHONY: "anthony",
    BARRY: "barry",
@@ -264,13 +264,13 @@ MysteryAward.properties[MysteryAward.SHAMUS].categories = {
 
 MysteryAward.findByName = function(properties, name)
 {
-   var answer;
-   var values = Object.getOwnPropertyNames(properties);
+   let answer;
+   const values = Object.getOwnPropertyNames(properties);
 
-   for (var i = 0; i < values.length; i++)
+   for (let i = 0; i < values.length; i++)
    {
-      var entryKey = values[i];
-      var entry = properties[entryKey];
+      const entryKey = values[i];
+      const entry = properties[entryKey];
 
       if (entry.name === name)
       {

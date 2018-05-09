@@ -5,7 +5,7 @@ QUnit.module("SciFiInitialState");
 QUnit.test("SciFiInitialState()", function(assert)
 {
    // Run.
-   var result = new SciFiInitialState();
+   const result = new SciFiInitialState();
 
    // Verify.
    assert.ok(result.books);
@@ -18,5 +18,5 @@ QUnit.test("SciFiInitialState()", function(assert)
    assert.ok(result.bookToAssessment[result.books[result.books.length - 1]]);
 });
 
-var SciFiInitialStateTest = {};
+const SciFiInitialStateTest = {};
 export default SciFiInitialStateTest;

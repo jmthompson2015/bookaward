@@ -7,23 +7,23 @@ QUnit.module("SYKMNomineeFetcher");
 QUnit.test("fetchData() Agatha", function(assert)
 {
    // Setup.
-   var award = MysteryAward.properties[MysteryAward.AGATHA];
-   var callback = function(books, bookToNomination)
+   const award = MysteryAward.properties[MysteryAward.AGATHA];
+   const callback = function(books, bookToNomination)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 15);
 
-      var i = 0;
+      let i = 0;
       assert.equal(books[i].title, "Glass Houses");
       assert.equal(books[i].author, "Louise Penny");
-      var nominations = bookToNomination[books[i]];
+      let nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
-      var j = 0;
+      let j = 0;
       assert.equal(nominations[j].award, award);
-      var category = award.categories.properties[award.categories.CONTEMPORARY];
+      let category = award.categories.properties[award.categories.CONTEMPORARY];
       assert.equal(nominations[j].category, category);
       assert.equal(nominations[j].year, 2017);
       assert.ok(nominations[j].isWinner);
@@ -42,33 +42,33 @@ QUnit.test("fetchData() Agatha", function(assert)
       assert.ok(!nominations[j].isWinner);
       done();
    };
-   var fetcher = new SYKMNomineeFetcher(award, callback);
+   const fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    fetcher.fetchData();
 });
 
 QUnit.test("fetchData() Anthony", function(assert)
 {
    // Setup.
-   var award = MysteryAward.properties[MysteryAward.ANTHONY];
-   var callback = function(books, bookToNomination)
+   const award = MysteryAward.properties[MysteryAward.ANTHONY];
+   const callback = function(books, bookToNomination)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 11);
 
-      var i = 0;
+      let i = 0;
       assert.equal(books[i].title, "A Great Reckoning");
       assert.equal(books[i].author, "Louise Penny");
-      var nominations = bookToNomination[books[i]];
+      let nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
-      var j = 0;
+      let j = 0;
       assert.equal(nominations[j].award, award);
-      var category = award.categories.properties[award.categories.MYSTERY];
+      let category = award.categories.properties[award.categories.MYSTERY];
       assert.equal(nominations[j].category, category);
       assert.equal(nominations[j].year, 2017);
 
@@ -85,33 +85,33 @@ QUnit.test("fetchData() Anthony", function(assert)
       assert.equal(nominations[j].year, 2017);
       done();
    };
-   var fetcher = new SYKMNomineeFetcher(award, callback);
+   const fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    fetcher.fetchData();
 });
 
 QUnit.test("fetchData() Barry", function(assert)
 {
    // Setup.
-   var award = MysteryAward.properties[MysteryAward.BARRY];
-   var callback = function(books, bookToNomination)
+   const award = MysteryAward.properties[MysteryAward.BARRY];
+   const callback = function(books, bookToNomination)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 24);
 
-      var i = 0;
+      let i = 0;
       assert.equal(books[i].title, "The Late Show");
       assert.equal(books[i].author, "Michael Connelly");
-      var nominations = bookToNomination[books[i]];
+      let nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
-      var j = 0;
+      let j = 0;
       assert.equal(nominations[j].award, award);
-      var category = award.categories.properties[award.categories.NOVEL];
+      let category = award.categories.properties[award.categories.NOVEL];
       assert.equal(nominations[j].category, category);
       assert.equal(nominations[j].year, 2018);
 
@@ -128,33 +128,33 @@ QUnit.test("fetchData() Barry", function(assert)
       assert.equal(nominations[j].year, 2018);
       done();
    };
-   var fetcher = new SYKMNomineeFetcher(award, callback);
+   const fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    fetcher.fetchData();
 });
 
 QUnit.test("fetchData() Dagger", function(assert)
 {
    // Setup.
-   var award = MysteryAward.properties[MysteryAward.DAGGER];
-   var callback = function(books, bookToNomination)
+   const award = MysteryAward.properties[MysteryAward.DAGGER];
+   const callback = function(books, bookToNomination)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 28);
 
-      var i = 0;
+      let i = 0;
       assert.equal(books[i].title, "The Dry");
       assert.equal(books[i].author, "Jane Harper");
-      var nominations = bookToNomination[books[i]];
+      let nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
-      var j = 0;
+      let j = 0;
       assert.equal(nominations[j].award, award);
-      var category = award.categories.properties[award.categories.GOLD];
+      let category = award.categories.properties[award.categories.GOLD];
       assert.equal(nominations[j].category, category);
       assert.equal(nominations[j].year, 2017);
       assert.ok(nominations[j].isWinner);
@@ -173,33 +173,33 @@ QUnit.test("fetchData() Dagger", function(assert)
       assert.ok(!nominations[j].isWinner);
       done();
    };
-   var fetcher = new SYKMNomineeFetcher(award, callback);
+   const fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    fetcher.fetchData();
 });
 
 QUnit.test("fetchData() Edgar", function(assert)
 {
    // Setup.
-   var award = MysteryAward.properties[MysteryAward.EDGAR];
-   var callback = function(books, bookToNomination)
+   const award = MysteryAward.properties[MysteryAward.EDGAR];
+   const callback = function(books, bookToNomination)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 16);
 
-      var i = 0;
+      let i = 0;
       assert.equal(books[i].title, "Bluebird, Bluebird");
       assert.equal(books[i].author, "Attica Locke");
-      var nominations = bookToNomination[books[i]];
+      let nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
-      var j = 0;
+      let j = 0;
       assert.equal(nominations[j].award, award);
-      var category = award.categories.properties[award.categories.NOVEL];
+      let category = award.categories.properties[award.categories.NOVEL];
       assert.equal(nominations[j].category, category);
       assert.equal(nominations[j].year, 2018);
 
@@ -216,33 +216,33 @@ QUnit.test("fetchData() Edgar", function(assert)
       assert.equal(nominations[j].year, 2018);
       done();
    };
-   var fetcher = new SYKMNomineeFetcher(award, callback);
+   const fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    fetcher.fetchData();
 });
 
 QUnit.skip("fetchData() Nero", function(assert)
 {
    // Setup.
-   var award = MysteryAward.properties[MysteryAward.NERO];
-   var callback = function(books, bookToNomination)
+   const award = MysteryAward.properties[MysteryAward.NERO];
+   const callback = function(books, bookToNomination)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 15);
 
-      var i = 0;
+      let i = 0;
       assert.equal(books[i].title, "Long Upon the Land");
       assert.equal(books[i].author, "Margaret Maron");
-      var nominations = bookToNomination[books[i]];
+      let nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
-      var j = 0;
+      let j = 0;
       assert.equal(nominations[j].award, award);
-      var category = award.categories.properties[award.categories.CONTEMPORARY];
+      let category = award.categories.properties[award.categories.CONTEMPORARY];
       assert.equal(nominations[j].category, category);
       assert.equal(nominations[j].year, 2015);
 
@@ -259,33 +259,33 @@ QUnit.skip("fetchData() Nero", function(assert)
       assert.equal(nominations[j].year, 2015);
       done();
    };
-   var fetcher = new SYKMNomineeFetcher(award, callback);
+   const fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    fetcher.fetchData();
 });
 
 QUnit.test("fetchData() Shamus", function(assert)
 {
    // Setup.
-   var award = MysteryAward.properties[MysteryAward.SHAMUS];
-   var callback = function(books, bookToNomination)
+   const award = MysteryAward.properties[MysteryAward.SHAMUS];
+   const callback = function(books, bookToNomination)
    {
       // Verify.
       assert.ok(true, "test resumed from async operation");
       assert.ok(books);
       assert.equal(books.length, 15);
 
-      var i = 0;
+      let i = 0;
       assert.equal(books[i].title, "Where It Hurts");
       assert.equal(books[i].author, "Reed Farrel Coleman");
-      var nominations = bookToNomination[books[i]];
+      let nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
-      var j = 0;
+      let j = 0;
       assert.equal(nominations[j].award, award);
-      var category = award.categories.properties[award.categories.HARDCOVER];
+      let category = award.categories.properties[award.categories.HARDCOVER];
       assert.equal(nominations[j].category, category);
       assert.equal(nominations[j].year, 2017);
 
@@ -302,12 +302,12 @@ QUnit.test("fetchData() Shamus", function(assert)
       assert.equal(nominations[j].year, 2017);
       done();
    };
-   var fetcher = new SYKMNomineeFetcher(award, callback);
+   const fetcher = new SYKMNomineeFetcher(award, callback);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    fetcher.fetchData();
 });
 
-var SYKMNomineeFetcherTest = {};
+const SYKMNomineeFetcherTest = {};
 export default SYKMNomineeFetcherTest;

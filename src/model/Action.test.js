@@ -10,10 +10,10 @@ QUnit.module("Action");
 QUnit.test("addBook()", function(assert)
 {
    // Setup.
-   var book = createBook1();
+   const book = createBook1();
 
    // Run.
-   var result = Action.addBook(book);
+   const result = Action.addBook(book);
 
    // Verify.
    assert.ok(result);
@@ -24,11 +24,11 @@ QUnit.test("addBook()", function(assert)
 QUnit.test("addNomination()", function(assert)
 {
    // Setup.
-   var book = createBook1();
-   var nomination = createNomination1();
+   const book = createBook1();
+   const nomination = createNomination1();
 
    // Run.
-   var result = Action.addNomination(book, nomination);
+   const result = Action.addNomination(book, nomination);
 
    // Verify.
    assert.ok(result);
@@ -40,11 +40,11 @@ QUnit.test("addNomination()", function(assert)
 QUnit.test("setAssessment()", function(assert)
 {
    // Setup.
-   var book = createBook1();
-   var assessment = Assessment.POSSIBLE_PICK;
+   const book = createBook1();
+   const assessment = Assessment.POSSIBLE_PICK;
 
    // Run.
-   var result = Action.setAssessment(book, assessment);
+   const result = Action.setAssessment(book, assessment);
 
    // Verify.
    assert.ok(result);
@@ -56,13 +56,13 @@ QUnit.test("setAssessment()", function(assert)
 QUnit.test("setAssessments()", function(assert)
 {
    // Setup.
-   var book = createBook1();
-   var assessment = Assessment.POSSIBLE_PICK;
-   var bookToAssessment = {};
+   const book = createBook1();
+   const assessment = Assessment.POSSIBLE_PICK;
+   const bookToAssessment = {};
    bookToAssessment[book] = assessment;
 
    // Run.
-   var result = Action.setAssessments(bookToAssessment);
+   const result = Action.setAssessments(bookToAssessment);
 
    // Verify.
    assert.ok(result);
@@ -72,22 +72,22 @@ QUnit.test("setAssessments()", function(assert)
 
 function createBook1()
 {
-   var title = "A Dark and Stormy Night";
-   var author = "Noah Boddy";
+   const title = "A Dark and Stormy Night";
+   const author = "Noah Boddy";
 
    return new Book(title, author);
 }
 
 function createNomination1()
 {
-   var awardKey = MysteryAward.AGATHA;
-   var award = MysteryAward.properties[awardKey];
-   var categoryKey = award.categories.CONTEMPORARY;
-   var category = award.categories.properties[categoryKey];
-   var year = 2016;
+   const awardKey = MysteryAward.AGATHA;
+   const award = MysteryAward.properties[awardKey];
+   const categoryKey = award.categories.CONTEMPORARY;
+   const category = award.categories.properties[categoryKey];
+   const year = 2016;
 
    return new Nomination(award, category, year);
 }
 
-var ActionTest = {};
+const ActionTest = {};
 export default ActionTest;

@@ -10,9 +10,9 @@ window.LOGGER = new Logger();
 LOGGER.setTraceEnabled(false);
 LOGGER.setDebugEnabled(false);
 
-var store = Redux.createStore(Reducer.root);
+const store = Redux.createStore(Reducer.root);
 
-var element = React.createElement(ReactRedux.Provider,
+const element = React.createElement(ReactRedux.Provider,
 {
    store: store,
 }, React.createElement(BookTableContainer));
@@ -23,10 +23,10 @@ document.getElementById("resetAssessmentsButton").onclick = resetAssessments;
 
 function resetAssessments()
 {
-   var bookToAssessment = store.getState().bookToAssessment;
-   var books = store.getState().books;
-   var bookToDclUrl = store.getState().bookToDclUrl;
-   var bookToNomination = store.getState().bookToNomination;
+   let bookToAssessment = store.getState().bookToAssessment;
+   const books = store.getState().books;
+   const bookToDclUrl = store.getState().bookToDclUrl;
+   const bookToNomination = store.getState().bookToNomination;
    bookToAssessment = UserSettings.resetBookToAssessment(bookToAssessment, books, bookToDclUrl, bookToNomination);
 
    UserSettings.storeBookToAssessment(bookToAssessment);

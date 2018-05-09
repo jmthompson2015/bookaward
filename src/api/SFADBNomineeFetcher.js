@@ -17,15 +17,15 @@ function SFADBNomineeFetcher(award, year, callback)
       return award;
    };
 
-   var books = [];
-   var bookToNomination = {};
-   var xmlDocument;
+   const books = [];
+   const bookToNomination = {};
+   let xmlDocument;
 
    this.fetchData = function()
    {
       LOGGER.trace("SFADBNomineeFetcher.fetchData() start");
 
-      var url = createUrl();
+      const url = createUrl();
       $.ajax(url).done(this.receiveData).fail(function(jqXHR, textStatus, errorThrown)
       {
          LOGGER.error(errorThrown);
@@ -43,7 +43,7 @@ function SFADBNomineeFetcher(award, year, callback)
       xmlDocument = xmlDocumentIn;
       LOGGER.trace("award = " + award.name);
       LOGGER.trace("xmlDocument = " + (new XMLSerializer()).serializeToString(xmlDocument));
-      var content = xmlDocument.children[0].children[0].children[0];
+      let content = xmlDocument.children[0].children[0].children[0];
       content = content.innerHTML;
       content = content.replace(/&lt;/g, "<");
       content = content.replace(/&gt;/g, ">");
@@ -57,11 +57,11 @@ function SFADBNomineeFetcher(award, year, callback)
 
    function createUrl()
    {
-      var baseUrl = "https://query.yahooapis.com/v1/public/yql?q=";
-      var sourceUrl = award.url + year;
+      const baseUrl = "https://query.yahooapis.com/v1/public/yql?q=";
+      const sourceUrl = award.url + year;
 
-      var query = "select * from htmlstring where url=\"" + sourceUrl + "\"";
-      var answer = baseUrl + encodeURIComponent(query) + "&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+      const query = "select * from htmlstring where url=\"" + sourceUrl + "\"";
+      const answer = baseUrl + encodeURIComponent(query) + "&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
       LOGGER.debug("url = " + answer);
 
       return answer;
@@ -69,7 +69,7 @@ function SFADBNomineeFetcher(award, year, callback)
 
    function forEachRow(rows, callback)
    {
-      var thisRow = rows.iterateNext();
+      let thisRow = rows.iterateNext();
 
       while (thisRow)
       {
@@ -84,9 +84,9 @@ function SFADBNomineeFetcher(award, year, callback)
       LOGGER.trace("SFADBNomineeFetcher.parse() start");
 
       // This gives the category set.
-      var xpath = "//div[@class='categoryblock']";
-      var resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
-      var rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
+      const xpath = "//div[@class='categoryblock']";
+      const resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
+      const rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
       var xpath2 = (award.value === SciFiAward.LOCUS ? xpath2 = "ol/li" : "ul/li");
       forEachRow(rows, function callback(xmlFragment)
       {
@@ -101,28 +101,28 @@ function SFADBNomineeFetcher(award, year, callback)
       LOGGER.trace("SFADBNomineeFetcher.parseNominees() start");
       LOGGER.debug("xmlFragment = " + (new XMLSerializer()).serializeToString(xmlFragment));
 
-      var xpath0 = "div[@class='category']";
-      var resultType0 = XPathResult.FIRST_ORDERED_NODE_TYPE;
-      var element = xmlDocument.evaluate(xpath0, xmlFragment, null, resultType0, null);
+      const xpath0 = "div[@class='category']";
+      const resultType0 = XPathResult.FIRST_ORDERED_NODE_TYPE;
+      const element = xmlDocument.evaluate(xpath0, xmlFragment, null, resultType0, null);
       LOGGER.debug("element.singleNodeValue = " + element.singleNodeValue);
       LOGGER.debug("element.singleNodeValue.textContent = " + element.singleNodeValue.textContent);
-      var category = parseCategory(element.singleNodeValue.textContent.trim());
+      const category = parseCategory(element.singleNodeValue.textContent.trim());
 
       if (category)
       {
          LOGGER.debug("category = " + category);
-         var resultType = XPathResult.ORDERED_NODE_SNAPSHOT_TYPE;
-         var cells = xmlDocument.evaluate(xpath, xmlFragment, null, resultType, null);
+         const resultType = XPathResult.ORDERED_NODE_SNAPSHOT_TYPE;
+         const cells = xmlDocument.evaluate(xpath, xmlFragment, null, resultType, null);
          LOGGER.debug("cells.snapshotLength = " + cells.snapshotLength);
-         for (var i = 0; i < cells.snapshotLength; i++)
+         for (let i = 0; i < cells.snapshotLength; i++)
          {
             LOGGER.debug(i + " snapshotItem = " + cells.snapshotItem(i).textContent);
          }
 
-         for (var j = 0; j < cells.snapshotLength; j++)
+         for (let j = 0; j < cells.snapshotLength; j++)
          {
-            var isWinner = false;
-            var titleAuthor = cells.snapshotItem(j).textContent.trim();
+            let isWinner = false;
+            let titleAuthor = cells.snapshotItem(j).textContent.trim();
             if (titleAuthor.startsWith("Winner:"))
             {
                isWinner = true;
@@ -135,8 +135,8 @@ function SFADBNomineeFetcher(award, year, callback)
                titleAuthor = titleAuthor.substring(6).trim();
             }
 
-            var book = parseBook(titleAuthor);
-            var nomination = new Nomination(award, category, year, isWinner);
+            const book = parseBook(titleAuthor);
+            const nomination = new Nomination(award, category, year, isWinner);
             add(book, nomination);
          }
       }
@@ -157,7 +157,7 @@ function SFADBNomineeFetcher(award, year, callback)
          books.push(book);
          bookToNomination[book] = [];
       }
-      var nominations = bookToNomination[book];
+      const nominations = bookToNomination[book];
 
       if (!nominations.includes(nomination))
       {
@@ -169,9 +169,9 @@ function SFADBNomineeFetcher(award, year, callback)
    {
       InputValidator.validateNotNull("author", author);
 
-      var answer = author;
+      let answer = author;
 
-      var index = answer.indexOf("(");
+      const index = answer.indexOf("(");
 
       if (index >= 0)
       {
@@ -191,12 +191,12 @@ function SFADBNomineeFetcher(award, year, callback)
    {
       InputValidator.validateNotNull("titleAuthor", titleAuthor);
 
-      var myTitleAuthor = titleAuthor.trim();
+      let myTitleAuthor = titleAuthor.trim();
       myTitleAuthor = myTitleAuthor.replace(/\n/g, "");
       LOGGER.debug("myTitleAuthor = " + myTitleAuthor);
-      var index = myTitleAuthor.indexOf(", ");
-      var title;
-      var author;
+      const index = myTitleAuthor.indexOf(", ");
+      let title;
+      let author;
 
       if (index >= 0)
       {
@@ -220,8 +220,8 @@ function SFADBNomineeFetcher(award, year, callback)
    {
       InputValidator.validateNotNull("categoryName", categoryName);
 
-      var myCategoryName = categoryName;
-      var index = myCategoryName.indexOf(" (");
+      let myCategoryName = categoryName;
+      const index = myCategoryName.indexOf(" (");
 
       if (index >= 0)
       {
@@ -229,7 +229,7 @@ function SFADBNomineeFetcher(award, year, callback)
       }
 
       LOGGER.debug("myCategoryName = _" + myCategoryName + "_");
-      var properties = award.categories.properties;
+      const properties = award.categories.properties;
 
       return SciFiAward.findByName(properties, myCategoryName);
    }

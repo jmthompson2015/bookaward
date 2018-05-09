@@ -4,8 +4,8 @@ QUnit.module("SciFiAward");
 
 QUnit.test("SciFiAward properties Hugo", function(assert)
 {
-   var statusKey = SciFiAward.HUGO;
-   var status = SciFiAward.properties[statusKey];
+   const statusKey = SciFiAward.HUGO;
+   const status = SciFiAward.properties[statusKey];
    assert.equal(status.name, "Hugo");
    assert.equal(status.value, statusKey);
 });
@@ -15,13 +15,13 @@ QUnit.test("keys and values", function(assert)
    // Setup.
 
    // Run.
-   var result = SciFiAward.values();
-   var ownPropertyNames = Object.getOwnPropertyNames(SciFiAward);
+   const result = SciFiAward.values();
+   const ownPropertyNames = Object.getOwnPropertyNames(SciFiAward);
 
    // Verify.
    ownPropertyNames.forEach(function(key)
    {
-      var key2 = SciFiAward[key];
+      const key2 = SciFiAward[key];
 
       if (key !== "properties" && typeof key2 === "string")
       {
@@ -31,7 +31,7 @@ QUnit.test("keys and values", function(assert)
 
    result.forEach(function(value)
    {
-      var p = ownPropertyNames.filter(function(key)
+      const p = ownPropertyNames.filter(function(key)
       {
          return SciFiAward[key] === value;
       });
@@ -43,21 +43,21 @@ QUnit.test("keys and values", function(assert)
 QUnit.test("values()", function(assert)
 {
    // Run.
-   var result = SciFiAward.values();
+   const result = SciFiAward.values();
 
    // Verify.
    assert.ok(result);
-   var length = 5;
+   const length = 5;
    assert.equal(result.length, length);
    assert.equal(result[0], "britishFantasy");
    assert.equal(result[length - 1], "nebula");
 
-   var properties = Object.getOwnPropertyNames(SciFiAward);
-   var count = properties.length - 1 - // properties
+   const properties = Object.getOwnPropertyNames(SciFiAward);
+   const count = properties.length - 1 - // properties
       1 - // values
       1; // findByName
    assert.equal(result.length, count);
 });
 
-var SciFiAwardTest = {};
+const SciFiAwardTest = {};
 export default SciFiAwardTest;

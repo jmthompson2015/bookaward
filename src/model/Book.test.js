@@ -5,11 +5,11 @@ QUnit.module("Book");
 QUnit.test("Book()", function(assert)
 {
    // Setup.
-   var title = "A Dark and Stormy Night";
-   var author = "Noah Boddy";
+   const title = "A Dark and Stormy Night";
+   const author = "Noah Boddy";
 
    // Run.
-   var result = new Book(title, author);
+   const result = new Book(title, author);
 
    // Verify.
    assert.ok(result);
@@ -17,5 +17,5 @@ QUnit.test("Book()", function(assert)
    assert.equal(result.author, author);
 });
 
-var BookTest = {};
+const BookTest = {};
 export default BookTest;

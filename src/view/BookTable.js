@@ -9,7 +9,7 @@ import UrlGenerator from "../model/UrlGenerator.js";
 
 import Select from "./Select.js";
 
-var BookColumns = [
+const BookColumns = [
    {
       key: "assessment",
       label: "Assessment",
@@ -41,24 +41,24 @@ class BookTable extends React.Component
 {
    render()
    {
-      var nominees = this.props.nominees;
-      var rows = [];
+      const nominees = this.props.nominees;
+      const rows = [];
 
       nominees.forEach(function(nominee, i)
       {
          rows.push(this.createRow(nominee, i));
       }.bind(this));
 
-      var table = React.createElement(Reactable.Table,
+      const table = React.createElement(Reactable.Table,
       {
          className: "dataTable",
          columns: BookColumns,
          sortable: true,
       }, rows);
 
-      var rows2 = [];
+      const rows2 = [];
 
-      var rowCount = "Row Count: " + nominees.length;
+      const rowCount = "Row Count: " + nominees.length;
       rows2.push(ReactDOMFactories.tr(
       {
          key: rows2.length
@@ -83,13 +83,13 @@ class BookTable extends React.Component
       InputValidator.validateNotNull("column", column);
       InputValidator.validateNotNull("nominee", nominee);
 
-      var assessmentKey = nominee.assessmentKey;
-      var labelFunction = function(value)
+      const assessmentKey = nominee.assessmentKey;
+      const labelFunction = function(value)
       {
          return Assessment.properties[value].name;
       };
 
-      var selector = React.createElement(Select,
+      const selector = React.createElement(Select,
       {
          key: nominee.book.toString() + "_" + assessmentKey,
          values: Assessment.values(),
@@ -103,7 +103,7 @@ class BookTable extends React.Component
          }
       });
 
-      var answer = React.createElement(Reactable.Td,
+      const answer = React.createElement(Reactable.Td,
       {
          key: key,
          className: column.className,
@@ -120,13 +120,13 @@ class BookTable extends React.Component
       InputValidator.validateNotNull("column", column);
       InputValidator.validateNotNull("author", author);
 
-      var url1 = UrlGenerator.createAmazonSearchUrl(author);
-      var url2 = UrlGenerator.createGoodreadsSearchUrl(author);
-      var url3 = UrlGenerator.createWikipediaSearchUrl(author);
-      var image1 = this.createImageLink(1, url1, "../resource/image/Amazon18.png", "Amazon");
-      var image2 = this.createImageLink(2, url2, "../resource/image/Goodreads18.png", "Goodreads");
-      var image3 = this.createImageLink(3, url3, "../resource/image/Wikipedia18.png", "Wikipedia");
-      var imageSpan = ReactDOMFactories.span(
+      const url1 = UrlGenerator.createAmazonSearchUrl(author);
+      const url2 = UrlGenerator.createGoodreadsSearchUrl(author);
+      const url3 = UrlGenerator.createWikipediaSearchUrl(author);
+      const image1 = this.createImageLink(1, url1, "../resource/image/Amazon18.png", "Amazon");
+      const image2 = this.createImageLink(2, url2, "../resource/image/Goodreads18.png", "Goodreads");
+      const image3 = this.createImageLink(3, url3, "../resource/image/Wikipedia18.png", "Wikipedia");
+      const imageSpan = ReactDOMFactories.span(
       {
          className: "imageBlock",
       }, image1, image2, image3);
@@ -168,19 +168,19 @@ class BookTable extends React.Component
       InputValidator.validateNotNull("column", column);
       InputValidator.validateNotNull("nominee", nominee);
 
-      var cells = [];
-      var value = "";
+      const cells = [];
+      let value = "";
 
       Library.values().forEach(function(libraryKey)
       {
-         var library = Library.properties[libraryKey];
-         var url = UrlGenerator.createLibrarySearchUrl(library, nominee.book.toString());
-         var image = this.createImageLink(cells.length, url, library.image, library.name);
+         const library = Library.properties[libraryKey];
+         const url = UrlGenerator.createLibrarySearchUrl(library, nominee.book.toString());
+         const image = this.createImageLink(cells.length, url, library.image, library.name);
          cells.push(image);
          value += library.shortName + " ";
       }, this);
 
-      var links = ReactDOMFactories.span(
+      const links = ReactDOMFactories.span(
       {}, cells);
 
       return React.createElement(Reactable.Td,
@@ -210,13 +210,13 @@ class BookTable extends React.Component
       InputValidator.validateNotNull("column", column);
       InputValidator.validateNotNull("nominations", nominations);
 
-      var rows = [];
-      var value = "";
+      const rows = [];
+      let value = "";
 
       nominations.forEach(function(nomination)
       {
-         var winnerImage = this.context.store.getState().winnerImage;
-         var prefix = (nomination.isWinner ?
+         const winnerImage = this.context.store.getState().winnerImage;
+         const prefix = (nomination.isWinner ?
             ReactDOMFactories.img(
             {
                className: "winner",
@@ -224,9 +224,9 @@ class BookTable extends React.Component
                title: "Winner",
             }) :
             "");
-         var link = this.createLink(UrlGenerator.createAwardUrl(nomination.award, nomination.year), nomination.award.name);
+         const link = this.createLink(UrlGenerator.createAwardUrl(nomination.award, nomination.year), nomination.award.name);
 
-         var cell = ReactDOMFactories.td(
+         const cell = ReactDOMFactories.td(
          {}, prefix, nomination.year, " ", link, " ", nomination.category.name);
          value += nomination.year + " ";
          value += nomination.award.name + " ";
@@ -238,7 +238,7 @@ class BookTable extends React.Component
          }, cell));
       }, this);
 
-      var nominationsTable = ReactDOMFactories.table(
+      const nominationsTable = ReactDOMFactories.table(
       {
          className: "nominationsTable",
       }, ReactDOMFactories.tbody(
@@ -258,8 +258,8 @@ class BookTable extends React.Component
       InputValidator.validateNotNull("nominee", nominee);
       InputValidator.validateNotNull("key", key);
 
-      var cells = [];
-      var i = 0;
+      const cells = [];
+      let i = 0;
       cells.push(this.createAssessmentCell(cells.length, BookColumns[i++], nominee));
       cells.push(this.createTitleLinkCell(cells.length, BookColumns[i++], nominee));
       cells.push(this.createAuthorLinkCell(cells.length, BookColumns[i++], nominee.book.author));
@@ -278,19 +278,19 @@ class BookTable extends React.Component
       InputValidator.validateNotNull("column", column);
       InputValidator.validateNotNull("nominee", nominee);
 
-      var url1 = UrlGenerator.createAmazonSearchUrl(nominee.book.toString());
-      var url2 = nominee.dclUrl;
-      var url3 = UrlGenerator.createGoodreadsSearchUrl(nominee.book.toString());
-      var title = nominee.book.title;
-      var value = BookComparator.prepareName(nominee.book.title);
-      var image1 = this.createImageLink(1, url1, "../resource/image/Amazon18.png", "Amazon");
-      var image2;
+      const url1 = UrlGenerator.createAmazonSearchUrl(nominee.book.toString());
+      const url2 = nominee.dclUrl;
+      const url3 = UrlGenerator.createGoodreadsSearchUrl(nominee.book.toString());
+      const title = nominee.book.title;
+      const value = BookComparator.prepareName(nominee.book.title);
+      const image1 = this.createImageLink(1, url1, "../resource/image/Amazon18.png", "Amazon");
+      let image2;
       if (url2 !== undefined)
       {
          image2 = this.createImageLink(3, url2, "../resource/image/DouglasCountyLibraries18.png", "Douglas County Libraries");
       }
-      var image3 = this.createImageLink(2, url3, "../resource/image/Goodreads18.png", "Goodreads");
-      var imageSpan = ReactDOMFactories.span(
+      const image3 = this.createImageLink(2, url3, "../resource/image/Goodreads18.png", "Goodreads");
+      const imageSpan = ReactDOMFactories.span(
       {
          className: "imageBlock",
       }, image1, image2, image3);
@@ -309,13 +309,13 @@ class BookTable extends React.Component
 
    findBook(title, author)
    {
-      var answer;
+      let answer;
 
-      var books = this.context.store.getState().books;
+      const books = this.context.store.getState().books;
 
-      for (var i = 0; i < books.length; i++)
+      for (let i = 0; i < books.length; i++)
       {
-         var book = books[i];
+         const book = books[i];
 
          if (book.title === title && book.author === author)
          {
@@ -329,10 +329,10 @@ class BookTable extends React.Component
 
    handleChange(event)
    {
-      var selectedValue = event.currentTarget.value;
-      var booktitle = event.currentTarget.dataset.booktitle;
-      var bookauthor = event.currentTarget.dataset.bookauthor;
-      var book = this.findBook(booktitle, bookauthor);
+      const selectedValue = event.currentTarget.value;
+      const booktitle = event.currentTarget.dataset.booktitle;
+      const bookauthor = event.currentTarget.dataset.bookauthor;
+      const book = this.findBook(booktitle, bookauthor);
       LOGGER.debug("book = " + book);
       this.context.store.dispatch(Action.setAssessment(book, selectedValue));
    }

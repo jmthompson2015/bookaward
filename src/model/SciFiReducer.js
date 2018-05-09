@@ -1,7 +1,7 @@
 import Reducer from "./Reducer.js";
 import SciFiInitialState from "./SciFiInitialState.js";
 
-var SciFiReducer = {};
+const SciFiReducer = {};
 
 SciFiReducer.root = function(state, action)
 {

@@ -1,14 +1,14 @@
 import InputValidator from "../utility/InputValidator.js";
 
-var NominationComparator = {
+const NominationComparator = {
    compare: function(a, b)
    {
       InputValidator.validateNotNull("a", a);
       InputValidator.validateNotNull("b", b);
 
-      var answer = 0;
-      var aString = a.toString();
-      var bString = b.toString();
+      let answer = 0;
+      const aString = a.toString();
+      const bString = b.toString();
 
       if (aString < bString)
       {
@@ -21,8 +21,8 @@ var NominationComparator = {
 
       if (answer === 0)
       {
-         var aWinner = a.isWinner;
-         var bWinner = b.isWinner;
+         const aWinner = a.isWinner;
+         const bWinner = b.isWinner;
 
          if (aWinner !== bWinner)
          {

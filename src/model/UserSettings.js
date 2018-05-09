@@ -4,17 +4,17 @@ import ObjectUtilities from "../utility/ObjectUtilities.js";
 import Assessment from "../artifact/Assessment.js";
 import MysteryAward from "../artifact/MysteryAward.js";
 
-var UserSettings = {};
+const UserSettings = {};
 
 UserSettings.loadBookToAssessment = function()
 {
-   var answer = {};
+   const answer = {};
 
-   var bookToAssessment = localStorage.getItem("bookToAssessment");
+   const bookToAssessment = localStorage.getItem("bookToAssessment");
 
    if (bookToAssessment)
    {
-      var myBookToAssessment = JSON.parse(bookToAssessment);
+      const myBookToAssessment = JSON.parse(bookToAssessment);
 
       if (myBookToAssessment)
       {
@@ -32,18 +32,18 @@ UserSettings.resetBookToAssessment = function(bookToAssessment, books, bookToDcl
    InputValidator.validateNotNull("bookToDclUrl", bookToDclUrl);
    InputValidator.validateNotNull("bookToNomination", bookToNomination);
 
-   var answer = Object.assign(
+   const answer = Object.assign(
    {}, bookToAssessment);
 
    books.forEach(function(book)
    {
       answer[book] = Assessment.NONE;
 
-      var nominations = bookToNomination[book];
+      const nominations = bookToNomination[book];
 
       if (nominations)
       {
-         var clubNominations = nominations.filter(function(nomination)
+         const clubNominations = nominations.filter(function(nomination)
          {
             return nomination.award.value === MysteryAward.CRIME_AND_BEYOND;
          });

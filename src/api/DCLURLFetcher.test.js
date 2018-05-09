@@ -7,8 +7,8 @@ QUnit.module("DCLURLFetcher");
 QUnit.test("fetchData() 0", function(assert)
 {
    // Setup.
-   var book = createBook0();
-   var callback = function(book, dclUrl)
+   const book = createBook0();
+   const callback = function(book, dclUrl)
    {
       // Verify.
       assert.ok(book);
@@ -16,36 +16,36 @@ QUnit.test("fetchData() 0", function(assert)
       assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1337567114");
       done();
    };
-   var fetcher = new DCLURLFetcher(book, callback);
+   const fetcher = new DCLURLFetcher(book, callback);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    fetcher.fetchData();
 });
 
 QUnit.test("fetchData() 1", function(assert)
 {
    // Setup.
-   var book = createBook1();
-   var callback = function(book, dclUrl)
+   const book = createBook1();
+   const callback = function(book, dclUrl)
    {
       // Verify.
       assert.ok(book);
       assert.equal(dclUrl, undefined);
       done();
    };
-   var fetcher = new DCLURLFetcher(book, callback);
+   const fetcher = new DCLURLFetcher(book, callback);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    fetcher.fetchData();
 });
 
 QUnit.test("fetchData() 2", function(assert)
 {
    // Setup.
-   var book = createBook2();
-   var callback = function(book, dclUrl)
+   const book = createBook2();
+   const callback = function(book, dclUrl)
    {
       // Verify.
       assert.ok(book);
@@ -53,18 +53,18 @@ QUnit.test("fetchData() 2", function(assert)
       assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1268318114");
       done();
    };
-   var fetcher = new DCLURLFetcher(book, callback);
+   const fetcher = new DCLURLFetcher(book, callback);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    fetcher.fetchData();
 });
 
 QUnit.test("fetchData() 3", function(assert)
 {
    // Setup.
-   var book = createBook3();
-   var callback = function(book, dclUrl)
+   const book = createBook3();
+   const callback = function(book, dclUrl)
    {
       // Verify.
       assert.ok(book);
@@ -72,36 +72,36 @@ QUnit.test("fetchData() 3", function(assert)
       assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1431233114");
       done();
    };
-   var fetcher = new DCLURLFetcher(book, callback);
+   const fetcher = new DCLURLFetcher(book, callback);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    fetcher.fetchData();
 });
 
 QUnit.test("fetchData() 4", function(assert)
 {
    // Setup.
-   var book = createBook4();
-   var callback = function(book, dclUrl)
+   const book = createBook4();
+   const callback = function(book, dclUrl)
    {
       // Verify.
       assert.ok(book);
       assert.equal(dclUrl, undefined);
       done();
    };
-   var fetcher = new DCLURLFetcher(book, callback);
+   const fetcher = new DCLURLFetcher(book, callback);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    fetcher.fetchData();
 });
 
 QUnit.test("fetchData() 5", function(assert)
 {
    // Setup.
-   var book = createBook5();
-   var callback = function(book, dclUrl)
+   const book = createBook5();
+   const callback = function(book, dclUrl)
    {
       // Verify.
       assert.ok(book);
@@ -109,60 +109,60 @@ QUnit.test("fetchData() 5", function(assert)
       assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1309150114");
       done();
    };
-   var fetcher = new DCLURLFetcher(book, callback);
+   const fetcher = new DCLURLFetcher(book, callback);
 
    // Run.
-   var done = assert.async();
+   const done = assert.async();
    fetcher.fetchData();
 });
 
 function createBook0()
 {
-   var title = "The Wrong Side of Goodbye";
-   var author = "Michael Connelly";
+   const title = "The Wrong Side of Goodbye";
+   const author = "Michael Connelly";
 
    return new Book(title, author);
 }
 
 function createBook1()
 {
-   var title = "Circling the Runway";
-   var author = "J.L. Abramo";
+   const title = "Circling the Runway";
+   const author = "J.L. Abramo";
 
    return new Book(title, author);
 }
 
 function createBook2()
 {
-   var title = "Freedom's Child";
-   var author = "Jax Miller";
+   const title = "Freedom's Child";
+   const author = "Jax Miller";
 
    return new Book(title, author);
 }
 
 function createBook3()
 {
-   var title = "Orphan X";
-   var author = "Gregg Hurwitz";
+   const title = "Orphan X";
+   const author = "Gregg Hurwitz";
 
    return new Book(title, author);
 }
 
 function createBook4()
 {
-   var title = "The Great Swindle";
-   var author = "Pierre Lemaître";
+   const title = "The Great Swindle";
+   const author = "Pierre Lemaître";
 
    return new Book(title, author);
 }
 
 function createBook5()
 {
-   var title = "Before the Fall";
-   var author = "Noah Hawley";
+   const title = "Before the Fall";
+   const author = "Noah Hawley";
 
    return new Book(title, author);
 }
 
-var DCLURLFetcherTest = {};
+const DCLURLFetcherTest = {};
 export default DCLURLFetcherTest;

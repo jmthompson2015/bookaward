@@ -9,7 +9,7 @@ function CrimeAndBeyondFetcher(callback)
 {
    InputValidator.validateNotNull("callback", callback);
 
-   var award = MysteryAward.properties[MysteryAward.CRIME_AND_BEYOND];
+   const award = MysteryAward.properties[MysteryAward.CRIME_AND_BEYOND];
 
    this.award = function()
    {
@@ -18,7 +18,7 @@ function CrimeAndBeyondFetcher(callback)
 
    this.category = function()
    {
-      var categoryKey = award.categories.CASE;
+      const categoryKey = award.categories.CASE;
 
       return award.categories.properties[categoryKey];
    };
@@ -32,12 +32,12 @@ function CrimeAndBeyondFetcher(callback)
    {
       LOGGER.trace("CrimeAndBeyondFetcher.receiveData() start");
 
-      var books = [];
-      var bookToNomination = {};
+      const books = [];
+      const bookToNomination = {};
 
-      var nomination = new Nomination(award, this.category(), 2016);
+      let nomination = new Nomination(award, this.category(), 2016);
 
-      var titleAndAuthor = [
+      let titleAndAuthor = [
         // ["Blood On Snow", "Jo Nesbø"],
         // ["Crazy Love You", "Lisa Unger"],
         // ["The Killer Next Door", "Alex Marwood"],
@@ -91,9 +91,9 @@ function CrimeAndBeyondFetcher(callback)
 
    function addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination)
    {
-      for (var i = 0; i < titleAndAuthor.length; i++)
+      for (let i = 0; i < titleAndAuthor.length; i++)
       {
-         var book = new Book(titleAndAuthor[i][0], titleAndAuthor[i][1]);
+         const book = new Book(titleAndAuthor[i][0], titleAndAuthor[i][1]);
          books.push(book);
          bookToNomination[book] = [nomination];
       }

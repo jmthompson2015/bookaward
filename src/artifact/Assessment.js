@@ -1,4 +1,4 @@
-var Assessment = {
+const Assessment = {
    BOOK_CLUB_PICK: "bookClubPick",
    POSSIBLE_PICK: "possiblePick",
    NONE: "none",

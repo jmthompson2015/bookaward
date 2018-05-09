@@ -1,4 +1,4 @@
-var SciFiAward = {
+const SciFiAward = {
    BRITISH_FANTASY: "britishFantasy",
    BRITISH_SF: "britishSf",
    HUGO: "hugo",
@@ -150,13 +150,13 @@ SciFiAward.properties[SciFiAward.NEBULA].categories = {
 
 SciFiAward.findByName = function(properties, name)
 {
-   var answer;
-   var values = Object.getOwnPropertyNames(properties);
+   let answer;
+   const values = Object.getOwnPropertyNames(properties);
 
-   for (var i = 0; i < values.length; i++)
+   for (let i = 0; i < values.length; i++)
    {
-      var entryKey = values[i];
-      var entry = properties[entryKey];
+      const entryKey = values[i];
+      const entry = properties[entryKey];
 
       if (entry.name === name)
       {

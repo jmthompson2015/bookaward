@@ -7,15 +7,15 @@ QUnit.module("Nomination");
 QUnit.test("Nomination() 0", function(assert)
 {
    // Setup.
-   var awardKey = MysteryAward.AGATHA;
-   var award = MysteryAward.properties[awardKey];
-   var categoryKey = award.categories.CONTEMPORARY;
-   var category = award.categories.properties[categoryKey];
+   const awardKey = MysteryAward.AGATHA;
+   const award = MysteryAward.properties[awardKey];
+   const categoryKey = award.categories.CONTEMPORARY;
+   const category = award.categories.properties[categoryKey];
    assert.ok(category);
-   var year = 2016;
+   const year = 2016;
 
    // Run.
-   var result = new Nomination(award, category, year);
+   const result = new Nomination(award, category, year);
 
    // Verify.
    assert.ok(result);
@@ -28,16 +28,16 @@ QUnit.test("Nomination() 0", function(assert)
 QUnit.test("Nomination() 1", function(assert)
 {
    // Setup.
-   var awardKey = MysteryAward.AGATHA;
-   var award = MysteryAward.properties[awardKey];
-   var categoryKey = award.categories.CONTEMPORARY;
-   var category = award.categories.properties[categoryKey];
+   const awardKey = MysteryAward.AGATHA;
+   const award = MysteryAward.properties[awardKey];
+   const categoryKey = award.categories.CONTEMPORARY;
+   const category = award.categories.properties[categoryKey];
    assert.ok(category);
-   var year = 2016;
-   var isWinner = true;
+   const year = 2016;
+   const isWinner = true;
 
    // Run.
-   var result = new Nomination(award, category, year, isWinner);
+   const result = new Nomination(award, category, year, isWinner);
 
    // Verify.
    assert.ok(result);
@@ -47,5 +47,5 @@ QUnit.test("Nomination() 1", function(assert)
    assert.ok(result.isWinner);
 });
 
-var NominationTest = {};
+const NominationTest = {};
 export default NominationTest;
