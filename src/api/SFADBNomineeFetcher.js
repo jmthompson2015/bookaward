@@ -151,7 +151,7 @@ function SFADBNomineeFetcher(award, year, callback)
 
       if (!ArrayUtilities.containsUsingEquals(books, book, function(a, b)
          {
-            return a.title() === b.title() && a.author() === b.author();
+            return a.title === b.title && a.author === b.author;
          }))
       {
          books.push(book);

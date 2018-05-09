@@ -13,8 +13,8 @@ QUnit.test("Book()", function(assert)
 
    // Verify.
    assert.ok(result);
-   assert.equal(result.title(), title);
-   assert.equal(result.author(), author);
+   assert.equal(result.title, title);
+   assert.equal(result.author, author);
 });
 
 var BookTest = {};

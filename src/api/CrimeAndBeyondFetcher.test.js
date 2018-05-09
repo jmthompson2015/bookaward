@@ -16,37 +16,40 @@ QUnit.test("receiveData()", function(assert)
       assert.equal(books.length, length);
 
       var i = 0;
-      assert.equal(books[i].title(), "The Crossing");
-      assert.equal(books[i].author(), "Michael Connelly");
+      assert.equal(books[i].title, "The Crossing");
+      assert.equal(books[i].author, "Michael Connelly");
       var nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
       var j = 0;
-      assert.equal(nominations[j].award(), award);
-      assert.equal(nominations[j].category(), category);
-      assert.equal(nominations[j].year(), 2016);
+      assert.equal(nominations[j].award, award);
+      assert.equal(nominations[j].category, category);
+      assert.equal(nominations[j].year, 2016);
+      assert.equal(nominations[j].isWinner, false);
 
       i = 5;
-      assert.equal(books[i].title(), "Fool Me Once");
-      assert.equal(books[i].author(), "Harlan Coben");
+      assert.equal(books[i].title, "Fool Me Once");
+      assert.equal(books[i].author, "Harlan Coben");
       nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
       j = 0;
-      assert.equal(nominations[j].award(), award);
-      assert.equal(nominations[j].category(), category);
-      assert.equal(nominations[j].year(), 2017);
+      assert.equal(nominations[j].award, award);
+      assert.equal(nominations[j].category, category);
+      assert.equal(nominations[j].year, 2017);
+      assert.equal(nominations[j].isWinner, false);
 
       i = length - 1;
-      assert.equal(books[i].title(), "Two Kinds of Truth");
-      assert.equal(books[i].author(), "Michael Connelly");
+      assert.equal(books[i].title, "Two Kinds of Truth");
+      assert.equal(books[i].author, "Michael Connelly");
       nominations = bookToNomination[books[i]];
       assert.ok(nominations);
       assert.equal(nominations.length, 1);
       j = 0;
-      assert.equal(nominations[j].award(), award);
-      assert.equal(nominations[j].category(), category);
-      assert.equal(nominations[j].year(), 2018);
+      assert.equal(nominations[j].award, award);
+      assert.equal(nominations[j].category, category);
+      assert.equal(nominations[j].year, 2018);
+      assert.equal(nominations[j].isWinner, false);
    };
    var fetcher = new CrimeAndBeyondFetcher(callback);
 

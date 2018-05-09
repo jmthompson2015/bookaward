@@ -27,7 +27,7 @@ var BookComparator = {
       InputValidator.validateNotNull("a", a);
       InputValidator.validateNotNull("b", b);
 
-      return a.title() === b.title() && a.author() === b.author();
+      return a.title === b.title && a.author === b.author;
    },
 };
 

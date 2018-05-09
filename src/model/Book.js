@@ -1,24 +1,30 @@
 import InputValidator from "../utility/InputValidator.js";
 
-function Book(title, author)
+class Book
 {
-   InputValidator.validateNotNull("title", title);
-   InputValidator.validateNotNull("author", author);
-
-   this.title = function()
+   constructor(title, author)
    {
-      return title;
-   };
+      InputValidator.validateIsString("title", title);
+      InputValidator.validateIsString("author", author);
 
-   this.author = function()
-   {
-      return author;
-   };
+      this._title = title;
+      this._author = author;
+   }
 
-   this.toString = function()
+   get title()
    {
-      return title + " by " + author;
-   };
+      return this._title;
+   }
+
+   get author()
+   {
+      return this._author;
+   }
+
+   toString()
+   {
+      return this.title + " by " + this.author;
+   }
 }
 
 export default Book;

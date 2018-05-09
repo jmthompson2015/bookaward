@@ -21,8 +21,8 @@ var NominationComparator = {
 
       if (answer === 0)
       {
-         var aWinner = a.isWinner();
-         var bWinner = b.isWinner();
+         var aWinner = a.isWinner;
+         var bWinner = b.isWinner;
 
          if (aWinner !== bWinner)
          {
@@ -45,8 +45,7 @@ var NominationComparator = {
       InputValidator.validateNotNull("a", a);
       InputValidator.validateNotNull("b", b);
 
-      return a.award() === b.award() && a.category() === b.category() &&
-         a.year() === b.year() && a.isWinner() === b.isWinner();
+      return a.award === b.award && a.category === b.category && a.year === b.year && a.isWinner === b.isWinner;
    },
 };
 

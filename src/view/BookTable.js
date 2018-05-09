@@ -98,8 +98,8 @@ class BookTable extends React.Component
          onChange: this.handleChange.bind(this),
          clientProps:
          {
-            "data-booktitle": nominee.book.title(),
-            "data-bookauthor": nominee.book.author(),
+            "data-booktitle": nominee.book.title,
+            "data-bookauthor": nominee.book.author,
          }
       });
 
@@ -216,7 +216,7 @@ class BookTable extends React.Component
       nominations.forEach(function(nomination)
       {
          var winnerImage = this.context.store.getState().winnerImage;
-         var prefix = (nomination.isWinner() ?
+         var prefix = (nomination.isWinner ?
             ReactDOMFactories.img(
             {
                className: "winner",
@@ -224,13 +224,13 @@ class BookTable extends React.Component
                title: "Winner",
             }) :
             "");
-         var link = this.createLink(UrlGenerator.createAwardUrl(nomination.award(), nomination.year()), nomination.award().name);
+         var link = this.createLink(UrlGenerator.createAwardUrl(nomination.award, nomination.year), nomination.award.name);
 
          var cell = ReactDOMFactories.td(
-         {}, prefix, nomination.year(), " ", link, " ", nomination.category().name);
-         value += nomination.year() + " ";
-         value += nomination.award().name + " ";
-         value += nomination.category().name + " ";
+         {}, prefix, nomination.year, " ", link, " ", nomination.category.name);
+         value += nomination.year + " ";
+         value += nomination.award.name + " ";
+         value += nomination.category.name + " ";
 
          rows.push(ReactDOMFactories.tr(
          {
@@ -262,7 +262,7 @@ class BookTable extends React.Component
       var i = 0;
       cells.push(this.createAssessmentCell(cells.length, BookColumns[i++], nominee));
       cells.push(this.createTitleLinkCell(cells.length, BookColumns[i++], nominee));
-      cells.push(this.createAuthorLinkCell(cells.length, BookColumns[i++], nominee.book.author()));
+      cells.push(this.createAuthorLinkCell(cells.length, BookColumns[i++], nominee.book.author));
       cells.push(this.createNominationsCell(cells.length, BookColumns[i++], nominee.nominations));
       cells.push(this.createLibraryLinkCell(cells.length, BookColumns[i++], nominee));
 
@@ -281,8 +281,8 @@ class BookTable extends React.Component
       var url1 = UrlGenerator.createAmazonSearchUrl(nominee.book.toString());
       var url2 = nominee.dclUrl;
       var url3 = UrlGenerator.createGoodreadsSearchUrl(nominee.book.toString());
-      var title = nominee.book.title();
-      var value = BookComparator.prepareName(nominee.book.title());
+      var title = nominee.book.title;
+      var value = BookComparator.prepareName(nominee.book.title);
       var image1 = this.createImageLink(1, url1, "../resource/image/Amazon18.png", "Amazon");
       var image2;
       if (url2 !== undefined)
@@ -317,7 +317,7 @@ class BookTable extends React.Component
       {
          var book = books[i];
 
-         if (book.title() === title && book.author() === author)
+         if (book.title === title && book.author === author)
          {
             answer = book;
             break;

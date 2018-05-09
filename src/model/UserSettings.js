@@ -45,7 +45,7 @@ UserSettings.resetBookToAssessment = function(bookToAssessment, books, bookToDcl
       {
          var clubNominations = nominations.filter(function(nomination)
          {
-            return nomination.award().value === MysteryAward.CRIME_AND_BEYOND;
+            return nomination.award.value === MysteryAward.CRIME_AND_BEYOND;
          });
 
          if (clubNominations.length > 0)

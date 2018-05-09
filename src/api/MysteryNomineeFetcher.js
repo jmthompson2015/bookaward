@@ -114,8 +114,8 @@ function callback1(book, dclUrl)
       content += books.reduce(function(previousValue, book)
       {
          var bookString = "this.books.push(new Book(";
-         bookString += "\"" + book.title() + "\", ";
-         bookString += "\"" + book.author() + "\"));<br/>";
+         bookString += "\"" + book.title + "\", ";
+         bookString += "\"" + book.author + "\"));<br/>";
          return previousValue + bookString;
       }, "");
       content += "<br/>";
@@ -137,10 +137,10 @@ function callback1(book, dclUrl)
          var nominationsString = nominations.reduce(function(previousValue2, nomination)
          {
             var nominationString = "this.bookToNomination[this.books[" + i + "]].push(new Nomination(";
-            nominationString += nomination.award().value + ", ";
-            nominationString += nomination.award().value + ".categories.properties." + nomination.category().value + ", ";
-            nominationString += nomination.year() + ", ";
-            nominationString += nomination.isWinner() + "));<br/>";
+            nominationString += nomination.award.value + ", ";
+            nominationString += nomination.award.value + ".categories.properties." + nomination.category.value + ", ";
+            nominationString += nomination.year + ", ";
+            nominationString += nomination.isWinner + "));<br/>";
             return previousValue2 + nominationString;
          }, "");
          return previousValue + nominationsString;

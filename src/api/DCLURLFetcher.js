@@ -103,7 +103,7 @@ function DCLURLFetcher(book, callback)
       LOGGER.trace("DCLURLFetcher.parse2() start");
 
       // This gives the book set.
-      var title = book.title();
+      var title = book.title;
       title = title.replace(/'/g, "");
       LOGGER.trace("title = " + title);
       var xpath = "//span/text()['Book' = substring(., string-length(.) - string-length('Book') + 1)]/../../../../../../../../../../../..//a[text()='" + title + "']/@href";
