@@ -1,291 +1,134 @@
-import ArrayUtilities from "../utility/ArrayUtilities.js";
-import InputValidator from "../utility/InputValidator.js";
+/* eslint no-console: ["error", { allow: ["info"] }] */
+/* eslint no-underscore-dangle: ["error", { "allow": ["_award"] }] */
 
 import MysteryAward from "../artifact/MysteryAward.js";
 
 import Book from "../model/Book.js";
 import Nomination from "../model/Nomination.js";
 
-function SYKMNomineeFetcher(award, callback)
-{
-   InputValidator.validateNotNull("award", award);
-   InputValidator.validateNotNull("callback", callback);
+import FetchUtilities from "./FetchUtilities.js";
 
-   this.award = function()
-   {
-      return award;
-   };
+const add = (bookToNomination0, book, nomination) => {
+  const bookToNomination = bookToNomination0;
+  const nominations = bookToNomination[book];
 
-   const books = [];
-   const bookToNomination = {};
-   let xmlDocument;
+  if (Array.isArray(nominations)) {
+    nominations.push(nomination);
+  } else {
+    bookToNomination[book] = [nomination];
+  }
+};
 
-   this.fetchData = function()
-   {
-      LOGGER.trace("SYKMNomineeFetcher.fetchData() start");
+const parseBook = htmlFragment => {
+  const key0 = ">";
+  const key1 = "</a>";
+  const key11 = "</td>";
+  const index1 = htmlFragment.indexOf(key1);
+  const index0 = htmlFragment.lastIndexOf(key0, index1) + 1;
+  const title = htmlFragment.substring(index0, index1).trim();
+  let index3 = htmlFragment.indexOf(key1, index1 + 1);
 
-      const url = createUrl();
-      $.ajax(url).done(this.receiveData).fail(function(jqXHR, textStatus, errorThrown)
-      {
-         LOGGER.error(errorThrown);
-      });
+  if (index3 < 0) {
+    index3 = htmlFragment.indexOf(key11, index1 + 1);
+  }
 
-      LOGGER.trace("SYKMNomineeFetcher.fetchData() end");
-   };
+  const index2 = htmlFragment.lastIndexOf(key0, index3) + 1;
+  let author = htmlFragment.substring(index2, index3).trim();
 
-   this.receiveData = function(xmlDocumentIn)
-   {
-      InputValidator.validateNotNull("xmlDocument", xmlDocumentIn);
+  if (author.startsWith("by ")) {
+    author = author.substring("by ".length);
+  }
 
-      LOGGER.trace("SYKMNomineeFetcher.receiveData() start");
+  return new Book(title, author);
+};
 
-      xmlDocument = xmlDocumentIn;
-      LOGGER.trace("award = " + award.name);
-      LOGGER.trace("xmlDocument = " + (new XMLSerializer()).serializeToString(xmlDocument));
-      let content = xmlDocument.children[0].children[0].children[0];
-      content = content.innerHTML;
-      content = content.replace(/&lt;/g, "<");
-      content = content.replace(/&gt;/g, ">");
-      xmlDocument.children[0].children[0].children[0].innerHTML = content;
-      parse();
-      LOGGER.info(award.name + " books.length = " + books.length);
-      callback(books, bookToNomination);
+// /////////////////////////////////////////////////////////////////////////////////////////////////
+class SYKMNomineeFetcher {
+  constructor(award) {
+    this._award = award;
+  }
 
-      LOGGER.trace("SYKMNomineeFetcher.receiveData() end");
-   };
+  get award() {
+    return this._award;
+  }
 
-   function createUrl()
-   {
-      const baseUrl = "https://query.yahooapis.com/v1/public/yql?q=";
-      const sourceUrl = award.url;
+  createUrl() {
+    // console.debug(`url = ${award.url}`);
+    return this.award.url;
+  }
 
-      const query = "select * from htmlstring where url=\"" + sourceUrl + "\"";
-      const answer = baseUrl + encodeURIComponent(query) + "&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-      LOGGER.debug("url = " + answer);
+  fetchData() {
+    return new Promise(resolve => {
+      const receiveData = htmlDocument => {
+        console.info(`award = ${this.award.name}`);
+        const { books, bookToNomination } = this.parse(htmlDocument);
+        console.info(`${this.award.name} books.length = ${books.length}`);
 
-      return answer;
-   }
+        resolve({ books, bookToNomination });
+      };
 
-   function forEachRow(rows, callback)
-   {
-      let thisRow = rows.iterateNext();
+      const url = this.createUrl();
+      const options = {};
+      FetchUtilities.fetchRetry(url, options, 3)
+        .then(response => response.text())
+        .then(receiveData);
+    });
+  }
 
-      while (thisRow)
-      {
-         callback(thisRow);
+  parse(htmlDocument) {
+    // This gives the year set.
+    const books = [];
+    const bookToNomination = {};
+    const paragraphs = htmlDocument.split('<p align="center" class="AuthorSub">');
 
-         thisRow = rows.iterateNext();
+    for (let i = 2; i < 4; i += 1) {
+      const paragraph = paragraphs[i];
+      this.parseNominees(books, bookToNomination, paragraph.trim());
+    }
+
+    return { books, bookToNomination };
+  }
+
+  parseCategory(htmlFragment) {
+    const key0 = "<strong>";
+    const index0 = htmlFragment.indexOf(key0);
+    const key1 = "</strong>";
+    const index1 = htmlFragment.indexOf(key1, index0);
+    const categoryName = htmlFragment.substring(index0 + key0.length, index1).trim();
+    let myCategoryName = categoryName.replace("  ", " ");
+    myCategoryName = myCategoryName.replace(":", "");
+    const { properties } = this.award.categories;
+
+    return MysteryAward.findByName(properties, myCategoryName);
+  }
+
+  parseNominee(books, bookToNomination0, table, year) {
+    const cells = table.split("<td");
+    const category = this.parseCategory(cells[1].trim());
+    const bookToNomination = bookToNomination0;
+
+    if (category !== undefined) {
+      for (let i = 3; i < cells.length; i += 2) {
+        const isWinner = cells[i - 1].includes(">*<");
+        const book = parseBook(cells[i].trim());
+        const nomination = new Nomination(this.award, category, year, isWinner);
+        books.push(book);
+        add(bookToNomination, book, nomination);
       }
-   }
+    }
+  }
 
-   function parse()
-   {
-      LOGGER.trace("SYKMNomineeFetcher.parse() start");
+  parseNominees(books, bookToNomination, paragraph) {
+    const index0 = paragraph.indexOf("<");
+    const yearString = paragraph.substring(0, index0);
+    const year = parseInt(yearString, 10);
+    const tables = paragraph.split("<table");
 
-      // This gives the year set.
-      const xpath = "//p[@class='AuthorSub']/parent::td";
-      const resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
-      const rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
-      forEachRow(rows, parseNominees);
-
-      LOGGER.trace("SYKMNomineeFetcher.parse() end");
-   }
-
-   function parseNominees(xmlFragment)
-   {
-      LOGGER.trace("SYKMNomineeFetcher.parseNominees() start");
-      LOGGER.trace("xmlFragment = " + (new XMLSerializer()).serializeToString(xmlFragment));
-
-      // This gives the year.
-      const xpath0 = "p[@class='AuthorSub']";
-      const resultType0 = XPathResult.FIRST_ORDERED_NODE_TYPE;
-      const element = xmlDocument.evaluate(xpath0, xmlFragment, null, resultType0, null);
-      LOGGER.debug("element.singleNodeValue = " + element.singleNodeValue);
-      LOGGER.debug("element.singleNodeValue.textContent = " + element.singleNodeValue.textContent);
-      const year = Number(element.singleNodeValue.textContent.trim().substring(0, 4));
-      LOGGER.debug("year = " + year);
-      let callback;
-
-      if (award.value === MysteryAward.DAGGER)
-      {
-         callback = function(xmlFragment)
-         {
-            parseNomineeDagger(xmlFragment, year);
-         };
-      }
-      else
-      {
-         callback = function(xmlFragment)
-         {
-            parseNominee(xmlFragment, year);
-         };
-      }
-
-      const maxTables = (award.value === MysteryAward.DAGGER ? 9 : 5);
-
-      for (let j = 1; j < maxTables; j++)
-      {
-         // This gives the year set.
-         const xpath = "table[" + j + "]";
-         const resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
-         const rows = xmlDocument.evaluate(xpath, xmlFragment, null, resultType, null);
-         forEachRow(rows, callback);
-      }
-
-      LOGGER.trace("SYKMNomineeFetcher.parseNominees() end");
-   }
-
-   function parseNominee(xmlFragment, year)
-   {
-      LOGGER.trace("SYKMNomineeFetcher.parseNominee() start");
-      LOGGER.trace("xmlFragment = " + (new XMLSerializer()).serializeToString(xmlFragment));
-
-      // This gives the data cells (td).
-      const xpath = "tbody/tr/td";
-      const resultType = XPathResult.ORDERED_NODE_SNAPSHOT_TYPE;
-      const cells = xmlDocument.evaluate(xpath, xmlFragment, null, resultType, null);
-      for (let i = 0; i < cells.snapshotLength; i++)
-      {
-         LOGGER.debug(i + " snapshotItem = " + cells.snapshotItem(i).textContent);
-      }
-
-      const category = parseCategory(cells.snapshotItem(0).textContent.trim());
-      LOGGER.debug("category = " + category);
-
-      if (category !== undefined)
-      {
-         for (let j = 2; j < cells.snapshotLength; j += 2)
-         {
-            const isWinner = (cells.snapshotItem(j - 1).textContent.trim() === "*");
-            LOGGER.debug("isWinner ? " + isWinner);
-            const book = parseBook(cells.snapshotItem(j).textContent.trim());
-            const nomination = new Nomination(award, category, year, isWinner);
-            add(book, nomination);
-         }
-      }
-
-      LOGGER.trace("SYKMNomineeFetcher.parseNominee() end");
-   }
-
-   function parseNomineeDagger(xmlFragment, year)
-   {
-      LOGGER.trace("SYKMNomineeFetcher.parseNomineeDagger() start");
-      LOGGER.trace("xmlFragment = " + (new XMLSerializer()).serializeToString(xmlFragment));
-
-      // HACK start
-      year--;
-      // HACK end
-
-      const xpath0 = "tbody/tr/th";
-      const resultType0 = XPathResult.FIRST_ORDERED_NODE_TYPE;
-      const element = xmlDocument.evaluate(xpath0, xmlFragment, null, resultType0, null);
-      LOGGER.debug("element.singleNodeValue = " + element.singleNodeValue);
-
-      if (element.singleNodeValue)
-      {
-         LOGGER.debug("element.singleNodeValue.textContent = " + element.singleNodeValue.textContent);
-         const category = parseCategory(element.singleNodeValue.textContent.trim());
-         LOGGER.debug("category = " + category);
-
-         if (category !== undefined)
-         {
-            // This gives the data cells (td).
-            const xpath = "tbody/tr/td";
-            const resultType = XPathResult.ORDERED_NODE_SNAPSHOT_TYPE;
-            const cells = xmlDocument.evaluate(xpath, xmlFragment, null, resultType, null);
-            for (let i = 0; i < cells.snapshotLength; i++)
-            {
-               LOGGER.debug(i + " snapshotItem = " + cells.snapshotItem(i).textContent);
-            }
-
-            for (let j = 1; j < cells.snapshotLength; j += 2)
-            {
-               const isWinner = (cells.snapshotItem(j - 1).textContent.trim() === "*");
-               LOGGER.debug("isWinner ? " + isWinner);
-               const book = parseBook(cells.snapshotItem(j).textContent.trim());
-               const nomination = new Nomination(award, category, year, isWinner);
-               add(book, nomination);
-            }
-         }
-      }
-
-      LOGGER.trace("SYKMNomineeFetcher.parseNomineeDagger() end");
-   }
-
-   function add(book, nomination)
-   {
-      if (!ArrayUtilities.containsUsingEquals(books, book, function(a, b)
-         {
-            return a.title === b.title && a.author === b.author;
-         }))
-      {
-         books.push(book);
-         bookToNomination[book] = [];
-      }
-      const nominations = bookToNomination[book];
-
-      if (!nominations.includes(nomination))
-      {
-         nominations.push(nomination);
-      }
-   }
-
-   function parseAuthor(author)
-   {
-      InputValidator.validateNotNull("author", author);
-
-      let answer = author;
-
-      const index = answer.indexOf("[");
-
-      if (index >= 0)
-      {
-         answer = answer.substring(0, index).trim();
-      }
-
-      return answer;
-   }
-
-   function parseBook(titleAuthor)
-   {
-      InputValidator.validateNotNull("titleAuthor", titleAuthor);
-
-      const myTitleAuthor = titleAuthor.replace(/\n/g, " ");
-      LOGGER.debug("myTitleAuthor = " + myTitleAuthor);
-      const index = myTitleAuthor.lastIndexOf(" by ");
-      let title;
-      let author;
-
-      if (index >= 0)
-      {
-         title = myTitleAuthor.substring(0, index).trim();
-         title = title.replace(/    /g, " ");
-         title = title.replace(/   /g, " ");
-         title = title.replace(/  /g, " ");
-         title = title.replace(/  /g, " ");
-         title = title.replace(/ \)/g, ")");
-         // Special case for 2016
-         title = title.replace("Del and Louise", "Del & Louise");
-         author = parseAuthor(myTitleAuthor.substring(index + 3).trim());
-      }
-
-      LOGGER.debug("title = _" + title + "_");
-      LOGGER.debug("author = _" + author + "_");
-
-      return new Book(title, author);
-   }
-
-   function parseCategory(categoryName)
-   {
-      InputValidator.validateNotNull("categoryName", categoryName);
-
-      let myCategoryName = categoryName.replace("  ", " ");
-      myCategoryName = myCategoryName.replace(":", "");
-      LOGGER.debug("myCategoryName = _" + myCategoryName + "_");
-      const properties = award.categories.properties;
-
-      return MysteryAward.findByName(properties, myCategoryName);
-   }
+    for (let i = 1; i < tables.length; i += 1) {
+      const table = tables[i];
+      this.parseNominee(books, bookToNomination, table, year);
+    }
+  }
 }
 
 export default SYKMNomineeFetcher;

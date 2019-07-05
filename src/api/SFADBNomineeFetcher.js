@@ -1,238 +1,166 @@
-import ArrayUtilities from "../utility/ArrayUtilities.js";
-import InputValidator from "../utility/InputValidator.js";
+/* eslint no-console: ["error", { allow: ["info"] }] */
+/* eslint no-underscore-dangle: ["error", { "allow": ["_award","_year"] }] */
 
 import SciFiAward from "../artifact/SciFiAward.js";
 
 import Book from "../model/Book.js";
 import Nomination from "../model/Nomination.js";
 
-function SFADBNomineeFetcher(award, year, callback)
-{
-   InputValidator.validateNotNull("award", award);
-   InputValidator.validateNotNull("year", year);
-   InputValidator.validateNotNull("callback", callback);
+import FetchUtilities from "./FetchUtilities.js";
 
-   this.award = function()
-   {
-      return award;
-   };
+const add = (bookToNomination0, book, nomination) => {
+  const bookToNomination = bookToNomination0;
+  const nominations = bookToNomination[book];
 
-   const books = [];
-   const bookToNomination = {};
-   let xmlDocument;
+  if (Array.isArray(nominations)) {
+    nominations.push(nomination);
+  } else {
+    bookToNomination[book] = [nomination];
+  }
+};
 
-   this.fetchData = function()
-   {
-      LOGGER.trace("SFADBNomineeFetcher.fetchData() start");
+const parseBook = (cell0, cell1) => {
+  const key0 = "<b>";
+  const index0 = cell0.lastIndexOf(key0);
+  const key1 = "</b>";
+  const index1 = cell0.lastIndexOf(key1);
+  let title = cell0.substring(index0 + key0.length, index1);
 
-      const url = createUrl();
-      $.ajax(url).done(this.receiveData).fail(function(jqXHR, textStatus, errorThrown)
-      {
-         LOGGER.error(errorThrown);
-      });
+  // Special case for 2018. (misspelling)
+  if (title.indexOf("Strategem") >= 0) {
+    title = title.replace("Strategem", "Stratagem");
+  }
 
-      LOGGER.trace("SFADBNomineeFetcher.fetchData() end");
-   };
+  const key2 = ">";
+  const key3 = "</a>";
+  const index3 = cell1.lastIndexOf(key3);
+  const index2 = cell1.lastIndexOf(key2, index3);
+  const author = cell1.substring(index2 + key2.length, index3);
 
-   this.receiveData = function(xmlDocumentIn)
-   {
-      InputValidator.validateNotNull("xmlDocument", xmlDocumentIn);
+  return new Book(title, author);
+};
 
-      LOGGER.trace("SFADBNomineeFetcher.receiveData() start");
+// /////////////////////////////////////////////////////////////////////////////////////////////////
+class SFADBNomineeFetcher {
+  constructor(award, year) {
+    this._award = award;
+    this._year = year;
+  }
 
-      xmlDocument = xmlDocumentIn;
-      LOGGER.trace("award = " + award.name);
-      LOGGER.trace("xmlDocument = " + (new XMLSerializer()).serializeToString(xmlDocument));
-      let content = xmlDocument.children[0].children[0].children[0];
-      content = content.innerHTML;
-      content = content.replace(/&lt;/g, "<");
-      content = content.replace(/&gt;/g, ">");
-      xmlDocument.children[0].children[0].children[0].innerHTML = content;
-      parse();
-      LOGGER.info(award.name + " books.length = " + books.length);
-      callback(books, bookToNomination);
+  get award() {
+    return this._award;
+  }
 
-      LOGGER.trace("SFADBNomineeFetcher.receiveData() end");
-   };
+  get year() {
+    return this._year;
+  }
 
-   function createUrl()
-   {
-      const baseUrl = "https://query.yahooapis.com/v1/public/yql?q=";
-      const sourceUrl = award.url + year;
+  createUrl() {
+    // console.debug(`url = ${this.award.url + this.year}`);
+    return this.award.url + this.year;
+  }
 
-      const query = "select * from htmlstring where url=\"" + sourceUrl + "\"";
-      const answer = baseUrl + encodeURIComponent(query) + "&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-      LOGGER.debug("url = " + answer);
+  fetchData() {
+    return new Promise(resolve => {
+      const receiveData = htmlDocument => {
+        let books = [];
+        let bookToNomination = {};
+        console.info(`award = ${this.award.name}`);
 
-      return answer;
-   }
+        if (htmlDocument) {
+          const { books: myBooks, bookToNomination: myBookToNomination } = this.parse(htmlDocument);
+          books = myBooks;
+          bookToNomination = myBookToNomination;
+          console.info(`${this.award.name} books.length = ${books.length}`);
+        }
 
-   function forEachRow(rows, callback)
-   {
-      let thisRow = rows.iterateNext();
+        resolve({ books, bookToNomination });
+      };
 
-      while (thisRow)
-      {
-         callback(thisRow);
+      const url = this.createUrl();
+      const options = {};
+      FetchUtilities.fetchRetry(url, options, 3)
+        .then(response => response.text())
+        .then(receiveData);
+    });
+  }
 
-         thisRow = rows.iterateNext();
+  parse(htmlDocument) {
+    // This gives the year set.
+    const books = [];
+    const bookToNomination = {};
+    const paragraphs = htmlDocument.split('<div class="categoryblock">');
+
+    for (let i = 1; i < 3; i += 1) {
+      const paragraph = paragraphs[i];
+
+      if (paragraph) {
+        this.parseNominees(books, bookToNomination, paragraph.trim());
       }
-   }
+    }
 
-   function parse()
-   {
-      LOGGER.trace("SFADBNomineeFetcher.parse() start");
+    return { books, bookToNomination };
+  }
 
-      // This gives the category set.
-      const xpath = "//div[@class='categoryblock']";
-      const resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
-      const rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
-      var xpath2 = (award.value === SciFiAward.LOCUS ? xpath2 = "ol/li" : "ul/li");
-      forEachRow(rows, function callback(xmlFragment)
-      {
-         parseNominees(xmlFragment, xpath2);
-      });
+  parseCategory(categoryName) {
+    let myCategoryName = categoryName;
+    const key0 = ">";
+    const index0 = myCategoryName.indexOf(key0);
 
-      LOGGER.trace("SFADBNomineeFetcher.parse() end");
-   }
+    if (index0 >= 0) {
+      myCategoryName = myCategoryName.substring(index0 + key0.length);
+    }
 
-   function parseNominees(xmlFragment, xpath)
-   {
-      LOGGER.trace("SFADBNomineeFetcher.parseNominees() start");
-      LOGGER.debug("xmlFragment = " + (new XMLSerializer()).serializeToString(xmlFragment));
+    const key1 = " (";
+    const index1 = myCategoryName.indexOf(key1);
 
-      const xpath0 = "div[@class='category']";
-      const resultType0 = XPathResult.FIRST_ORDERED_NODE_TYPE;
-      const element = xmlDocument.evaluate(xpath0, xmlFragment, null, resultType0, null);
-      LOGGER.debug("element.singleNodeValue = " + element.singleNodeValue);
-      LOGGER.debug("element.singleNodeValue.textContent = " + element.singleNodeValue.textContent);
-      const category = parseCategory(element.singleNodeValue.textContent.trim());
+    if (index1 >= 0) {
+      myCategoryName = myCategoryName.substring(0, index1);
+    }
 
-      if (category)
-      {
-         LOGGER.debug("category = " + category);
-         const resultType = XPathResult.ORDERED_NODE_SNAPSHOT_TYPE;
-         const cells = xmlDocument.evaluate(xpath, xmlFragment, null, resultType, null);
-         LOGGER.debug("cells.snapshotLength = " + cells.snapshotLength);
-         for (let i = 0; i < cells.snapshotLength; i++)
-         {
-            LOGGER.debug(i + " snapshotItem = " + cells.snapshotItem(i).textContent);
-         }
+    const key2 = "</div>";
+    const index2 = myCategoryName.indexOf(key2);
 
-         for (let j = 0; j < cells.snapshotLength; j++)
-         {
-            let isWinner = false;
-            let titleAuthor = cells.snapshotItem(j).textContent.trim();
-            if (titleAuthor.startsWith("Winner:"))
-            {
-               isWinner = true;
-               titleAuthor = titleAuthor.substring(7).trim();
-            }
-            LOGGER.debug("isWinner ? " + isWinner);
+    if (index2 >= 0) {
+      myCategoryName = myCategoryName.substring(0, index2);
+    }
 
-            if (titleAuthor.startsWith("(tie):"))
-            {
-               titleAuthor = titleAuthor.substring(6).trim();
-            }
+    const { properties } = this.award.categories;
 
-            const book = parseBook(titleAuthor);
-            const nomination = new Nomination(award, category, year, isWinner);
-            add(book, nomination);
-         }
+    return SciFiAward.findByName(properties, myCategoryName);
+  }
+
+  parseNominee(books, bookToNomination0, category, table) {
+    const cells = table.split(",");
+    const bookToNomination = bookToNomination0;
+    const cell0 = cells[0].trim();
+    const cell1 = cells[1].trim();
+    const isWinner = cell0.indexOf("Winner") >= 0;
+    const book = parseBook(cell0, cell1);
+    const nomination = new Nomination(this.award, category, this.year, isWinner);
+    books.push(book);
+    add(bookToNomination, book, nomination);
+  }
+
+  parseNominees(books, bookToNomination, paragraph) {
+    const key00 = paragraph.indexOf("<ul>") >= 0 ? "<ul>" : "<ol>";
+    const parts = paragraph.split(key00);
+    const category = this.parseCategory(parts[0].trim());
+    let parts1 = parts[1].trim();
+    const key0 = "</li>";
+    const index0 = parts1.lastIndexOf(key0);
+    if (index0 >= 0) {
+      parts1 = parts1.substring(0, index0 + key0.length);
+    }
+
+    if (category !== undefined) {
+      const tables = parts1.trim().split("<li");
+      for (let i = 1; i < tables.length; i += 1) {
+        const table = tables[i];
+        this.parseNominee(books, bookToNomination, category, table);
       }
-
-      LOGGER.trace("SFADBNomineeFetcher.parseNominees() end");
-   }
-
-   function add(book, nomination)
-   {
-      InputValidator.validateNotNull("book", book);
-      InputValidator.validateNotNull("nomination", nomination);
-
-      if (!ArrayUtilities.containsUsingEquals(books, book, function(a, b)
-         {
-            return a.title === b.title && a.author === b.author;
-         }))
-      {
-         books.push(book);
-         bookToNomination[book] = [];
-      }
-      const nominations = bookToNomination[book];
-
-      if (!nominations.includes(nomination))
-      {
-         nominations.push(nomination);
-      }
-   }
-
-   function parseAuthor(author)
-   {
-      InputValidator.validateNotNull("author", author);
-
-      let answer = author;
-
-      const index = answer.indexOf("(");
-
-      if (index >= 0)
-      {
-         answer = answer.substring(0, index).trim();
-         answer = answer.replace(/\n/g, "");
-         answer = answer.replace(/     /g, " ");
-         answer = answer.replace(/    /g, " ");
-         answer = answer.replace(/   /g, " ");
-         answer = answer.replace(/  /g, " ");
-         answer = answer.replace(/&amp;/g, "&");
-      }
-
-      return answer;
-   }
-
-   function parseBook(titleAuthor)
-   {
-      InputValidator.validateNotNull("titleAuthor", titleAuthor);
-
-      let myTitleAuthor = titleAuthor.trim();
-      myTitleAuthor = myTitleAuthor.replace(/\n/g, "");
-      LOGGER.debug("myTitleAuthor = " + myTitleAuthor);
-      const index = myTitleAuthor.indexOf(", ");
-      let title;
-      let author;
-
-      if (index >= 0)
-      {
-         title = myTitleAuthor.substring(0, index).trim();
-         author = parseAuthor(myTitleAuthor.substring(index + 2).trim());
-      }
-
-      // Special case for 2015.
-      if (author === "Adam Roberts" && title.length === 4 && title.charAt(0) === "B" && title.endsWith("te"))
-      {
-         title = "B\u00EAte";
-      }
-
-      LOGGER.debug("title = _" + title + "_");
-      LOGGER.debug("author = _" + author + "_");
-
-      return new Book(title, author);
-   }
-
-   function parseCategory(categoryName)
-   {
-      InputValidator.validateNotNull("categoryName", categoryName);
-
-      let myCategoryName = categoryName;
-      const index = myCategoryName.indexOf(" (");
-
-      if (index >= 0)
-      {
-         myCategoryName = categoryName.substring(0, index);
-      }
-
-      LOGGER.debug("myCategoryName = _" + myCategoryName + "_");
-      const properties = award.categories.properties;
-
-      return SciFiAward.findByName(properties, myCategoryName);
-   }
+    }
+  }
 }
 
 export default SFADBNomineeFetcher;

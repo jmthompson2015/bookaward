@@ -1,138 +1,71 @@
-import InputValidator from "../utility/InputValidator.js";
+/* eslint no-console: ["error", { allow: ["debug","warn"] }] */
+/* eslint no-underscore-dangle: ["error", { "allow": ["_book"] }] */
 
 import Library from "../artifact/Library.js";
 
 import UrlGenerator from "../model/UrlGenerator.js";
 
-function DCLURLFetcher(book, callback)
-{
-   InputValidator.validateNotNull("book", book);
-   InputValidator.validateNotNull("callback", callback);
+import FetchUtilities from "./FetchUtilities.js";
 
-   this.book = function()
-   {
-      return book;
-   };
+const BASE_URL = "https://dcl.bibliocommons.com";
 
-   let dclUrl;
-   let xmlDocument;
-   const BASE_URL = "https://dcl.bibliocommons.com";
+class DCLURLFetcher {
+  constructor(book) {
+    this._book = book;
+  }
 
-   this.fetchData = function()
-   {
-      LOGGER.trace("DCLURLFetcher.fetchData() start");
+  get book() {
+    return this._book;
+  }
 
-      const url = createUrl();
-      $.ajax(url).done(this.receiveData).fail(function(jqXHR, textStatus, errorThrown)
-      {
-         LOGGER.error(errorThrown);
-      });
+  createUrl() {
+    const library = Library.properties[Library.DCL];
+    const subject = this.book.toString();
 
-      LOGGER.trace("DCLURLFetcher.fetchData() end");
-   };
+    return UrlGenerator.createLibrarySearchUrl(library, subject);
+  }
 
-   this.receiveData = function(xmlDocumentIn)
-   {
-      InputValidator.validateNotNull("xmlDocument", xmlDocumentIn);
+  fetchData() {
+    return new Promise(resolve => {
+      const receiveData = htmlDocument => {
+        const dclUrl = this.parse(htmlDocument);
+        resolve({ book: this.book, dclUrl });
+      };
 
-      LOGGER.trace("DCLURLFetcher.receiveData() start");
+      const url = this.createUrl();
+      const options = {};
+      FetchUtilities.fetchRetry(url, options, 3)
+        .then(response => response.text())
+        .then(receiveData);
+    });
+  }
 
-      xmlDocument = xmlDocumentIn;
-      LOGGER.trace("book = " + book);
-      LOGGER.trace("xmlDocument = " + (new XMLSerializer()).serializeToString(xmlDocument));
-      let content = xmlDocument.children[0].children[0].children[0];
-      if (content !== undefined)
-      {
-         content = content.innerHTML;
-         content = content.replace(/&lt;/g, "<");
-         content = content.replace(/&gt;/g, ">");
-         xmlDocument.children[0].children[0].children[0].innerHTML = content;
+  parse(htmlDocument) {
+    let dclUrl;
+
+    const key0 = '<span class="icon icon-book-open"';
+    const index0 = htmlDocument.indexOf(key0);
+
+    if (index0 >= 0) {
+      const key1 = '<a href="';
+      const index1 = htmlDocument.indexOf(key1, index0 + key0.length);
+
+      if (index1 >= 0) {
+        const key2 = '"';
+        const index2 = htmlDocument.indexOf(key2, index1 + key1.length);
+
+        if (index2 >= 0) {
+          dclUrl = BASE_URL + htmlDocument.substring(index1 + key1.length, index2).trim();
+        }
       }
-      parse();
-      LOGGER.debug("dclUrl = " + dclUrl);
-      callback(book, dclUrl);
+    }
 
-      LOGGER.trace("DCLURLFetcher.receiveData() end");
-   };
+    if (dclUrl === undefined) {
+      console.warn(`missing row for book = ${this.book}`);
+    }
 
-   function createUrl()
-   {
-      const baseUrl = "https://query.yahooapis.com/v1/public/yql?q=";
-
-      const library = Library.properties[Library.DCL];
-      const subject = book.toString();
-      const sourceUrl = UrlGenerator.createLibrarySearchUrl(library, subject);
-
-      const query = "select * from htmlstring where url=\"" + sourceUrl + "\"";
-      const answer = baseUrl + encodeURIComponent(query) + "&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
-      LOGGER.debug("url = " + answer);
-
-      return answer;
-   }
-
-   function parse()
-   {
-      LOGGER.trace("DCLURLFetcher.parse() start");
-
-      // This gives the book set.
-      const xpath = "//span/text()[', Book' = substring(., string-length(.) - string-length(', Book') + 1)]/../../../../a/@href";
-      const resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
-      const rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
-      const row = rows.iterateNext();
-      LOGGER.trace("row = " + row);
-
-      if (row)
-      {
-         dclUrl = BASE_URL + row.value;
-
-         if (dclUrl === undefined)
-         {
-            LOGGER.warn("missing row for book = " + book);
-         }
-      }
-      else
-      {
-         parse2();
-      }
-
-      LOGGER.trace("DCLURLFetcher.parse() end");
-   }
-
-   function parse2()
-   {
-      LOGGER.trace("DCLURLFetcher.parse2() start");
-
-      // This gives the book set.
-      let title = book.title;
-      title = title.replace(/'/g, "");
-      LOGGER.trace("title = " + title);
-      const xpath = "//span/text()['Book' = substring(., string-length(.) - string-length('Book') + 1)]/../../../../../../../../../../../..//a[text()='" + title + "']/@href";
-      const resultType = XPathResult.ORDERED_NODE_ITERATOR_TYPE;
-      const rows = xmlDocument.evaluate(xpath, xmlDocument, null, resultType, null);
-      let row = rows.iterateNext();
-      LOGGER.trace("row = " + row);
-
-      while (row)
-      {
-         const myTitle = row.value;
-         LOGGER.trace("myTitle = " + myTitle);
-
-         if (myTitle)
-         {
-            dclUrl = BASE_URL + row.value;
-            break;
-         }
-
-         row = rows.iterateNext();
-      }
-
-      if (dclUrl === undefined)
-      {
-         LOGGER.warn("missing row for book = " + book);
-      }
-
-      LOGGER.trace("DCLURLFetcher.parse2() end");
-   }
+    return dclUrl;
+  }
 }
 
 export default DCLURLFetcher;
