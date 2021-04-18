@@ -19,8 +19,8 @@ function createBook1() {
 }
 
 function createBook2() {
-  const title = "Freedom's Child";
-  const author = "Jax Miller";
+  const title = "The Survivors";
+  const author = "Jane Harper";
 
   return new Book(title, author);
 }
@@ -46,7 +46,7 @@ function createBook5() {
   return new Book(title, author);
 }
 
-QUnit.test("fetchData() 0", assert => {
+QUnit.test("fetchData() 0", (assert) => {
   // Setup.
   const book0 = createBook0();
   const done = assert.async();
@@ -63,7 +63,7 @@ QUnit.test("fetchData() 0", assert => {
   fetcher.fetchData().then(callback);
 });
 
-QUnit.test("fetchData() 1", assert => {
+QUnit.test("fetchData() 1", (assert) => {
   // Setup.
   const book0 = createBook1();
   const done = assert.async();
@@ -79,7 +79,7 @@ QUnit.test("fetchData() 1", assert => {
   fetcher.fetchData().then(callback);
 });
 
-QUnit.test("fetchData() 2", assert => {
+QUnit.test("fetchData() 2", (assert) => {
   // Setup.
   const book0 = createBook2();
   const done = assert.async();
@@ -87,7 +87,7 @@ QUnit.test("fetchData() 2", assert => {
     // Verify.
     assert.ok(book);
     assert.ok(dclUrl);
-    assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1268318114");
+    assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1682493114");
     done();
   };
   const fetcher = new DCLURLFetcher(book0);
@@ -96,7 +96,7 @@ QUnit.test("fetchData() 2", assert => {
   fetcher.fetchData().then(callback);
 });
 
-QUnit.test("fetchData() 3", assert => {
+QUnit.test("fetchData() 3", (assert) => {
   // Setup.
   const book0 = createBook3();
   const done = assert.async();
@@ -104,7 +104,7 @@ QUnit.test("fetchData() 3", assert => {
     // Verify.
     assert.ok(book);
     assert.ok(dclUrl);
-    assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1523229114");
+    assert.equal(dclUrl, "https://dcl.bibliocommons.com/item/show/1680019114");
     done();
   };
   const fetcher = new DCLURLFetcher(book0);
@@ -113,7 +113,7 @@ QUnit.test("fetchData() 3", assert => {
   fetcher.fetchData().then(callback);
 });
 
-QUnit.test("fetchData() 4", assert => {
+QUnit.test("fetchData() 4", (assert) => {
   // Setup.
   const book0 = createBook4();
   const done = assert.async();
@@ -129,7 +129,7 @@ QUnit.test("fetchData() 4", assert => {
   fetcher.fetchData().then(callback);
 });
 
-QUnit.test("fetchData() 5", assert => {
+QUnit.test("fetchData() 5", (assert) => {
   // Setup.
   const book0 = createBook5();
   const done = assert.async();

@@ -4,7 +4,7 @@ import NomineeFetcher from "./SFADBNomineeFetcher.js";
 
 QUnit.module("SFADBNomineeFetcher");
 
-QUnit.test("fetchData() British Fantasy", assert => {
+QUnit.test("fetchData() British Fantasy", (assert) => {
   // Setup.
   const award = SciFiAward.properties[SciFiAward.BRITISH_FANTASY];
   const year = 2018;
@@ -48,7 +48,7 @@ QUnit.test("fetchData() British Fantasy", assert => {
   fetcher.fetchData().then(callback);
 });
 
-QUnit.test("fetchData() British SF", assert => {
+QUnit.test("fetchData() British SF", (assert) => {
   // Setup.
   const award = SciFiAward.properties[SciFiAward.BRITISH_SF];
   const year = 2019;
@@ -91,7 +91,7 @@ QUnit.test("fetchData() British SF", assert => {
   fetcher.fetchData().then(callback);
 });
 
-QUnit.test("fetchData() Hugo", assert => {
+QUnit.test("fetchData() Hugo", (assert) => {
   // Setup.
   const award = SciFiAward.properties[SciFiAward.HUGO];
   const year = 2019;
@@ -113,7 +113,7 @@ QUnit.test("fetchData() Hugo", assert => {
     const category = award.categories.properties[award.categories.NOVEL];
     assert.equal(nominations[j].category, category);
     assert.equal(nominations[j].year, 2019);
-    assert.ok(!nominations[j].isWinner);
+    assert.ok(nominations[j].isWinner);
 
     i = books.length - 1;
     assert.equal(books[i].title, "Trail of Lightning");
@@ -134,7 +134,7 @@ QUnit.test("fetchData() Hugo", assert => {
   fetcher.fetchData().then(callback);
 });
 
-QUnit.test("fetchData() Locus", assert => {
+QUnit.test("fetchData() Locus", (assert) => {
   // Setup.
   const award = SciFiAward.properties[SciFiAward.LOCUS];
   const year = 2019;
@@ -176,7 +176,7 @@ QUnit.test("fetchData() Locus", assert => {
   fetcher.fetchData().then(callback);
 });
 
-QUnit.test("fetchData() Nebula", assert => {
+QUnit.test("fetchData() Nebula", (assert) => {
   // Setup.
   const award = SciFiAward.properties[SciFiAward.NEBULA];
   const year = 2019;
