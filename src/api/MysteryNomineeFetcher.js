@@ -25,12 +25,12 @@ const callback1 = ({ book, dclUrl }) => {
     missingCount += 1;
   }
 
-  document.getElementById("statusBar1").innerHTML = `count1 = ${count1} books.length = ${
-    books.length
-  } missingCount = ${missingCount}`;
+  document.getElementById(
+    "statusBar1"
+  ).innerHTML = `count1 = ${count1} books.length = ${books.length} missingCount = ${missingCount}`;
 
   if (count1 === books.length) {
-    let content = MysteryAward.values().reduce((previousValue, awardKey) => {
+    let content = MysteryAward.keys().reduce((previousValue, awardKey) => {
       const awardString = `const {${awardKey}} = MysteryAward.properties;<br/>`;
       return previousValue + awardString;
     }, "");
@@ -54,16 +54,17 @@ const callback1 = ({ book, dclUrl }) => {
     content += "<br/>this.initializeBookToNomination();<br/><br/>";
     content += books.reduce((previousValue, book2, i) => {
       const nominations = bookToNomination[book2];
-      const nominationsString = nominations.reduce((previousValue2, nomination) => {
-        let nominationString = `this.bookToNomination[this.books[${i}]].push(new Nomination(`;
-        nominationString += `${nomination.award.value}, `;
-        nominationString += `${nomination.award.value}.categories.properties.${
-          nomination.category.value
-        }, `;
-        nominationString += `${nomination.year}, `;
-        nominationString += `${nomination.isWinner}));<br/>`;
-        return previousValue2 + nominationString;
-      }, "");
+      const nominationsString = nominations.reduce(
+        (previousValue2, nomination) => {
+          let nominationString = `this.bookToNomination[this.books[${i}]].push(new Nomination(`;
+          nominationString += `${nomination.award.value}, `;
+          nominationString += `${nomination.award.value}.categories.properties.${nomination.category.value}, `;
+          nominationString += `${nomination.year}, `;
+          nominationString += `${nomination.isWinner}));<br/>`;
+          return previousValue2 + nominationString;
+        },
+        ""
+      );
       return previousValue + nominationsString;
     }, "");
     content += "<br/>this.initializeBookToAssessment();<br/>";
@@ -75,14 +76,19 @@ const callback1 = ({ book, dclUrl }) => {
   }
 };
 
-const callback0 = ({ books: newBooks, bookToNomination: newBookToNomination }) => {
-  newBooks.forEach(book => {
-    if (!ArrayUtilities.containsUsingEquals(books, book, BookComparator.equals)) {
+const callback0 = ({
+  books: newBooks,
+  bookToNomination: newBookToNomination,
+}) => {
+  newBooks.forEach((book) => {
+    if (
+      !ArrayUtilities.containsUsingEquals(books, book, BookComparator.equals)
+    ) {
       books.push(book);
     }
   });
 
-  Object.keys(newBookToNomination).forEach(key => {
+  Object.keys(newBookToNomination).forEach((key) => {
     let nominations = bookToNomination[key];
     if (nominations === undefined) {
       nominations = [];
@@ -94,14 +100,16 @@ const callback0 = ({ books: newBooks, bookToNomination: newBookToNomination }) =
 
   document.getElementById(
     "statusBar0"
-  ).innerHTML = `count0 = ${count0} MysteryAward.values().length = ${MysteryAward.values().length}`;
+  ).innerHTML = `count0 = ${count0} MysteryAward.keys().length = ${
+    MysteryAward.keys().length
+  }`;
 
-  if (count0 === MysteryAward.values().length) {
+  if (count0 === MysteryAward.keys().length) {
     // Sort the books.
     books.sort(BookComparator.compare);
 
     // Sort the nominations.
-    books.forEach(book => {
+    books.forEach((book) => {
       const nominations = bookToNomination[book];
       if (nominations.length > 1) {
         nominations.sort(NominationComparator.compare);
@@ -109,14 +117,14 @@ const callback0 = ({ books: newBooks, bookToNomination: newBookToNomination }) =
     });
 
     // Fetch the Douglas County Libraries URLs.
-    books.forEach(book => {
+    books.forEach((book) => {
       const fetcher = new DCLURLFetcher(book);
       setTimeout(fetcher.fetchData().then(callback1), 500);
     });
   }
 };
 
-MysteryAward.values().forEach(awardKey => {
+MysteryAward.keys().forEach((awardKey) => {
   let fetcher;
 
   if (awardKey === MysteryAward.CRIME_AND_BEYOND) {

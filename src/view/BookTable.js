@@ -92,7 +92,7 @@ class BookTable extends React.Component
       const selector = React.createElement(Select,
       {
          key: nominee.book.toString() + "_" + assessmentKey,
-         values: Assessment.values(),
+         values: Assessment.keys(),
          initialSelectedValue: assessmentKey,
          labelFunction: labelFunction,
          onChange: this.handleChange.bind(this),
@@ -108,7 +108,7 @@ class BookTable extends React.Component
          key: key,
          className: column.className,
          column: column.key,
-         value: Assessment.values().indexOf(assessmentKey),
+         value: Assessment.keys().indexOf(assessmentKey),
       }, selector);
 
       return answer;
@@ -171,7 +171,7 @@ class BookTable extends React.Component
       const cells = [];
       let value = "";
 
-      Library.values().forEach(function(libraryKey)
+      Library.keys().forEach(function(libraryKey)
       {
          const library = Library.properties[libraryKey];
          const url = UrlGenerator.createLibrarySearchUrl(library, nominee.book.toString());

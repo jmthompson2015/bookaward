@@ -12,22 +12,22 @@ const MysteryAward = {
     agatha: {
       name: "Agatha",
       url: "http://stopyourekillingme.com/Awards/Agatha_Awards.html",
-      value: "agatha"
+      value: "agatha",
     },
     anthony: {
       name: "Anthony",
       url: "http://stopyourekillingme.com/Awards/Anthony_Awards.html",
-      value: "anthony"
+      value: "anthony",
     },
     barry: {
       name: "Barry",
       url: "http://stopyourekillingme.com/Awards/Barry_Awards.html",
-      value: "barry"
+      value: "barry",
     },
     crimeAndBeyond: {
       name: "Crime & Beyond",
       url: "http://crimeandbeyond.wikia.com/wiki/Crime_%26_Beyond_Wiki",
-      value: "crimeAndBeyond"
+      value: "crimeAndBeyond",
     },
     // dagger: {
     //   name: "Dagger",
@@ -37,7 +37,7 @@ const MysteryAward = {
     edgar: {
       name: "Edgar",
       url: "http://stopyourekillingme.com/Awards/Edgar_Awards.html",
-      value: "edgar"
+      value: "edgar",
     },
     // nero: {
     //   name: "Nero",
@@ -47,14 +47,14 @@ const MysteryAward = {
     shamus: {
       name: "Shamus",
       url: "http://stopyourekillingme.com/Awards/Shamus_Awards.html",
-      value: "shamus"
-    }
+      value: "shamus",
+    },
   },
-
-  values() {
-    return Object.getOwnPropertyNames(MysteryAward.properties);
-  }
 };
+
+MysteryAward.keys = () => Object.keys(MysteryAward.properties);
+
+MysteryAward.values = () => Object.values(MysteryAward.properties);
 
 MysteryAward.properties[MysteryAward.AGATHA].categories = {
   CONTEMPORARY: "contemporary",
@@ -63,23 +63,23 @@ MysteryAward.properties[MysteryAward.AGATHA].categories = {
   properties: {
     contemporary: {
       name: "Best Contemporary Novel",
-      value: "contemporary"
+      value: "contemporary",
     },
     first: {
       name: "Best First Novel",
-      value: "first"
+      value: "first",
     },
     historical: {
       name: "Best Historical Novel",
-      value: "historical"
-    }
+      value: "historical",
+    },
   },
 
-  values() {
+  keys() {
     return Object.getOwnPropertyNames(
       MysteryAward.properties[MysteryAward.AGATHA].categories.properties
     );
-  }
+  },
 };
 
 MysteryAward.properties[MysteryAward.ANTHONY].categories = {
@@ -89,23 +89,23 @@ MysteryAward.properties[MysteryAward.ANTHONY].categories = {
   properties: {
     first: {
       name: "Best First Mystery",
-      value: "first"
+      value: "first",
     },
     mystery: {
       name: "Best Mystery Novel",
-      value: "mystery"
+      value: "mystery",
     },
     paperback: {
       name: "Best Paperback Original",
-      value: "paperback"
-    }
+      value: "paperback",
+    },
   },
 
-  values() {
+  keys() {
     return Object.getOwnPropertyNames(
       MysteryAward.properties[MysteryAward.ANTHONY].categories.properties
     );
-  }
+  },
 };
 
 MysteryAward.properties[MysteryAward.BARRY].categories = {
@@ -116,21 +116,21 @@ MysteryAward.properties[MysteryAward.BARRY].categories = {
   properties: {
     first: {
       name: "Best First Novel",
-      value: "first"
+      value: "first",
     },
     novel: {
       name: "Best Novel",
-      value: "novel"
+      value: "novel",
     },
     paperback: {
       name: "Best Paperback Original",
-      value: "paperback"
+      value: "paperback",
     },
     thriller: {
       name: "Best Thriller",
-      value: "thriller"
-    }
-  }
+      value: "thriller",
+    },
+  },
 };
 
 MysteryAward.properties[MysteryAward.CRIME_AND_BEYOND].categories = {
@@ -138,9 +138,9 @@ MysteryAward.properties[MysteryAward.CRIME_AND_BEYOND].categories = {
   properties: {
     case: {
       name: "Case File",
-      value: "case"
-    }
-  }
+      value: "case",
+    },
+  },
 };
 
 // MysteryAward.properties[MysteryAward.DAGGER].categories = {
@@ -180,17 +180,17 @@ MysteryAward.properties[MysteryAward.EDGAR].categories = {
   properties: {
     first: {
       name: "Best First Novel by an American Author",
-      value: "first"
+      value: "first",
     },
     novel: {
       name: "Best Mystery Novel",
-      value: "novel"
+      value: "novel",
     },
     paperback: {
       name: "Best Paperback Original",
-      value: "paperback"
-    }
-  }
+      value: "paperback",
+    },
+  },
 };
 
 // MysteryAward.properties[MysteryAward.NERO].categories = {
@@ -210,25 +210,25 @@ MysteryAward.properties[MysteryAward.SHAMUS].categories = {
   properties: {
     first: {
       name: "Best First P.I. Novel",
-      value: "first"
+      value: "first",
     },
     hardcover: {
       name: "Best P.I. Novel",
-      value: "hardcover"
+      value: "hardcover",
     },
     paperback: {
       name: "Best P.I. Paperback Original",
-      value: "paperback"
-    }
-  }
+      value: "paperback",
+    },
+  },
 };
 
 MysteryAward.findByName = (properties, name) => {
   let answer;
-  const values = Object.getOwnPropertyNames(properties);
+  const keys = Object.getOwnPropertyNames(properties);
 
-  for (let i = 0; i < values.length; i += 1) {
-    const entryKey = values[i];
+  for (let i = 0; i < keys.length; i += 1) {
+    const entryKey = keys[i];
     const entry = properties[entryKey];
 
     if (entry.name === name) {
