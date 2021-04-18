@@ -17,19 +17,19 @@ QUnit.test("keys and values", (assert) => {
   const ownPropertyNames = Object.getOwnPropertyNames(SciFiAward);
 
   // Verify.
-  ownPropertyNames.forEach((key) => {
+  R.forEach((key) => {
     const key2 = SciFiAward[key];
 
     if (key !== "properties" && typeof key2 === "string") {
       assert.ok(SciFiAward.properties[key2], `Missing value for key = ${key}`);
     }
-  });
+  }, ownPropertyNames);
 
-  result.forEach((value) => {
+  R.forEach((value) => {
     const p = ownPropertyNames.filter((key) => SciFiAward[key] === value);
 
     assert.equal(p.length, 1, `Missing key for value = ${value}`);
-  });
+  }, result);
 });
 
 QUnit.test("keys()", (assert) => {
@@ -40,8 +40,8 @@ QUnit.test("keys()", (assert) => {
   assert.ok(result);
   const length = 5;
   assert.equal(result.length, length);
-  assert.equal(result[0], "britishFantasy");
-  assert.equal(result[length - 1], "nebula");
+  assert.equal(R.head(result), SciFiAward.BRITISH_FANTASY);
+  assert.equal(R.last(result), SciFiAward.NEBULA);
 });
 
 const SciFiAwardTest = {};

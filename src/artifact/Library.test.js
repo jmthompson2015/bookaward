@@ -18,19 +18,19 @@ QUnit.test("keys and values", (assert) => {
   const ownPropertyNames = Object.getOwnPropertyNames(Library);
 
   // Verify.
-  ownPropertyNames.forEach((key) => {
+  R.forEach((key) => {
     const key2 = Library[key];
 
     if (key !== "properties" && typeof key2 === "string") {
       assert.ok(Library.properties[key2], `Missing value for key = ${key}`);
     }
-  });
+  }, ownPropertyNames);
 
-  result.forEach((value) => {
+  R.forEach((value) => {
     const p = ownPropertyNames.filter((key) => Library[key] === value);
 
     assert.equal(p.length, 1, `Missing key for value = ${value}`);
-  });
+  }, result);
 });
 
 QUnit.test("keys()", (assert) => {
@@ -41,8 +41,8 @@ QUnit.test("keys()", (assert) => {
   assert.ok(result);
   const length = 4;
   assert.equal(result.length, length);
-  assert.equal(result[0], "al");
-  assert.equal(result[length - 1], "jcpl");
+  assert.equal(R.head(result), Library.AL);
+  assert.equal(R.last(result), Library.JCPL);
 });
 
 const LibraryTest = {};

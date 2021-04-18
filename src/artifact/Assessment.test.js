@@ -17,19 +17,19 @@ QUnit.test("keys and values", (assert) => {
   const ownPropertyNames = Object.getOwnPropertyNames(Assessment);
 
   // Verify.
-  ownPropertyNames.forEach((key) => {
+  R.forEach((key) => {
     const key2 = Assessment[key];
 
     if (key !== "properties" && typeof key2 === "string") {
       assert.ok(Assessment.properties[key2], `Missing value for key = ${key}`);
     }
-  });
+  }, ownPropertyNames);
 
-  result.forEach((value) => {
+  R.forEach((value) => {
     const p = ownPropertyNames.filter((key) => Assessment[key] === value);
 
     assert.equal(p.length, 1, `Missing key for value = ${value}`);
-  });
+  }, result);
 });
 
 QUnit.test("keys()", (assert) => {
@@ -40,8 +40,8 @@ QUnit.test("keys()", (assert) => {
   assert.ok(result);
   const length = 7;
   assert.equal(result.length, length);
-  assert.equal(result[0], "bookClubPick");
-  assert.equal(result[length - 1], "read");
+  assert.equal(R.head(result), Assessment.BOOK_CLUB_PICK);
+  assert.equal(R.last(result), Assessment.READ);
 });
 
 const AssessmentTest = {};

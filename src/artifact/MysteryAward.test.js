@@ -17,7 +17,7 @@ QUnit.test("keys and values", (assert) => {
   const ownPropertyNames = Object.getOwnPropertyNames(MysteryAward);
 
   // Verify.
-  ownPropertyNames.forEach((key) => {
+  R.forEach((key) => {
     const key2 = MysteryAward[key];
 
     if (key !== "properties" && typeof key2 === "string") {
@@ -26,13 +26,13 @@ QUnit.test("keys and values", (assert) => {
         `Missing value for key = ${key}`
       );
     }
-  });
+  }, ownPropertyNames);
 
-  result.forEach((value) => {
+  R.forEach((value) => {
     const p = ownPropertyNames.filter((key) => MysteryAward[key] === value);
 
     assert.equal(p.length, 1, `Missing key for value = ${value}`);
-  });
+  }, result);
 });
 
 QUnit.test("keys()", (assert) => {
@@ -43,8 +43,8 @@ QUnit.test("keys()", (assert) => {
   assert.ok(result);
   const length = 6;
   assert.equal(result.length, length);
-  assert.equal(result[0], "agatha");
-  assert.equal(result[length - 1], "shamus");
+  assert.equal(R.head(result), MysteryAward.AGATHA);
+  assert.equal(R.last(result), MysteryAward.SHAMUS);
 });
 
 const MysteryAwardTest = {};
