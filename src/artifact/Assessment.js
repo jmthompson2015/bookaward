@@ -1,13 +1,16 @@
 const Assessment = {
+  NONE: "none",
   BOOK_CLUB_PICK: "bookClubPick",
   POSSIBLE_PICK: "possiblePick",
-  NONE: "none",
   NOT_ENOUGH_COPIES: "notEnoughCopies",
-  NOT_AVAILABLE: "notAvailable",
   NOT_INTERESTED: "notInterested",
   READ: "read",
 
   properties: {
+    none: {
+      name: "",
+      key: "none",
+    },
     bookClubPick: {
       name: "Book club pick",
       key: "bookClubPick",
@@ -16,17 +19,9 @@ const Assessment = {
       name: "Possible pick",
       key: "possiblePick",
     },
-    none: {
-      name: "",
-      key: "none",
-    },
     notEnoughCopies: {
       name: "Not enough copies",
       key: "notEnoughCopies",
-    },
-    notAvailable: {
-      name: "Not available",
-      key: "notAvailable",
     },
     notInterested: {
       name: "Not interested",

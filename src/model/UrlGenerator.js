@@ -18,7 +18,7 @@ const UrlGenerator = {
 
     let answer = award.url;
 
-    if (SciFiAward.keys().includes(award.value)) {
+    if (SciFiAward.keys().includes(award.key)) {
       answer += year;
     }
 
@@ -44,7 +44,7 @@ const UrlGenerator = {
     searchString = searchString.replace(/\u2019/g, "");
     searchString = searchString.replace(/'/g, "");
 
-    switch (library.value) {
+    switch (library.key) {
       case Library.DCL:
         searchString = searchString.replace(/ /g, "+");
         break;

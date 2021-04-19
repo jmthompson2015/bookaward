@@ -5,7 +5,7 @@ import SciFiAward from "../artifact/SciFiAward.js";
 import BookComparator from "../model/BookComparator.js";
 import NominationComparator from "../model/NominationComparator.js";
 
-import DCLURLFetcher from "./DCLURLFetcher.js";
+// import DCLURLFetcher from "./DCLURLFetcher.js";
 import NomineeFetcher from "./SFADBNomineeFetcher.js";
 
 document.getElementById("statusBar0").innerHTML = "Loading...";
@@ -59,8 +59,10 @@ const callback1 = ({ book, dclUrl }) => {
       const nominationsString = nominations.reduce(
         (previousValue2, nomination) => {
           let nominationString = `this.bookToNomination[this.books[${i}]].push(new Nomination(`;
-          nominationString += `${nomination.award.value}, `;
-          nominationString += `${nomination.award.value}.categories.properties.${nomination.category.value}, `;
+          nominationString += `${nomination.award.key}, `;
+          nominationString +=
+            `${nomination.award.key}.categories.properties.` +
+            `${nomination.category.key}, `;
           nominationString += `${nomination.year}, `;
           nominationString += `${nomination.isWinner}));<br/>`;
           return previousValue2 + nominationString;
@@ -118,10 +120,8 @@ const callback0 = ({
       }
     });
 
-    // Fetch the Douglas County Libraries URLs.
     books.forEach((book) => {
-      const fetcher = new DCLURLFetcher(book);
-      setTimeout(fetcher.fetchData().then(callback1), 500);
+      callback1(book, undefined);
     });
   }
 };

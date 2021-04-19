@@ -38,9 +38,8 @@ QUnit.test("keys()", (assert) => {
 
   // Verify.
   assert.ok(result);
-  const length = 7;
-  assert.equal(result.length, length);
-  assert.equal(R.head(result), Assessment.BOOK_CLUB_PICK);
+  assert.equal(result.length, 6);
+  assert.equal(R.head(result), Assessment.NONE);
   assert.equal(R.last(result), Assessment.READ);
 });
 

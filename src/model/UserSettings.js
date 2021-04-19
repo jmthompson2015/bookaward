@@ -6,68 +6,59 @@ import MysteryAward from "../artifact/MysteryAward.js";
 
 const UserSettings = {};
 
-UserSettings.loadBookToAssessment = function()
-{
-   const answer = {};
+UserSettings.loadBookToAssessment = () => {
+  const answer = {};
 
-   const bookToAssessment = localStorage.getItem("bookToAssessment");
+  const bookToAssessment = localStorage.getItem("bookToAssessment");
 
-   if (bookToAssessment)
-   {
-      const myBookToAssessment = JSON.parse(bookToAssessment);
+  if (bookToAssessment) {
+    const myBookToAssessment = JSON.parse(bookToAssessment);
 
-      if (myBookToAssessment)
-      {
-         ObjectUtilities.merge(answer, myBookToAssessment);
-      }
-   }
+    if (myBookToAssessment) {
+      ObjectUtilities.merge(answer, myBookToAssessment);
+    }
+  }
 
-   return answer;
+  return answer;
 };
 
-UserSettings.resetBookToAssessment = function(bookToAssessment, books, bookToDclUrl, bookToNomination)
-{
-   InputValidator.validateNotNull("bookToAssessment", bookToAssessment);
-   InputValidator.validateNotNull("books", books);
-   InputValidator.validateNotNull("bookToDclUrl", bookToDclUrl);
-   InputValidator.validateNotNull("bookToNomination", bookToNomination);
+UserSettings.resetBookToAssessment = (
+  bookToAssessment,
+  books,
+  bookToDclUrl,
+  bookToNomination
+) => {
+  InputValidator.validateNotNull("bookToAssessment", bookToAssessment);
+  InputValidator.validateNotNull("books", books);
+  InputValidator.validateNotNull("bookToDclUrl", bookToDclUrl);
+  InputValidator.validateNotNull("bookToNomination", bookToNomination);
 
-   const answer = Object.assign(
-   {}, bookToAssessment);
+  const answer = { ...bookToAssessment };
 
-   books.forEach(function(book)
-   {
-      answer[book] = Assessment.NONE;
+  books.forEach((book) => {
+    answer[book] = Assessment.NONE;
 
-      const nominations = bookToNomination[book];
+    const nominations = bookToNomination[book];
 
-      if (nominations)
-      {
-         const clubNominations = nominations.filter(function(nomination)
-         {
-            return nomination.award.value === MysteryAward.CRIME_AND_BEYOND;
-         });
+    if (nominations) {
+      const clubNominations = nominations.filter(
+        (nomination) => nomination.award.key === MysteryAward.CRIME_AND_BEYOND
+      );
 
-         if (clubNominations.length > 0)
-         {
-            answer[book] = Assessment.BOOK_CLUB_PICK;
-         }
-         else if (bookToDclUrl[book] === undefined)
-         {
-            answer[book] = Assessment.NOT_AVAILABLE;
-         }
+      if (clubNominations.length > 0) {
+        answer[book] = Assessment.BOOK_CLUB_PICK;
       }
-   });
+    }
+  });
 
-   return answer;
+  return answer;
 };
 
-UserSettings.storeBookToAssessment = function(bookToAssessment)
-{
-   InputValidator.validateNotNull("bookToAssessment", bookToAssessment);
+UserSettings.storeBookToAssessment = (bookToAssessment) => {
+  InputValidator.validateNotNull("bookToAssessment", bookToAssessment);
 
-   localStorage.setItem("bookToAssessment", JSON.stringify(bookToAssessment));
-   LOGGER.debug("bookToAssessment stored to localStorage");
+  localStorage.setItem("bookToAssessment", JSON.stringify(bookToAssessment));
+  LOGGER.debug("bookToAssessment stored to localStorage");
 };
 
 export default UserSettings;

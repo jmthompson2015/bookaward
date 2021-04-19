@@ -21,7 +21,6 @@
   },
   "homepage": "https://github.com/jmthompson2015/bookaward#readme",
   "dependencies": {
-    "jquery": "^3.6.0",
     "prop-types": "^15.7.2",
     "ramda": "^0.27.1",
     "react": "^17.0.2",
