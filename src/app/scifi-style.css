@@ -1,0 +1,17 @@
+.bg-ba-dark {
+  background-color: Navy;
+}
+
+.frt-table td {
+  border: 1px solid Navy;
+}
+
+.frt-table th {
+  background: Navy;
+  border: 1px solid #f0f0ff;
+  color: #f0f0ff;
+}
+
+.striped--ba-light:nth-child(odd) {
+  background-color: #f0f0ff;
+}

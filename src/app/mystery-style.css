@@ -1,0 +1,17 @@
+.bg-ba-dark {
+  background-color: Maroon;
+}
+
+.frt-table td {
+  border: 1px solid Maroon;
+}
+
+.frt-table th {
+  background: Maroon;
+  border: 1px solid #fff0f0;
+  color: #fff0f0;
+}
+
+.striped--ba-light:nth-child(odd) {
+  background-color: #fff0f0;
+}
