@@ -7,7 +7,7 @@ QUnit.test("Library properties DCL", (assert) => {
   const status = Library.properties[statusKey];
   assert.equal(status.name, "Douglas County Libraries");
   assert.equal(status.url, "http://www.douglascountylibraries.org");
-  assert.equal(status.value, statusKey);
+  assert.equal(status.key, statusKey);
 });
 
 QUnit.test("keys and values", (assert) => {

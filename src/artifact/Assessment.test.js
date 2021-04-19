@@ -6,7 +6,7 @@ QUnit.test("Assessment properties Possible pick", (assert) => {
   const assessmentKey = Assessment.POSSIBLE_PICK;
   const assessment = Assessment.properties[assessmentKey];
   assert.equal(assessment.name, "Possible pick");
-  assert.equal(assessment.value, assessmentKey);
+  assert.equal(assessment.key, assessmentKey);
 });
 
 QUnit.test("keys and values", (assert) => {

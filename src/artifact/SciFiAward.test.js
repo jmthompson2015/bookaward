@@ -6,7 +6,7 @@ QUnit.test("SciFiAward properties Hugo", (assert) => {
   const statusKey = SciFiAward.HUGO;
   const status = SciFiAward.properties[statusKey];
   assert.equal(status.name, "Hugo");
-  assert.equal(status.value, statusKey);
+  assert.equal(status.key, statusKey);
 });
 
 QUnit.test("keys and values", (assert) => {

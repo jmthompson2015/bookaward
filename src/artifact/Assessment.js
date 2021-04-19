@@ -10,31 +10,31 @@ const Assessment = {
   properties: {
     bookClubPick: {
       name: "Book club pick",
-      value: "bookClubPick",
+      key: "bookClubPick",
     },
     possiblePick: {
       name: "Possible pick",
-      value: "possiblePick",
+      key: "possiblePick",
     },
     none: {
       name: "",
-      value: "none",
+      key: "none",
     },
     notEnoughCopies: {
       name: "Not enough copies",
-      value: "notEnoughCopies",
+      key: "notEnoughCopies",
     },
     notAvailable: {
       name: "Not available",
-      value: "notAvailable",
+      key: "notAvailable",
     },
     notInterested: {
       name: "Not interested",
-      value: "notInterested",
+      key: "notInterested",
     },
     read: {
       name: "Read",
-      value: "read",
+      key: "read",
     },
   },
 };

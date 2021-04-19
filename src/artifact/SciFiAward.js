@@ -9,27 +9,27 @@ const SciFiAward = {
     britishFantasy: {
       name: "British Fantasy",
       url: "http://www.sfadb.com/British_Fantasy_Awards_",
-      value: "britishFantasy",
+      key: "britishFantasy",
     },
     britishSf: {
       name: "British SF",
       url: "http://www.sfadb.com/British_SF_Association_Awards_",
-      value: "britishSf",
+      key: "britishSf",
     },
     hugo: {
       name: "Hugo",
       url: "http://www.sfadb.com/Hugo_Awards_",
-      value: "hugo",
+      key: "hugo",
     },
     locus: {
       name: "Locus",
       url: "http://www.sfadb.com/Locus_Awards_",
-      value: "locus",
+      key: "locus",
     },
     nebula: {
       name: "Nebula",
       url: "http://www.sfadb.com/Nebula_Awards_",
-      value: "nebula",
+      key: "nebula",
     },
   },
 };
@@ -44,11 +44,11 @@ SciFiAward.properties[SciFiAward.BRITISH_FANTASY].categories = {
   properties: {
     fantasy: {
       name: "Fantasy Novel",
-      value: "fantasy",
+      key: "fantasy",
     },
     horror: {
       name: "Horror Novel",
-      value: "horror",
+      key: "horror",
     },
   },
 
@@ -64,7 +64,7 @@ SciFiAward.properties[SciFiAward.BRITISH_SF].categories = {
   properties: {
     novel: {
       name: "Novel",
-      value: "novel",
+      key: "novel",
     },
   },
 
@@ -80,7 +80,7 @@ SciFiAward.properties[SciFiAward.HUGO].categories = {
   properties: {
     novel: {
       name: "Novel",
-      value: "novel",
+      key: "novel",
     },
   },
 
@@ -98,15 +98,15 @@ SciFiAward.properties[SciFiAward.LOCUS].categories = {
   properties: {
     sf: {
       name: "Sf Novel",
-      value: "sf",
+      key: "sf",
     },
     fantasy: {
       name: "Fantasy Novel",
-      value: "fantasy",
+      key: "fantasy",
     },
     first: {
       name: "First Novel",
-      value: "first",
+      key: "first",
     },
   },
 
@@ -122,7 +122,7 @@ SciFiAward.properties[SciFiAward.NEBULA].categories = {
   properties: {
     novel: {
       name: "Novel",
-      value: "novel",
+      key: "novel",
     },
   },
 

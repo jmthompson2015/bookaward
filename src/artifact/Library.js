@@ -13,7 +13,7 @@ const Library = {
       searchPrefix:
         "https://arapahoelibraries.bibliocommons.com/search?&t=smart&search_category=keyword&q=",
       searchSuffix: "",
-      value: "al",
+      key: "al",
     },
     dpl: {
       name: "Denver Public Library",
@@ -23,7 +23,7 @@ const Library = {
       searchPrefix:
         "http://catalog.denverlibrary.org/search/searchresults.aspx?ctx=1.1033.0.0.6&type=Keyword&term=",
       searchSuffix: "&by=KW&sort=RELEVANCE&limit=TOM=*&query=&page=0",
-      value: "dpl",
+      key: "dpl",
     },
     dcl: {
       name: "Douglas County Libraries",
@@ -32,7 +32,7 @@ const Library = {
       url: "http://www.douglascountylibraries.org",
       searchPrefix: "http://dcl.bibliocommons.com/search?q=",
       searchSuffix: "&t=smart&search_category=keyword",
-      value: "dcl",
+      key: "dcl",
     },
     jcpl: {
       name: "Jefferson County Public Library",
@@ -41,7 +41,7 @@ const Library = {
       url: "http://jeffcolibrary.org",
       searchPrefix: "http://encore.jefferson.lib.co.us/iii/encore/search/C__S",
       searchSuffix: "__Orightresult__U",
-      value: "jcpl",
+      key: "jcpl",
     },
   },
 };

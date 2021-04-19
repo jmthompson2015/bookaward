@@ -12,42 +12,42 @@ const MysteryAward = {
     agatha: {
       name: "Agatha",
       url: "http://stopyourekillingme.com/Awards/Agatha_Awards.html",
-      value: "agatha",
+      key: "agatha",
     },
     anthony: {
       name: "Anthony",
       url: "http://stopyourekillingme.com/Awards/Anthony_Awards.html",
-      value: "anthony",
+      key: "anthony",
     },
     barry: {
       name: "Barry",
       url: "http://stopyourekillingme.com/Awards/Barry_Awards.html",
-      value: "barry",
+      key: "barry",
     },
     crimeAndBeyond: {
       name: "Crime & Beyond",
       url: "http://crimeandbeyond.wikia.com/wiki/Crime_%26_Beyond_Wiki",
-      value: "crimeAndBeyond",
+      key: "crimeAndBeyond",
     },
     // dagger: {
     //   name: "Dagger",
     //   url: "http://stopyourekillingme.com/Awards/Dagger_Awards.html",
-    //   value: "dagger"
+    //   key: "dagger"
     // },
     edgar: {
       name: "Edgar",
       url: "http://stopyourekillingme.com/Awards/Edgar_Awards.html",
-      value: "edgar",
+      key: "edgar",
     },
     // nero: {
     //   name: "Nero",
     //   url: "http://stopyourekillingme.com/Awards/Nero_Awards.html",
-    //   value: "nero"
+    //   key: "nero"
     // },
     shamus: {
       name: "Shamus",
       url: "http://stopyourekillingme.com/Awards/Shamus_Awards.html",
-      value: "shamus",
+      key: "shamus",
     },
   },
 };
@@ -63,15 +63,15 @@ MysteryAward.properties[MysteryAward.AGATHA].categories = {
   properties: {
     contemporary: {
       name: "Best Contemporary Novel",
-      value: "contemporary",
+      key: "contemporary",
     },
     first: {
       name: "Best First Novel",
-      value: "first",
+      key: "first",
     },
     historical: {
       name: "Best Historical Novel",
-      value: "historical",
+      key: "historical",
     },
   },
 
@@ -89,15 +89,15 @@ MysteryAward.properties[MysteryAward.ANTHONY].categories = {
   properties: {
     first: {
       name: "Best First Mystery",
-      value: "first",
+      key: "first",
     },
     mystery: {
       name: "Best Mystery Novel",
-      value: "mystery",
+      key: "mystery",
     },
     paperback: {
       name: "Best Paperback Original",
-      value: "paperback",
+      key: "paperback",
     },
   },
 
@@ -116,19 +116,19 @@ MysteryAward.properties[MysteryAward.BARRY].categories = {
   properties: {
     first: {
       name: "Best First Novel",
-      value: "first",
+      key: "first",
     },
     novel: {
       name: "Best Novel",
-      value: "novel",
+      key: "novel",
     },
     paperback: {
       name: "Best Paperback Original",
-      value: "paperback",
+      key: "paperback",
     },
     thriller: {
       name: "Best Thriller",
-      value: "thriller",
+      key: "thriller",
     },
   },
 };
@@ -138,7 +138,7 @@ MysteryAward.properties[MysteryAward.CRIME_AND_BEYOND].categories = {
   properties: {
     case: {
       name: "Case File",
-      value: "case",
+      key: "case",
     },
   },
 };
@@ -152,23 +152,23 @@ MysteryAward.properties[MysteryAward.CRIME_AND_BEYOND].categories = {
 //   properties: {
 //     first: {
 //       name: "New Blood Dagger",
-//       value: "first"
+//       key: "first"
 //     },
 //     gold: {
 //       name: "Gold Dagger Shortlist",
-//       value: "gold"
+//       key: "gold"
 //     },
 //     historical: {
 //       name: "Historical Dagger",
-//       value: "historical"
+//       key: "historical"
 //     },
 //     international: {
 //       name: "International Dagger",
-//       value: "international"
+//       key: "international"
 //     },
 //     steel: {
 //       name: "Ian Fleming Steel Dagger",
-//       value: "steel"
+//       key: "steel"
 //     }
 //   }
 // };
@@ -180,15 +180,15 @@ MysteryAward.properties[MysteryAward.EDGAR].categories = {
   properties: {
     first: {
       name: "Best First Novel by an American Author",
-      value: "first",
+      key: "first",
     },
     novel: {
       name: "Best Mystery Novel",
-      value: "novel",
+      key: "novel",
     },
     paperback: {
       name: "Best Paperback Original",
-      value: "paperback",
+      key: "paperback",
     },
   },
 };
@@ -198,7 +198,7 @@ MysteryAward.properties[MysteryAward.EDGAR].categories = {
 //   properties: {
 //     nero: {
 //       name: "Nero Award",
-//       value: "nero"
+//       key: "nero"
 //     }
 //   }
 // };
@@ -210,15 +210,15 @@ MysteryAward.properties[MysteryAward.SHAMUS].categories = {
   properties: {
     first: {
       name: "Best First P.I. Novel",
-      value: "first",
+      key: "first",
     },
     hardcover: {
       name: "Best P.I. Novel",
-      value: "hardcover",
+      key: "hardcover",
     },
     paperback: {
       name: "Best P.I. Paperback Original",
-      value: "paperback",
+      key: "paperback",
     },
   },
 };
