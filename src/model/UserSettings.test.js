@@ -9,6 +9,8 @@ import UserSettings from "./UserSettings.js";
 
 QUnit.module("UserSettings");
 
+const APP_NAME = "BookTest";
+
 function createBook0() {
   const title = "The Wrong Side of Goodbye";
   const author = "Michael Connelly";
@@ -45,18 +47,7 @@ function createBookToAssessment() {
 
   answer[createBook0()] = Assessment.NONE;
   answer[createBook1()] = Assessment.NOT_ENOUGH_COPIES;
-  answer[createBook2()] = Assessment.NOT_AVAILABLE;
-
-  return answer;
-}
-
-function createBookToDclUrl() {
-  const answer = {};
-
-  answer[createBook0()] =
-    "https://dcl.bibliocommons.com/item/show/1337567114_the_wrong_side_of_goodbye";
-  answer[createBook1()] = "https://dcl.bibliocommons.com/item/show/1264991114_make_me";
-  // answer[createBook2()] = "";
+  answer[createBook2()] = Assessment.NONE;
 
   return answer;
 }
@@ -111,7 +102,7 @@ function verifyBookToAssessment0(assert, bookToAssessment) {
   assert.equal(Object.keys(bookToAssessment).length, 3);
   assert.equal(bookToAssessment[createBook0()], Assessment.NONE);
   assert.equal(bookToAssessment[createBook1()], Assessment.NONE);
-  assert.equal(bookToAssessment[createBook2()], Assessment.NOT_AVAILABLE);
+  assert.equal(bookToAssessment[createBook2()], Assessment.NONE);
 }
 
 function verifyBookToAssessment1(assert, bookToAssessment) {
@@ -119,37 +110,34 @@ function verifyBookToAssessment1(assert, bookToAssessment) {
   assert.equal(Object.keys(bookToAssessment).length, 3);
   assert.equal(bookToAssessment[createBook0()], Assessment.NONE);
   assert.equal(bookToAssessment[createBook1()], Assessment.NOT_ENOUGH_COPIES);
-  assert.equal(bookToAssessment[createBook2()], Assessment.NOT_AVAILABLE);
+  assert.equal(bookToAssessment[createBook2()], Assessment.NONE);
 }
 
-QUnit.test("loadBookToAssessment()", assert => {
+QUnit.test("loadBookToAssessment()", (assert) => {
   // Setup.
-  // const books = createBooks();
   const bookToAssessment = createBookToAssessment();
-  UserSettings.storeBookToAssessment(bookToAssessment);
+  UserSettings.storeBookToAssessment(APP_NAME, bookToAssessment);
 
   // Run.
-  const result = UserSettings.loadBookToAssessment();
+  const result = UserSettings.loadBookToAssessment(APP_NAME);
 
   // Verify.
   verifyBookToAssessment1(assert, result);
 
   // Cleanup.
-  localStorage.removeItem("bookToAssessment");
+  localStorage.removeItem(APP_NAME);
 });
 
-QUnit.test("resetBookToAssessment()", assert => {
+QUnit.test("resetBookToAssessment()", (assert) => {
   // Setup.
   const bookToAssessment = {};
   const books = createBooks();
-  const bookToDclUrl = createBookToDclUrl();
   const bookToNomination = createBookToNomination();
 
   // Run.
   const result = UserSettings.resetBookToAssessment(
     bookToAssessment,
     books,
-    bookToDclUrl,
     bookToNomination
   );
 
@@ -157,23 +145,22 @@ QUnit.test("resetBookToAssessment()", assert => {
   verifyBookToAssessment0(assert, result);
 
   // Cleanup.
-  localStorage.removeItem("bookToAssessment");
+  localStorage.removeItem(APP_NAME);
 });
 
-QUnit.test("storeBookToAssessment()", assert => {
+QUnit.test("storeBookToAssessment()", (assert) => {
   // Setup.
-  // const books = createBooks();
   const bookToAssessment = createBookToAssessment();
 
   // Run.
-  UserSettings.storeBookToAssessment(bookToAssessment);
-  const result = UserSettings.loadBookToAssessment();
+  UserSettings.storeBookToAssessment(APP_NAME, bookToAssessment);
+  const result = UserSettings.loadBookToAssessment(APP_NAME);
 
   // Verify.
   verifyBookToAssessment1(assert, result);
 
   // Cleanup.
-  localStorage.removeItem("bookToAssessment");
+  localStorage.removeItem(APP_NAME);
 });
 
 const UserSettingsTest = {};

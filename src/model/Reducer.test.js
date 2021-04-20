@@ -3,7 +3,7 @@ import MysteryAward from "../artifact/MysteryAward.js";
 
 import Action from "./Action.js";
 import Book from "./Book.js";
-import InitialState from "./MysteryInitialState.js";
+import AppState from "./AppState.js";
 import Nomination from "./Nomination.js";
 import Reducer from "./Reducer.js";
 
@@ -26,10 +26,10 @@ const createNomination1 = () => {
   return new Nomination(award, category, year);
 };
 
-QUnit.test("addBook()", assert => {
+QUnit.test("addBook()", (assert) => {
   // Setup.
-  const state = new InitialState();
-  const length = 156;
+  const state = AppState.create();
+  const length = 0;
   assert.equal(state.books.length, length);
   const book = createBook1();
   const action = Action.addBook(book);
@@ -42,9 +42,9 @@ QUnit.test("addBook()", assert => {
   assert.equal(result.books.length, length + 1);
 });
 
-QUnit.test("addNomination()", assert => {
+QUnit.test("addNomination()", (assert) => {
   // Setup.
-  let state = new InitialState();
+  let state = AppState.create();
   const book = createBook1();
   state = Reducer.root(state, Action.addBook(book));
   const nomination = createNomination1();
@@ -64,9 +64,9 @@ QUnit.test("addNomination()", assert => {
   assert.equal(result.bookToNomination[book][0], nomination);
 });
 
-QUnit.test("setAssessment()", assert => {
+QUnit.test("setAssessment()", (assert) => {
   // Setup.
-  let state = new InitialState();
+  let state = AppState.create();
   const book = createBook1();
   state = Reducer.root(state, Action.addBook(book));
   const assessment = Assessment.POSSIBLE_PICK;
@@ -81,9 +81,9 @@ QUnit.test("setAssessment()", assert => {
   assert.equal(result.bookToAssessment[book], assessment);
 });
 
-QUnit.test("setAssessments()", assert => {
+QUnit.test("setAssessments()", (assert) => {
   // Setup.
-  let state = new InitialState();
+  let state = AppState.create();
   const book = createBook1();
   state = Reducer.root(state, Action.addBook(book));
   assert.equal(state.bookToAssessment[book], Assessment.NONE);

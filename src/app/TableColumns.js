@@ -113,7 +113,6 @@ const createNominationsCell = (nominations, winnerImage) => {
 
 const createTitleLinkCell = (row) => {
   const url1 = UrlGenerator.createAmazonSearchUrl(row.book.toString());
-  const url2 = row.dclUrl;
   const url3 = UrlGenerator.createGoodreadsSearchUrl(row.book.toString());
   const { title } = row.book;
   const image1 = createImageLink(
@@ -123,14 +122,6 @@ const createTitleLinkCell = (row) => {
     "Amazon"
   );
   let image2;
-  if (url2 !== undefined) {
-    image2 = createImageLink(
-      3,
-      url2,
-      "../resource/image/DouglasCountyLibraries18.png",
-      "Douglas County Libraries"
-    );
-  }
   const image3 = createImageLink(
     2,
     url3,
@@ -164,6 +155,15 @@ const TableColumns = [
     key: "title",
     label: "Title",
     className: "tl",
+    valueFunction: (row) => {
+      const editTitle = (article) => (title) =>
+        title.startsWith(article) ? title.substring(article.length) : title;
+      return R.pipe(
+        editTitle("A "),
+        editTitle("An "),
+        editTitle("The ")
+      )(row.title);
+    },
     cellFunction: (row) => createTitleLinkCell(row),
   },
   {

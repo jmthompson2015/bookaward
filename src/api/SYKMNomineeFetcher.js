@@ -19,13 +19,18 @@ const add = (bookToNomination0, book, nomination) => {
   }
 };
 
-const parseBook = htmlFragment => {
+const parseBook = (htmlFragment) => {
   const key0 = ">";
   const key1 = "</a>";
   const key11 = "</td>";
   const index1 = htmlFragment.indexOf(key1);
   const index0 = htmlFragment.lastIndexOf(key0, index1) + 1;
-  const title = htmlFragment.substring(index0, index1).trim();
+  const title0 = htmlFragment.substring(index0, index1).trim();
+  const title = title0
+    .replace("&#8217;", "'")
+    .replace("&#x2019;", "'")
+    .replace("&rsquo;", "'")
+    .replace("&amp;", "&");
   let index3 = htmlFragment.indexOf(key1, index1 + 1);
 
   if (index3 < 0) {
@@ -53,14 +58,12 @@ class SYKMNomineeFetcher {
   }
 
   createUrl() {
-    // console.debug(`url = ${award.url}`);
     return this.award.url;
   }
 
   fetchData() {
-    return new Promise(resolve => {
-      const receiveData = htmlDocument => {
-        console.info(`award = ${this.award.name}`);
+    return new Promise((resolve) => {
+      const receiveData = (htmlDocument) => {
         const { books, bookToNomination } = this.parse(htmlDocument);
         console.info(`${this.award.name} books.length = ${books.length}`);
 
@@ -70,7 +73,7 @@ class SYKMNomineeFetcher {
       const url = this.createUrl();
       const options = {};
       FetchUtilities.fetchRetry(url, options, 3)
-        .then(response => response.text())
+        .then((response) => response.text())
         .then(receiveData);
     });
   }
@@ -79,7 +82,9 @@ class SYKMNomineeFetcher {
     // This gives the year set.
     const books = [];
     const bookToNomination = {};
-    const paragraphs = htmlDocument.split('<p align="center" class="AuthorSub">');
+    const paragraphs = htmlDocument.split(
+      '<p align="center" class="AuthorSub">'
+    );
 
     for (let i = 2; i < 4; i += 1) {
       const paragraph = paragraphs[i];
@@ -94,7 +99,9 @@ class SYKMNomineeFetcher {
     const index0 = htmlFragment.indexOf(key0);
     const key1 = "</strong>";
     const index1 = htmlFragment.indexOf(key1, index0);
-    const categoryName = htmlFragment.substring(index0 + key0.length, index1).trim();
+    const categoryName = htmlFragment
+      .substring(index0 + key0.length, index1)
+      .trim();
     let myCategoryName = categoryName.replace("  ", " ");
     myCategoryName = myCategoryName.replace(":", "");
     const { properties } = this.award.categories;

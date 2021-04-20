@@ -1,36 +1,31 @@
 import InputValidator from "../utility/InputValidator.js";
-import ObjectUtilities from "../utility/ObjectUtilities.js";
 
 import Assessment from "../artifact/Assessment.js";
 import MysteryAward from "../artifact/MysteryAward.js";
 
+const fetchItem = (appName) => {
+  const oldItemString = localStorage.getItem(appName);
+
+  return oldItemString !== undefined ? JSON.parse(oldItemString) : {};
+};
+
 const UserSettings = {};
 
-UserSettings.loadBookToAssessment = () => {
-  const answer = {};
+UserSettings.loadBookToAssessment = (appName) => {
+  const item = fetchItem(appName);
 
-  const bookToAssessment = localStorage.getItem("bookToAssessment");
-
-  if (bookToAssessment) {
-    const myBookToAssessment = JSON.parse(bookToAssessment);
-
-    if (myBookToAssessment) {
-      ObjectUtilities.merge(answer, myBookToAssessment);
-    }
-  }
-
-  return answer;
+  return item && item.bookToAssessment
+    ? Immutable(item.bookToAssessment)
+    : Immutable({});
 };
 
 UserSettings.resetBookToAssessment = (
   bookToAssessment,
   books,
-  bookToDclUrl,
   bookToNomination
 ) => {
   InputValidator.validateNotNull("bookToAssessment", bookToAssessment);
   InputValidator.validateNotNull("books", books);
-  InputValidator.validateNotNull("bookToDclUrl", bookToDclUrl);
   InputValidator.validateNotNull("bookToNomination", bookToNomination);
 
   const answer = { ...bookToAssessment };
@@ -54,11 +49,11 @@ UserSettings.resetBookToAssessment = (
   return answer;
 };
 
-UserSettings.storeBookToAssessment = (bookToAssessment) => {
-  InputValidator.validateNotNull("bookToAssessment", bookToAssessment);
+UserSettings.storeBookToAssessment = (appName, bookToAssessment) => {
+  const oldItem = fetchItem(appName);
+  const newItem = R.mergeRight(oldItem, { bookToAssessment });
 
-  localStorage.setItem("bookToAssessment", JSON.stringify(bookToAssessment));
-  LOGGER.debug("bookToAssessment stored to localStorage");
+  localStorage.setItem(appName, JSON.stringify(newItem));
 };
 
 export default UserSettings;

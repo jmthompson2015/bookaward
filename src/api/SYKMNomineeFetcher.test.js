@@ -71,7 +71,7 @@ QUnit.test("fetchData() Anthony", (assert) => {
     assert.equal(nominations[j].year, 2020);
 
     i = books.length - 1;
-    assert.equal(books[i].title, "A Stone&#8217;s Throw");
+    assert.equal(books[i].title, "A Stone's Throw");
     assert.equal(books[i].author, "James W. Ziskin");
     nominations = bookToNomination[books[i]];
     assert.ok(nominations);
