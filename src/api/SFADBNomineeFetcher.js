@@ -3,8 +3,8 @@
 
 import SciFiAward from "../artifact/SciFiAward.js";
 
-import Book from "../model/Book.js";
-import Nomination from "../model/Nomination.js";
+import Book from "../state/Book.js";
+import Nomination from "../state/Nomination.js";
 
 import FetchUtilities from "./FetchUtilities.js";
 
@@ -61,14 +61,17 @@ class SFADBNomineeFetcher {
   }
 
   fetchData() {
-    return new Promise(resolve => {
-      const receiveData = htmlDocument => {
+    return new Promise((resolve) => {
+      const receiveData = (htmlDocument) => {
         let books = [];
         let bookToNomination = {};
         console.info(`award = ${this.award.name}`);
 
         if (htmlDocument) {
-          const { books: myBooks, bookToNomination: myBookToNomination } = this.parse(htmlDocument);
+          const {
+            books: myBooks,
+            bookToNomination: myBookToNomination,
+          } = this.parse(htmlDocument);
           books = myBooks;
           bookToNomination = myBookToNomination;
           console.info(`${this.award.name} books.length = ${books.length}`);
@@ -80,7 +83,7 @@ class SFADBNomineeFetcher {
       const url = this.createUrl();
       const options = {};
       FetchUtilities.fetchRetry(url, options, 3)
-        .then(response => response.text())
+        .then((response) => response.text())
         .then(receiveData);
     });
   }
@@ -137,7 +140,12 @@ class SFADBNomineeFetcher {
     const cell1 = cells[1].trim();
     const isWinner = cell0.indexOf("Winner") >= 0;
     const book = parseBook(cell0, cell1);
-    const nomination = new Nomination(this.award, category, this.year, isWinner);
+    const nomination = new Nomination(
+      this.award,
+      category,
+      this.year,
+      isWinner
+    );
     books.push(book);
     add(bookToNomination, book, nomination);
   }

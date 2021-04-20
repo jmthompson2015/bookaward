@@ -3,10 +3,15 @@
 
 import MysteryAward from "../artifact/MysteryAward.js";
 
-import Book from "../model/Book.js";
-import Nomination from "../model/Nomination.js";
+import Book from "../state/Book.js";
+import Nomination from "../state/Nomination.js";
 
-const addTitleAndAuthor = (books, bookToNomination0, titleAndAuthor, nomination) => {
+const addTitleAndAuthor = (
+  books,
+  bookToNomination0,
+  titleAndAuthor,
+  nomination
+) => {
   const bookToNomination = bookToNomination0;
 
   for (let i = 0; i < titleAndAuthor.length; i += 1) {
@@ -33,7 +38,7 @@ class CrimeAndBeyondFetcher {
   }
 
   fetchData() {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       const receiveData = () => {
         const books = [];
         const bookToNomination = {};
@@ -69,7 +74,7 @@ class CrimeAndBeyondFetcher {
           // ["The Wrong Side of Goodbye", "Michael Connelly"],
           // ["Home", "Harlan Coben"],
           ["The Nowhere Man", "Gregg Hurwitz"],
-          ["A Christmas Party", "Georgette Heyer"]
+          ["A Christmas Party", "Georgette Heyer"],
         ];
         addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
 
@@ -86,7 +91,7 @@ class CrimeAndBeyondFetcher {
           ["Magpie Murders", "Anthony Horowitz"],
           ["The Hush", "John Hart"],
           ["The Woman in the Window", "A.J. Finn"],
-          ["Christmas Crimes at Puzzel Manor", "Simon Brett"]
+          ["Christmas Crimes at Puzzel Manor", "Simon Brett"],
         ];
         addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
 
@@ -101,7 +106,7 @@ class CrimeAndBeyondFetcher {
           ["Pieces of Her", "Karin Slaughter"],
           ["The Death of Mrs. Westaway", "Ruth Ware"],
           ["Where the Crawdads Sing", "Delia Owens"],
-          ["Lethal White", "Robert Galbraith"]
+          ["Lethal White", "Robert Galbraith"],
         ];
         addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
 

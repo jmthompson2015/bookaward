@@ -4,7 +4,7 @@ import SciFiAward from "../artifact/SciFiAward.js";
 
 import SFADBNomineeFetcher from "../api/SFADBNomineeFetcher.js";
 
-import Action from "./Action.js";
+import Action from "../state/Action.js";
 
 const SciFiBookLoader = {};
 

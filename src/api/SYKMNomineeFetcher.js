@@ -3,8 +3,8 @@
 
 import MysteryAward from "../artifact/MysteryAward.js";
 
-import Book from "../model/Book.js";
-import Nomination from "../model/Nomination.js";
+import Book from "../state/Book.js";
+import Nomination from "../state/Nomination.js";
 
 import FetchUtilities from "./FetchUtilities.js";
 

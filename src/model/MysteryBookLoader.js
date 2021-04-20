@@ -5,7 +5,7 @@ import MysteryAward from "../artifact/MysteryAward.js";
 import CrimeAndBeyondFetcher from "../api/CrimeAndBeyondFetcher.js";
 import SYKMNomineeFetcher from "../api/SYKMNomineeFetcher.js";
 
-import Action from "./Action.js";
+import Action from "../state/Action.js";
 
 const MysteryBookLoader = {};
 

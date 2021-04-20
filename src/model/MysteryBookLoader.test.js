@@ -1,4 +1,4 @@
-import Reducer from "./Reducer.js";
+import Reducer from "../state/Reducer.js";
 
 import MysteryBookLoader from "./MysteryBookLoader.js";
 
