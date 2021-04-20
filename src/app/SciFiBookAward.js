@@ -2,10 +2,11 @@
 
 import Logger from "../utility/Logger.js";
 
-import Action from "../model/Action.js";
-import Reducer from "../model/Reducer.js";
+import Action from "../state/Action.js";
+import Reducer from "../state/Reducer.js";
+import UserSettings from "../state/UserSettings.js";
+
 import SciFiBookLoader from "../model/SciFiBookLoader.js";
-import UserSettings from "../model/UserSettings.js";
 
 import TableColumns from "./TableColumns.js";
 

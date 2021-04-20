@@ -2,10 +2,11 @@
 
 import Logger from "../utility/Logger.js";
 
-import Action from "../model/Action.js";
+import Action from "../state/Action.js";
+import Reducer from "../state/Reducer.js";
+import UserSettings from "../state/UserSettings.js";
+
 import MysteryBookLoader from "../model/MysteryBookLoader.js";
-import Reducer from "../model/Reducer.js";
-import UserSettings from "../model/UserSettings.js";
 
 import TableColumns from "./TableColumns.js";
 
