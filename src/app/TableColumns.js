@@ -144,6 +144,21 @@ const createTitleLinkCell = (row) => {
   );
 };
 
+const formatNominations = (nominations) => {
+  const mapFunction = (nomination) => nomination.toString();
+  const array = R.map(mapFunction, nominations);
+
+  return array.join(", ");
+};
+
+const invertAuthorName = (author) => {
+  const index = author.lastIndexOf(" ");
+  const first = author.substring(0, index);
+  const last = author.substring(index + 1);
+
+  return `${last}, ${first}`;
+};
+
 // /////////////////////////////////////////////////////////////////////////////
 const TableColumns = [
   {
@@ -170,11 +185,13 @@ const TableColumns = [
     key: "author",
     label: "Author",
     className: "tl",
+    valueFunction: (row) => invertAuthorName(row.author),
     cellFunction: (row) => createAuthorLinkCell(row.author),
   },
   {
     key: "nominations",
     label: "Nominations",
+    valueFunction: (row) => formatNominations(row.nominations),
     cellFunction: (row) =>
       createNominationsCell(row.nominations, row.winnerImage),
   },

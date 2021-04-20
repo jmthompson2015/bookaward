@@ -43,6 +43,7 @@ const parseBook = (htmlFragment) => {
   if (author.startsWith("by ")) {
     author = author.substring("by ".length);
   }
+  author = author.replace("&rsquo;", "'");
 
   return new Book(title, author);
 };
