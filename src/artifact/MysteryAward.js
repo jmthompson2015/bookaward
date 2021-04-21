@@ -110,13 +110,29 @@ MysteryAward.properties[MysteryAward.ANTHONY].categories = {
 
 MysteryAward.properties[MysteryAward.BARRY].categories = {
   FIRST: "first",
+  FIRST_MYSTERY: "first mystery",
+  MYSTERY: "mystery",
+  MYSTERY_DECADE: "mystery decade",
   NOVEL: "novel",
   PAPERBACK: "paperback",
+  PAPERBACK_MYSTERY: "paperback mystery",
   THRILLER: "thriller",
   properties: {
     first: {
       name: "Best First Novel",
       key: "first",
+    },
+    "first mystery": {
+      name: "Best First Mystery/Crime Novel",
+      key: "first mystery",
+    },
+    mystery: {
+      name: "Best Mystery/Crime Novel",
+      key: "mystery",
+    },
+    "mystery decade": {
+      name: "Best Mystery/Crime Novel of the Decade",
+      key: "mystery decade",
     },
     novel: {
       name: "Best Novel",
@@ -125,6 +141,10 @@ MysteryAward.properties[MysteryAward.BARRY].categories = {
     paperback: {
       name: "Best Paperback Original",
       key: "paperback",
+    },
+    "paperback mystery": {
+      name: "Best Paperback Original Mystery/Crime Novel",
+      key: "paperback mystery",
     },
     thriller: {
       name: "Best Thriller",

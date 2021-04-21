@@ -45,7 +45,8 @@ Reducer.root = (state, action) => {
       newBooks.sort(BookComparator.compare);
       return R.assoc("books", newBooks, state);
     case Action.ADD_BOOK_TO_NOMINATION:
-      newBookToNomination = R.mergeRight(
+      newBookToNomination = R.mergeDeepWith(
+        R.concat,
         state.bookToNomination,
         action.bookToNomination
       );

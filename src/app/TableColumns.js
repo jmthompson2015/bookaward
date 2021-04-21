@@ -189,8 +189,6 @@ const TableColumns = [
     key: "assessmentKey",
     label: "Assessment",
     className: "f7 tl",
-    valueFunction: (row) =>
-      Book.isClubNominee(row.nominations) ? BOOK_CLUB_PICK : row.assessmentKey,
     cellFunction: (row) => createAssessmentCell(row),
   },
   {

@@ -16,6 +16,16 @@ const createBook1 = () => {
   return new Book(title, author);
 };
 
+const createNomination0 = () => {
+  const awardKey = MysteryAward.BARRY;
+  const award = MysteryAward.properties[awardKey];
+  const categoryKey = award.categories.FIRST;
+  const category = award.categories.properties[categoryKey];
+  const year = 2021;
+
+  return new Nomination(award, category, year);
+};
+
 const createNomination1 = () => {
   const awardKey = MysteryAward.AGATHA;
   const award = MysteryAward.properties[awardKey];
@@ -40,6 +50,42 @@ QUnit.test("addBook()", (assert) => {
   // Verify.
   assert.ok(result);
   assert.equal(result.books.length, length + 1);
+});
+
+QUnit.test("addBookToNomination()", (assert) => {
+  // Setup.
+  const state = AppState.create();
+  const book = createBook1();
+  const nomination0 = createNomination0();
+  const bookToNomination0 = R.assoc(book, [nomination0], {});
+  const action0 = Action.addBookToNomination(bookToNomination0);
+
+  // Run.
+  const result0 = Reducer.root(state, action0);
+
+  // Verify.
+  assert.ok(result0);
+  assert.equal(
+    result0.bookToNomination[book].length,
+    1,
+    `bookToNomination[book].length = ${result0.bookToNomination[book].length}`
+  );
+
+  // Setup.
+  const nomination1 = createNomination1();
+  const bookToNomination1 = R.assoc(book, [nomination1], {});
+  const action1 = Action.addBookToNomination(bookToNomination1);
+
+  // Run.
+  const result1 = Reducer.root(result0, action1);
+
+  // Verify.
+  assert.ok(result1);
+  assert.equal(
+    result1.bookToNomination[book].length,
+    2,
+    `bookToNomination[book].length = ${result0.bookToNomination[book].length}`
+  );
 });
 
 QUnit.test("addNomination()", (assert) => {

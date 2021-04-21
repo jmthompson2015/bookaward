@@ -29,9 +29,9 @@ Book.isClubNominee = (nominations) => {
 
   if (nominations) {
     const reduceFunction = (accum, nomination) =>
-      accum && nomination.isClubNominee();
+      accum || nomination.isClubNominee();
 
-    answer = R.reduce(reduceFunction, true, nominations);
+    answer = R.reduce(reduceFunction, false, nominations);
   }
 
   return answer;

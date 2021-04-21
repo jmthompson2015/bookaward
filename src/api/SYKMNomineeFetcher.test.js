@@ -97,29 +97,29 @@ QUnit.test("fetchData() Barry", (assert) => {
     // Verify.
     assert.ok(true, "test resumed from async operation");
     assert.ok(books);
-    assert.equal(books.length, 24);
+    assert.equal(books.length, 54);
 
     let i = 0;
-    assert.equal(books[i].title, "Deep State");
-    assert.equal(books[i].author, "Chris Hauty");
+    assert.equal(books[i].title, "The Boy from the Woods");
+    assert.equal(books[i].author, "Harlan Coben");
     let nominations = bookToNomination[books[i]];
     assert.ok(nominations);
     assert.equal(nominations.length, 1);
     let j = 0;
     assert.equal(nominations[j].award, award);
-    let category = award.categories.properties[award.categories.FIRST];
+    let category = award.categories.properties[award.categories.MYSTERY];
     assert.equal(nominations[j].category, category);
     assert.equal(nominations[j].year, 2021);
 
     i = books.length - 1;
-    assert.equal(books[i].title, "Backlash");
-    assert.equal(books[i].author, "Brad Thor");
+    assert.equal(books[i].title, "The Border");
+    assert.equal(books[i].author, "Don Winslow");
     nominations = bookToNomination[books[i]];
     assert.ok(nominations);
-    assert.equal(nominations.length, 1);
+    assert.equal(nominations.length, 2);
     j = 0;
     assert.equal(nominations[j].award, award);
-    category = award.categories.properties[award.categories.THRILLER];
+    category = award.categories.properties[award.categories.MYSTERY];
     assert.equal(nominations[j].category, category);
     assert.equal(nominations[j].year, 2020);
     done();

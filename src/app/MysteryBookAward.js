@@ -5,6 +5,7 @@ import Logger from "../utility/Logger.js";
 import Assessment from "../artifact/Assessment.js";
 
 import Action from "../state/Action.js";
+import Book from "../state/Book.js";
 import Reducer from "../state/Reducer.js";
 import UserSettings from "../state/UserSettings.js";
 
@@ -42,15 +43,22 @@ const callback = () => {
     store.dispatch(Action.setAssessment(book, assessmentKey));
   };
 
-  const mapFunction = (book) => ({
-    title: book.title,
-    author: book.author,
-    book,
-    nominations: state.bookToNomination[book],
-    assessmentKey: state.bookToAssessment[book] || Assessment.NONE,
-    winnerImage: state.winnerImage,
-    selectOnChange,
-  });
+  const mapFunction = (book) => {
+    const nominations = state.bookToNomination[book] || [];
+    const assessmentKey = Book.isClubNominee(nominations)
+      ? Assessment.BOOK_CLUB_PICK
+      : state.bookToAssessment[book] || Assessment.NONE;
+
+    return {
+      title: book.title,
+      author: book.author,
+      book,
+      nominations,
+      assessmentKey,
+      winnerImage: state.winnerImage,
+      selectOnChange,
+    };
+  };
 
   const tableRows = R.map(mapFunction, state.books);
   const onFilterChange = () => {

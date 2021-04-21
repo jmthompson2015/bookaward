@@ -95,6 +95,7 @@ SciFiAward.properties[SciFiAward.LOCUS].categories = {
   SF: "sf",
   FANTASY: "fantasy",
   FIRST: "first",
+  HORROR: "horror",
   properties: {
     sf: {
       name: "Sf Novel",
@@ -107,6 +108,10 @@ SciFiAward.properties[SciFiAward.LOCUS].categories = {
     first: {
       name: "First Novel",
       key: "first",
+    },
+    horror: {
+      name: "Horror Novel",
+      key: "horror",
     },
   },
 
