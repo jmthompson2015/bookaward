@@ -1,43 +1,44 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_award",_category,_isWinner,_year] }] */
+
 import InputValidator from "../utility/InputValidator.js";
 
-class Nomination
-{
-   constructor(award, category, year, isWinner = false)
-   {
-      InputValidator.validateNotNull("award", award);
-      InputValidator.validateNotNull("category", category);
-      InputValidator.validateIsNumber("year", year);
+import MysteryAward from "../artifact/MysteryAward.js";
 
-      this._award = award;
-      this._category = category;
-      this._year = year;
-      this._isWinner = isWinner;
-   }
+class Nomination {
+  constructor(award, category, year, isWinner = false) {
+    InputValidator.validateNotNull("award", award);
+    InputValidator.validateNotNull("category", category);
+    InputValidator.validateIsNumber("year", year);
 
-   get award()
-   {
-      return this._award;
-   }
+    this._award = award;
+    this._category = category;
+    this._year = year;
+    this._isWinner = isWinner;
+  }
 
-   get category()
-   {
-      return this._category;
-   }
+  get award() {
+    return this._award;
+  }
 
-   get year()
-   {
-      return this._year;
-   }
+  get category() {
+    return this._category;
+  }
 
-   get isWinner()
-   {
-      return this._isWinner;
-   }
+  get year() {
+    return this._year;
+  }
 
-   toString()
-   {
-      return this.year + " " + this.award.name + " " + this.category.name;
-   }
+  get isWinner() {
+    return this._isWinner;
+  }
+
+  isClubNominee() {
+    return this.award.key === MysteryAward.CRIME_AND_BEYOND;
+  }
+
+  toString() {
+    return `${this.year} ${this.award.name} ${this.category.name}`;
+  }
 }
 
 export default Nomination;

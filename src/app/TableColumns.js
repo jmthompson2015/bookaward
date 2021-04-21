@@ -1,12 +1,31 @@
 import Assessment from "../artifact/Assessment.js";
 import Library from "../artifact/Library.js";
 
+import Book from "../state/Book.js";
+
 import UrlGenerator from "../model/UrlGenerator.js";
 
 const { ReactUtilities: RU, Select } = ReactComponent;
 
-const createLink = (href, label) =>
-  ReactDOMFactories.a({ href, target: "_blank" }, label);
+const ASSESSMENT_VALUES = R.reduce(
+  (accum, assessment) => {
+    if (assessment.key !== Assessment.BOOK_CLUB_PICK) {
+      const newAssessment = R.mergeRight(assessment, {
+        label: assessment.key === Assessment.NONE ? "-none-" : assessment.name,
+      });
+      return R.append(newAssessment, accum);
+    }
+    return accum;
+  },
+  [],
+  Assessment.values()
+);
+const BOOK_CLUB_PICK = Assessment.properties[Assessment.BOOK_CLUB_PICK].name;
+
+const mapIndexed = R.addIndex(R.map);
+
+const createLink = (key, href, label) =>
+  ReactDOMFactories.a({ key, href, target: "_blank" }, label);
 
 const createImageLink = (key, href, src, title) =>
   ReactDOMFactories.a(
@@ -15,10 +34,11 @@ const createImageLink = (key, href, src, title) =>
   );
 
 const createAssessmentCell = (row) => {
+  if (Book.isClubNominee(row.nominations)) {
+    return BOOK_CLUB_PICK;
+  }
+
   const { assessmentKey, book } = row;
-  const mapFunction = (assessment) =>
-    R.mergeRight(assessment, { label: assessment.name });
-  const values = R.map(mapFunction, Assessment.values());
   const key = `${book.toString()}_${assessmentKey}`;
   const onChange = (myBook) => (myAssessmentKey) => {
     row.selectOnChange(myBook, myAssessmentKey);
@@ -27,7 +47,7 @@ const createAssessmentCell = (row) => {
   const selector = React.createElement(Select, {
     key,
     id: key,
-    values,
+    values: ASSESSMENT_VALUES,
     initialValue: assessmentKey,
     onChange: onChange(book),
   });
@@ -64,7 +84,11 @@ const createAuthorLinkCell = (author) => {
     image3
   );
 
-  return ReactDOMFactories.span({}, author, imageSpan);
+  return ReactDOMFactories.span(
+    { key: `authorLink_${author}` },
+    author,
+    imageSpan
+  );
 };
 
 const createLibraryLinkCell = (row) => {
@@ -82,33 +106,33 @@ const createLibraryLinkCell = (row) => {
 };
 
 const createNominationsCell = (nominations, winnerImage) => {
-  const rows = [];
-
-  nominations.forEach((nomination) => {
+  const mapFunction = (nomination, i) => {
     const prefix = nomination.isWinner
       ? ReactDOMFactories.img({
-          className: "winner",
+          key: `winner${i}`,
+          className: "winner ph1 v-mid",
           src: winnerImage,
           title: "Winner",
         })
       : "";
-    const link = createLink(
-      UrlGenerator.createAwardUrl(nomination.award, nomination.year),
-      nomination.award.name
-    );
+    const href = UrlGenerator.createAwardUrl(nomination.award, nomination.year);
+    const link = createLink(`link${i}`, href, nomination.award.name);
 
-    const cell = RU.createCell([
+    const parts = [
       prefix,
       nomination.year,
       " ",
       link,
       " ",
       nomination.category.name,
-    ]);
-    rows.push(RU.createRow(cell, rows.length));
-  });
+    ];
+    const cell = RU.createCell(parts, `cell${i}`);
 
-  return RU.createTable(rows, "nominationsTable", "f7 tl");
+    return RU.createRow(cell, `row${i}`);
+  };
+  const rows = mapIndexed(mapFunction, nominations);
+
+  return RU.createTable(rows, "nominationsTable", "f7 tl v-mid");
 };
 
 const createTitleLinkCell = (row) => {
@@ -164,6 +188,9 @@ const TableColumns = [
   {
     key: "assessmentKey",
     label: "Assessment",
+    className: "f7 tl",
+    valueFunction: (row) =>
+      Book.isClubNominee(row.nominations) ? BOOK_CLUB_PICK : row.assessmentKey,
     cellFunction: (row) => createAssessmentCell(row),
   },
   {

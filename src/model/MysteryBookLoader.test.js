@@ -15,7 +15,7 @@ QUnit.test("load()", (assert) => {
     assert.ok(true, "test resumed from async operation");
     const { books, bookToNomination } = store.getState();
     assert.ok(books);
-    assert.equal(books.length, 154);
+    assert.equal(books.length, 164);
     const bookFirst = R.head(books);
     assert.ok(bookFirst);
     assert.equal(bookFirst.title, "The Alchemist's Illusion");
@@ -26,7 +26,7 @@ QUnit.test("load()", (assert) => {
     assert.equal(bookLast.author, "Steph Cha");
 
     assert.ok(bookToNomination);
-    assert.equal(Object.keys(bookToNomination).length, 154);
+    assert.equal(Object.keys(bookToNomination).length, 164);
     const nominationsFirst = bookToNomination[bookFirst];
     assert.ok(nominationsFirst);
     assert.equal(nominationsFirst.length, 1);

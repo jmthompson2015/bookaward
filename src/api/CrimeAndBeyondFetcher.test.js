@@ -4,7 +4,7 @@ import CrimeAndBeyondFetcher from "./CrimeAndBeyondFetcher.js";
 
 QUnit.module("CrimeAndBeyondFetcher");
 
-QUnit.test("receiveData()", assert => {
+QUnit.test("receiveData()", (assert) => {
   // Setup.
   const award = MysteryAward.properties[MysteryAward.CRIME_AND_BEYOND];
   const category = award.categories.properties[award.categories.CASE];
@@ -12,32 +12,32 @@ QUnit.test("receiveData()", assert => {
   const callback = ({ books, bookToNomination }) => {
     // Verify.
     assert.ok(books);
-    const length = 24;
+    const length = 36;
     assert.equal(books.length, length);
 
-    let i = 0;
-    assert.equal(books[i].title, "The Nowhere Man");
-    assert.equal(books[i].author, "Gregg Hurwitz");
-    let nominations = bookToNomination[books[i]];
+    const bookFirst = R.head(books);
+    assert.equal(bookFirst.title, "The Fallen");
+    assert.equal(bookFirst.author, "David Baldacci");
+    let nominations = bookToNomination[bookFirst];
     assert.ok(nominations);
     assert.equal(nominations.length, 1);
-    let j = 0;
-    assert.equal(nominations[j].award, award);
-    assert.equal(nominations[j].category, category);
-    assert.equal(nominations[j].year, 2017);
-    assert.equal(nominations[j].isWinner, false);
+    const nomination0 = R.head(nominations);
+    assert.equal(nomination0.award, award);
+    assert.equal(nomination0.category, category);
+    assert.equal(nomination0.year, 2019);
+    assert.equal(nomination0.isWinner, false);
 
-    i = length - 1;
-    assert.equal(books[i].title, "Lethal White");
-    assert.equal(books[i].author, "Robert Galbraith");
-    nominations = bookToNomination[books[i]];
+    const bookLast = R.last(books);
+    assert.equal(bookLast.title, "Tied Up in Tinsel");
+    assert.equal(bookLast.author, "Ngaio Marsh");
+    nominations = bookToNomination[bookLast];
     assert.ok(nominations);
     assert.equal(nominations.length, 1);
-    j = 0;
-    assert.equal(nominations[j].award, award);
-    assert.equal(nominations[j].category, category);
-    assert.equal(nominations[j].year, 2019);
-    assert.equal(nominations[j].isWinner, false);
+    const nomination1 = R.head(nominations);
+    assert.equal(nomination1.award, award);
+    assert.equal(nomination1.category, category);
+    assert.equal(nomination1.year, 2021);
+    assert.equal(nomination1.isWinner, false);
     done();
   };
   const fetcher = new CrimeAndBeyondFetcher();
