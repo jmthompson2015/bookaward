@@ -1,5 +1,3 @@
-import InputValidator from "../utility/InputValidator.js";
-
 const Action = {};
 
 Action.ADD_BOOK = "addBook";
@@ -11,6 +9,7 @@ Action.SET_ASSESSMENT = "setAssessment";
 Action.SET_ASSESSMENTS = "setAssessments";
 Action.SET_WINNER_IMAGE = "setWinnerImage";
 
+// /////////////////////////////////////////////////////////////////////////////
 // See https://redux.js.org/recipes/reducing-boilerplate
 const makeActionCreator = (type, ...argNames) => (...args) => {
   const action = { type };
@@ -20,14 +19,7 @@ const makeActionCreator = (type, ...argNames) => (...args) => {
   return action;
 };
 
-Action.addBook = (book) => {
-  InputValidator.validateNotNull("book", book);
-
-  return {
-    type: Action.ADD_BOOK,
-    book,
-  };
-};
+Action.addBook = makeActionCreator(Action.ADD_BOOK, "book");
 
 Action.addBooks = makeActionCreator(Action.ADD_BOOKS, "books");
 
@@ -36,38 +28,24 @@ Action.addBookToNomination = makeActionCreator(
   "bookToNomination"
 );
 
-Action.addNomination = (book, nomination) => {
-  InputValidator.validateNotNull("book", book);
-  InputValidator.validateNotNull("nomination", nomination);
-
-  return {
-    type: Action.ADD_NOMINATION,
-    book,
-    nomination,
-  };
-};
+Action.addNomination = makeActionCreator(
+  Action.ADD_NOMINATION,
+  "book",
+  "nomination"
+);
 
 Action.setAppName = makeActionCreator(Action.SET_APP_NAME, "appName");
 
-Action.setAssessment = (book, assessment) => {
-  InputValidator.validateNotNull("book", book);
-  InputValidator.validateNotNull("assessment", assessment);
+Action.setAssessment = makeActionCreator(
+  Action.SET_ASSESSMENT,
+  "book",
+  "assessment"
+);
 
-  return {
-    type: Action.SET_ASSESSMENT,
-    book,
-    assessment,
-  };
-};
-
-Action.setAssessments = (bookToAssessment) => {
-  InputValidator.validateNotNull("bookToAssessment", bookToAssessment);
-
-  return {
-    type: Action.SET_ASSESSMENTS,
-    bookToAssessment,
-  };
-};
+Action.setAssessments = makeActionCreator(
+  Action.SET_ASSESSMENTS,
+  "bookToAssessment"
+);
 
 Action.setWinnerImage = makeActionCreator(
   Action.SET_WINNER_IMAGE,
