@@ -1,12 +1,7 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_author",_title] }] */
 
-import InputValidator from "../utility/InputValidator.js";
-
 class Book {
   constructor(title, author) {
-    InputValidator.validateIsString("title", title);
-    InputValidator.validateIsString("author", author);
-
     this._title = title;
     this._author = author;
   }

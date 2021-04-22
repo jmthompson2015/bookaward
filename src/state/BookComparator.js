@@ -1,10 +1,5 @@
-import InputValidator from "../utility/InputValidator.js";
-
 const BookComparator = {
   compare(a, b) {
-    InputValidator.validateNotNull("a", a);
-    InputValidator.validateNotNull("b", b);
-
     let answer = 0;
     const aString = BookComparator.prepareName(a.toString());
     const bString = BookComparator.prepareName(b.toString());
@@ -19,16 +14,11 @@ const BookComparator = {
   },
 
   equals(a, b) {
-    InputValidator.validateNotNull("a", a);
-    InputValidator.validateNotNull("b", b);
-
     return a.title === b.title && a.author === b.author;
   },
 };
 
 BookComparator.prepareName = (string) => {
-  InputValidator.validateNotNull("string", string);
-
   let answer = string;
 
   answer = answer.startsWith("A ") ? answer.replace("A ", "") : answer;

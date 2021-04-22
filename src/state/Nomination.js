@@ -1,15 +1,9 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_award",_category,_isWinner,_year] }] */
 
-import InputValidator from "../utility/InputValidator.js";
-
 import MysteryAward from "../artifact/MysteryAward.js";
 
 class Nomination {
   constructor(award, category, year, isWinner = false) {
-    InputValidator.validateNotNull("award", award);
-    InputValidator.validateNotNull("category", category);
-    InputValidator.validateIsNumber("year", year);
-
     this._award = award;
     this._category = category;
     this._year = year;
