@@ -45,7 +45,10 @@ BookAward.execute = (appName, bookLoader, winnerImage) => {
       const nominations = state.bookToNomination[book] || [];
       const nominationsString =
         nominations && nominations.length > 0
-          ? R.map((n) => n.toString(), nominations).join(", ")
+          ? R.map(
+              (n) => (n.isWinner ? `winner ` : "") + n.toString(),
+              nominations
+            ).join(", ")
           : "";
       console.log(`nominationsString = :${nominationsString}:`);
       const assessmentKey = Book.isClubNominee(nominations)
