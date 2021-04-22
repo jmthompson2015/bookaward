@@ -1,7 +1,25 @@
 import Action from "./Action.js";
 import AppState from "./AppState.js";
 import BookComparator from "./BookComparator.js";
+import NominationComparator from "./NominationComparator.js";
 import UserSettings from "./UserSettings.js";
+
+const addBookToNomination = (state, action) => {
+  const newBookToNomination = R.mergeDeepWith(
+    R.concat,
+    state.bookToNomination,
+    action.bookToNomination
+  );
+  const reduceFunction = (accum, bookKey) => {
+    const oldNominations = accum[bookKey];
+    const newNominations = oldNominations.sort(NominationComparator.compare);
+
+    return { ...accum, [bookKey]: newNominations };
+  };
+  const bookKeys = Object.keys(action.bookToNomination);
+
+  return R.reduce(reduceFunction, newBookToNomination, bookKeys);
+};
 
 const Reducer = {};
 
@@ -29,11 +47,7 @@ Reducer.root = (state, action) => {
       LOGGER.info(
         `Reducer ADD_BOOK_TO_NOMINATION bookToNomination = ${action.bookToNomination}`
       );
-      newBookToNomination = R.mergeDeepWith(
-        R.concat,
-        state.bookToNomination,
-        action.bookToNomination
-      );
+      newBookToNomination = addBookToNomination(state, action);
       return { ...state, bookToNomination: newBookToNomination };
     case Action.SET_APP_NAME:
       LOGGER.info(`Reducer SET_APP_NAME appName = ${action.appName}`);

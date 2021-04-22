@@ -81,11 +81,22 @@ QUnit.test("addBookToNomination()", (assert) => {
 
   // Verify.
   assert.ok(result1);
+  const nominations = result1.bookToNomination[book];
   assert.equal(
-    result1.bookToNomination[book].length,
+    nominations.length,
     2,
-    `bookToNomination[book].length = ${result0.bookToNomination[book].length}`
+    `nominations.length = ${nominations.length}`
   );
+  const nominationFirst = R.head(nominations);
+  assert.ok(nominationFirst);
+  assert.equal(nominationFirst.award.key, MysteryAward.AGATHA);
+  assert.equal(nominationFirst.category.key, "contemporary");
+  assert.equal(nominationFirst.year, 2016);
+  const nominationLast = R.last(nominations);
+  assert.ok(nominationLast);
+  assert.equal(nominationLast.award.key, MysteryAward.BARRY);
+  assert.equal(nominationLast.category.key, "first");
+  assert.equal(nominationLast.year, 2021);
 });
 
 QUnit.test("setAssessment()", (assert) => {
