@@ -1,9 +1,7 @@
 const Action = {};
 
-Action.ADD_BOOK = "addBook";
 Action.ADD_BOOKS = "addBooks";
 Action.ADD_BOOK_TO_NOMINATION = "addBookToNomination";
-Action.ADD_NOMINATION = "addNomination";
 Action.SET_APP_NAME = "setAppName";
 Action.SET_ASSESSMENT = "setAssessment";
 Action.SET_ASSESSMENTS = "setAssessments";
@@ -19,19 +17,11 @@ const makeActionCreator = (type, ...argNames) => (...args) => {
   return action;
 };
 
-Action.addBook = makeActionCreator(Action.ADD_BOOK, "book");
-
 Action.addBooks = makeActionCreator(Action.ADD_BOOKS, "books");
 
 Action.addBookToNomination = makeActionCreator(
   Action.ADD_BOOK_TO_NOMINATION,
   "bookToNomination"
-);
-
-Action.addNomination = makeActionCreator(
-  Action.ADD_NOMINATION,
-  "book",
-  "nomination"
 );
 
 Action.setAppName = makeActionCreator(Action.SET_APP_NAME, "appName");

@@ -36,20 +36,20 @@ const createNomination1 = () => {
   return new Nomination(award, category, year);
 };
 
-QUnit.test("addBook()", (assert) => {
+QUnit.test("addBooks()", (assert) => {
   // Setup.
   const state = AppState.create();
-  const length = 0;
-  assert.equal(state.books.length, length);
+  assert.equal(state.books.length, 0);
   const book = createBook1();
-  const action = Action.addBook(book);
+  const action = Action.addBooks([book]);
 
   // Run.
   const result = Reducer.root(state, action);
 
   // Verify.
   assert.ok(result);
-  assert.equal(result.books.length, length + 1);
+  assert.equal(result.books.length, 1);
+  assert.equal(R.head(result.books), book);
 });
 
 QUnit.test("addBookToNomination()", (assert) => {
@@ -88,35 +88,13 @@ QUnit.test("addBookToNomination()", (assert) => {
   );
 });
 
-QUnit.test("addNomination()", (assert) => {
-  // Setup.
-  let state = AppState.create();
-  const book = createBook1();
-  state = Reducer.root(state, Action.addBook(book));
-  const nomination = createNomination1();
-  assert.ok(state.bookToNomination[book]);
-  assert.ok(Array.isArray(state.bookToNomination[book]));
-  assert.equal(state.bookToNomination[book].length, 0);
-  const action = Action.addNomination(book, nomination);
-
-  // Run.
-  const result = Reducer.root(state, action);
-
-  // Verify.
-  assert.ok(result);
-  assert.ok(result.bookToNomination[book]);
-  assert.ok(Array.isArray(result.bookToNomination[book]));
-  assert.equal(result.bookToNomination[book].length, 1);
-  assert.equal(result.bookToNomination[book][0], nomination);
-});
-
 QUnit.test("setAssessment()", (assert) => {
   // Setup.
   let state = AppState.create();
   const book = createBook1();
-  state = Reducer.root(state, Action.addBook(book));
+  state = Reducer.root(state, Action.addBooks([book]));
   const assessment = Assessment.POSSIBLE_PICK;
-  assert.equal(state.bookToAssessment[book], Assessment.NONE);
+  assert.equal(state.bookToAssessment[book], undefined);
   const action = Action.setAssessment(book, assessment);
 
   // Run.
@@ -131,8 +109,8 @@ QUnit.test("setAssessments()", (assert) => {
   // Setup.
   let state = AppState.create();
   const book = createBook1();
-  state = Reducer.root(state, Action.addBook(book));
-  assert.equal(state.bookToAssessment[book], Assessment.NONE);
+  state = Reducer.root(state, Action.addBooks([book]));
+  assert.equal(state.bookToAssessment[book], undefined);
 
   const assessment = Assessment.POSSIBLE_PICK;
   const bookToAssessment = {};
