@@ -223,8 +223,11 @@ const TableColumns = [
   {
     key: "library",
     label: "Library Search",
+    type: "none",
     cellFunction: (row) => createLibraryLinkCell(row),
   },
 ];
+
+Object.freeze(TableColumns);
 
 export default TableColumns;
