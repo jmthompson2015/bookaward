@@ -8,6 +8,10 @@ import Nomination from "../state/Nomination.js";
 
 import FetchUtilities from "./FetchUtilities.js";
 
+const { Extractor: EX } = StringUtilities;
+
+const EXCLUDE_CATEGORIES = ["Novella", "Short Fiction", "Shorter Fiction"];
+
 const add = (bookToNomination0, book, nomination) => {
   const bookToNomination = bookToNomination0;
   const nominations = bookToNomination[book];
@@ -20,22 +24,14 @@ const add = (bookToNomination0, book, nomination) => {
 };
 
 const parseBook = (cell0, cell1) => {
-  const key0 = "<b>";
-  const index0 = cell0.lastIndexOf(key0);
-  const key1 = "</b>";
-  const index1 = cell0.lastIndexOf(key1);
-  let title = cell0.substring(index0 + key0.length, index1);
+  let title = EX.between(cell0, "<b>", "</b>");
 
   // Special case for 2018. (misspelling)
   if (title.indexOf("Strategem") >= 0) {
     title = title.replace("Strategem", "Stratagem");
   }
 
-  const key2 = ">";
-  const key3 = "</a>";
-  const index3 = cell1.lastIndexOf(key3);
-  const index2 = cell1.lastIndexOf(key2, index3);
-  const author = cell1.substring(index2 + key2.length, index3);
+  const author = EX.between(cell1, ">", "</a>");
 
   return new Book(title, author);
 };
@@ -56,7 +52,6 @@ class SFADBNomineeFetcher {
   }
 
   createUrl() {
-    // console.debug(`url = ${this.award.url + this.year}`);
     return this.award.url + this.year;
   }
 
@@ -65,7 +60,6 @@ class SFADBNomineeFetcher {
       const receiveData = (htmlDocument) => {
         let books = [];
         let bookToNomination = {};
-        console.info(`award = ${this.award.name}`);
 
         if (htmlDocument) {
           const {
@@ -106,31 +100,20 @@ class SFADBNomineeFetcher {
   }
 
   parseCategory(categoryName) {
-    let myCategoryName = categoryName;
-    const key0 = ">";
-    const index0 = myCategoryName.indexOf(key0);
-
-    if (index0 >= 0) {
-      myCategoryName = myCategoryName.substring(index0 + key0.length);
-    }
-
-    const key1 = " (";
-    const index1 = myCategoryName.indexOf(key1);
-
-    if (index1 >= 0) {
-      myCategoryName = myCategoryName.substring(0, index1);
-    }
-
-    const key2 = "</div>";
-    const index2 = myCategoryName.indexOf(key2);
-
-    if (index2 >= 0) {
-      myCategoryName = myCategoryName.substring(0, index2);
-    }
-
+    const myCategoryName = EX.before(
+      EX.between(categoryName, ">", " ("),
+      "</div>"
+    );
     const { properties } = this.award.categories;
 
-    return SciFiAward.findByName(properties, myCategoryName);
+    const answer = SciFiAward.findByName(properties, myCategoryName);
+    if (R.isNil(answer) && !EXCLUDE_CATEGORIES.includes(myCategoryName)) {
+      console.info(
+        `Can't find SciFiAward for myCategoryName = :${myCategoryName}:`
+      );
+    }
+
+    return answer;
   }
 
   parseNominee(books, bookToNomination0, category, table) {
@@ -154,12 +137,7 @@ class SFADBNomineeFetcher {
     const key00 = paragraph.indexOf("<ul>") >= 0 ? "<ul>" : "<ol>";
     const parts = paragraph.split(key00);
     const category = this.parseCategory(parts[0].trim());
-    let parts1 = parts[1].trim();
-    const key0 = "</li>";
-    const index0 = parts1.lastIndexOf(key0);
-    if (index0 >= 0) {
-      parts1 = parts1.substring(0, index0 + key0.length);
-    }
+    const parts1 = EX.before(parts[1].trim(), "</li>", true);
 
     if (category !== undefined) {
       const tables = parts1.trim().split("<li");

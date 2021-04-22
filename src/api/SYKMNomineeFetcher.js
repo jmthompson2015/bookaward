@@ -8,6 +8,8 @@ import Nomination from "../state/Nomination.js";
 
 import FetchUtilities from "./FetchUtilities.js";
 
+const { Extractor: EX } = StringUtilities;
+
 const add = (bookToNomination0, book, nomination) => {
   const bookToNomination = bookToNomination0;
   const nominations = bookToNomination[book];
@@ -20,30 +22,26 @@ const add = (bookToNomination0, book, nomination) => {
 };
 
 const parseBook = (htmlFragment) => {
-  const key0 = ">";
-  const key1 = "</a>";
-  const key11 = "</td>";
-  const index1 = htmlFragment.indexOf(key1);
-  const index0 = htmlFragment.lastIndexOf(key0, index1) + 1;
-  const title0 = htmlFragment.substring(index0, index1).trim();
-  const title = title0
-    .replace("&#8217;", "'")
-    .replace("&#x2019;", "'")
-    .replace("&rsquo;", "'")
-    .replace("&amp;", "&");
-  let index3 = htmlFragment.indexOf(key1, index1 + 1);
+  const parts = htmlFragment.split("</a>");
+  const title0 = EX.after(parts[0], ">", true);
+  const replaceSpecialChars = R.pipe(
+    R.replace("&#8217;", "'"),
+    R.replace("&#x2019;", "'"),
+    R.replace("&amp;", "&"),
+    R.replace("&oslash;", "o"),
+    R.replace("&rsquo;", "'")
+  );
+  const title = replaceSpecialChars(title0);
 
-  if (index3 < 0) {
-    index3 = htmlFragment.indexOf(key11, index1 + 1);
-  }
-
-  const index2 = htmlFragment.lastIndexOf(key0, index3) + 1;
-  let author = htmlFragment.substring(index2, index3).trim();
-
-  if (author.startsWith("by ")) {
-    author = author.substring("by ".length);
-  }
-  author = author.replace("&rsquo;", "'");
+  const partialBefore = R.partialRight(EX.before, ["</td>", false, false]);
+  const partialAfter = R.partialRight(EX.after, [true, false]);
+  const beforeAfterAfter = R.pipe(
+    partialBefore,
+    R.partialRight(partialAfter, [">"]),
+    R.partialRight(partialAfter, ["by "])
+  );
+  const author0 = beforeAfterAfter(parts[1]);
+  const author = replaceSpecialChars(author0);
 
   return new Book(title, author);
 };
@@ -96,15 +94,17 @@ class SYKMNomineeFetcher {
   }
 
   parseCategory(htmlFragment) {
-    const key0 = "<strong>";
-    const index0 = htmlFragment.indexOf(key0);
-    const key1 = "</strong>";
-    const index1 = htmlFragment.indexOf(key1, index0);
-    const categoryName = htmlFragment
-      .substring(index0 + key0.length, index1)
-      .trim();
-    let myCategoryName = categoryName.replace("  ", " ");
-    myCategoryName = myCategoryName.replace(":", "");
+    const partialBetween = R.partialRight(EX.between, [
+      "<strong>",
+      "</strong>",
+      false,
+      false,
+    ]);
+    const categoryName = R.pipe(partialBetween, R.trim)(htmlFragment);
+    const myCategoryName = R.pipe(
+      R.replace(/ {2}/g, " "),
+      R.replace(":", "")
+    )(categoryName);
     const { properties } = this.award.categories;
 
     return MysteryAward.findByName(properties, myCategoryName);
@@ -127,8 +127,7 @@ class SYKMNomineeFetcher {
   }
 
   parseNominees(books, bookToNomination, paragraph) {
-    const index0 = paragraph.indexOf("<");
-    const yearString = paragraph.substring(0, index0);
+    const yearString = EX.before(paragraph, "<");
     const year = parseInt(yearString, 10);
     const tables = paragraph.split("<table");
 

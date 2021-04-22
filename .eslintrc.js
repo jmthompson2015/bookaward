@@ -16,6 +16,7 @@ module.exports = {
     ReactDOMFactories: true,
     ReactRedux: true,
     Redux: true,
+    StringUtilities: true,
   },
   rules: {
     "import/extensions": ["error", { js: "always" }],
