@@ -43,6 +43,11 @@ BookAward.execute = (appName, bookLoader, winnerImage) => {
 
     const mapFunction = (book) => {
       const nominations = state.bookToNomination[book] || [];
+      const nominationsString =
+        nominations && nominations.length > 0
+          ? R.map((n) => n.toString(), nominations).join(", ")
+          : "";
+      console.log(`nominationsString = :${nominationsString}:`);
       const assessmentKey = Book.isClubNominee(nominations)
         ? Assessment.BOOK_CLUB_PICK
         : state.bookToAssessment[book] || Assessment.NONE;
@@ -52,6 +57,7 @@ BookAward.execute = (appName, bookLoader, winnerImage) => {
         author: book.author,
         book,
         nominations,
+        nominationsString,
         assessmentKey,
         winnerImage: state.winnerImage,
         selectOnChange,

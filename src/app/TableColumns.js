@@ -168,13 +168,6 @@ const createTitleLinkCell = (row) => {
   );
 };
 
-const formatNominations = (nominations) => {
-  const mapFunction = (nomination) => nomination.toString();
-  const array = R.map(mapFunction, nominations);
-
-  return array.join(", ");
-};
-
 const invertAuthorName = (author) => {
   const index = author.lastIndexOf(" ");
   const first = author.substring(0, index);
@@ -214,9 +207,8 @@ const TableColumns = [
     cellFunction: (row) => createAuthorLinkCell(row.author),
   },
   {
-    key: "nominations",
+    key: "nominationsString",
     label: "Nominations",
-    valueFunction: (row) => formatNominations(row.nominations),
     cellFunction: (row) =>
       createNominationsCell(row.nominations, row.winnerImage),
   },
