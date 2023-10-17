@@ -5,7 +5,7 @@ const UrlGenerator = {
   createAmazonSearchUrl(subject) {
     const searchString = subject.replace(/ /g, "+");
 
-    return `https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=${searchString}`;
+    return `http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=${searchString}`;
   },
 
   createAwardUrl(award, year) {
@@ -21,7 +21,7 @@ const UrlGenerator = {
   createGoodreadsSearchUrl(subject) {
     const searchString = subject.replace(/ /g, "+");
 
-    return `https://www.goodreads.com/search?q=${searchString}`;
+    return `http://www.goodreads.com/search?q=${searchString}`;
   },
 
   createLibrarySearchUrl(library, subject) {
@@ -47,7 +47,7 @@ const UrlGenerator = {
   createWikipediaSearchUrl(subject) {
     const searchString = subject.replace(/ /g, "_");
 
-    return `https://en.wikipedia.org/wiki/${searchString}`;
+    return `http://en.wikipedia.org/wiki/${searchString}`;
   },
 };
 

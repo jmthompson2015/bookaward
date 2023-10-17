@@ -11,42 +11,42 @@ const MysteryAward = {
   properties: {
     agatha: {
       name: "Agatha",
-      url: "https://stopyourekillingme.com/Awards/Agatha_Awards.html",
+      url: "http://stopyourekillingme.com/Awards/Agatha_Awards.html",
       key: "agatha",
     },
     anthony: {
       name: "Anthony",
-      url: "https://stopyourekillingme.com/Awards/Anthony_Awards.html",
+      url: "http://stopyourekillingme.com/Awards/Anthony_Awards.html",
       key: "anthony",
     },
     barry: {
       name: "Barry",
-      url: "https://stopyourekillingme.com/Awards/Barry_Awards.html",
+      url: "http://stopyourekillingme.com/Awards/Barry_Awards.html",
       key: "barry",
     },
     crimeAndBeyond: {
       name: "Crime & Beyond",
-      url: "https://crimeandbeyond.wikia.com/wiki/Crime_%26_Beyond_Wiki",
+      url: "http://crimeandbeyond.wikia.com/wiki/Crime_%26_Beyond_Wiki",
       key: "crimeAndBeyond",
     },
     // dagger: {
     //   name: "Dagger",
-    //   url: "https://stopyourekillingme.com/Awards/Dagger_Awards.html",
+    //   url: "http://stopyourekillingme.com/Awards/Dagger_Awards.html",
     //   key: "dagger"
     // },
     edgar: {
       name: "Edgar",
-      url: "https://stopyourekillingme.com/Awards/Edgar_Awards.html",
+      url: "http://stopyourekillingme.com/Awards/Edgar_Awards.html",
       key: "edgar",
     },
     // nero: {
     //   name: "Nero",
-    //   url: "https://stopyourekillingme.com/Awards/Nero_Awards.html",
+    //   url: "http://stopyourekillingme.com/Awards/Nero_Awards.html",
     //   key: "nero"
     // },
     shamus: {
       name: "Shamus",
-      url: "https://stopyourekillingme.com/Awards/Shamus_Awards.html",
+      url: "http://stopyourekillingme.com/Awards/Shamus_Awards.html",
       key: "shamus",
     },
   },

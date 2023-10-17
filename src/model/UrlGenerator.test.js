@@ -16,7 +16,7 @@ QUnit.test("createAmazonSearchUrl()", (assert) => {
   assert.ok(result);
   assert.equal(
     result,
-    "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=something",
+    "http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=something",
   );
 });
 
@@ -32,7 +32,7 @@ QUnit.test("createAwardUrl()", (assert) => {
   assert.ok(result);
   assert.equal(
     result,
-    "https://stopyourekillingme.com/Awards/Agatha_Awards.html",
+    "http://stopyourekillingme.com/Awards/Agatha_Awards.html",
   );
 });
 
@@ -45,7 +45,7 @@ QUnit.test("createGoodreadsSearchUrl()", (assert) => {
 
   // Verify.
   assert.ok(result);
-  assert.equal(result, "https://www.goodreads.com/search?q=something");
+  assert.equal(result, "http://www.goodreads.com/search?q=something");
 });
 
 QUnit.test("createLibrarySearchUrl()", (assert) => {
@@ -60,7 +60,7 @@ QUnit.test("createLibrarySearchUrl()", (assert) => {
   assert.ok(result);
   assert.equal(
     result,
-    "https://dcl.bibliocommons.com/search?q=something&t=smart&search_category=keyword",
+    "http://dcl.bibliocommons.com/search?q=something&t=smart&search_category=keyword",
   );
 });
 
@@ -73,7 +73,7 @@ QUnit.test("createWikipediaSearchUrl()", (assert) => {
 
   // Verify.
   assert.ok(result);
-  assert.equal(result, "https://en.wikipedia.org/wiki/something");
+  assert.equal(result, "http://en.wikipedia.org/wiki/something");
 });
 
 const UrlGeneratorTest = {};

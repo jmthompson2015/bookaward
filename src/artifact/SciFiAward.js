@@ -8,27 +8,27 @@ const SciFiAward = {
   properties: {
     britishFantasy: {
       name: "British Fantasy",
-      url: "https://www.sfadb.com/British_Fantasy_Awards_",
+      url: "http://www.sfadb.com/British_Fantasy_Awards_",
       key: "britishFantasy",
     },
     britishSf: {
       name: "British SF",
-      url: "https://www.sfadb.com/British_SF_Association_Awards_",
+      url: "http://www.sfadb.com/British_SF_Association_Awards_",
       key: "britishSf",
     },
     hugo: {
       name: "Hugo",
-      url: "https://www.sfadb.com/Hugo_Awards_",
+      url: "http://www.sfadb.com/Hugo_Awards_",
       key: "hugo",
     },
     locus: {
       name: "Locus",
-      url: "https://www.sfadb.com/Locus_Awards_",
+      url: "http://www.sfadb.com/Locus_Awards_",
       key: "locus",
     },
     nebula: {
       name: "Nebula",
-      url: "https://www.sfadb.com/Nebula_Awards_",
+      url: "http://www.sfadb.com/Nebula_Awards_",
       key: "nebula",
     },
   },
