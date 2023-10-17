@@ -29,7 +29,7 @@ const parseBook = (htmlFragment) => {
     R.replace("&#x2019;", "'"),
     R.replace("&amp;", "&"),
     R.replace("&oslash;", "o"),
-    R.replace("&rsquo;", "'")
+    R.replace("&rsquo;", "'"),
   );
   const title = replaceSpecialChars(title0);
 
@@ -38,7 +38,7 @@ const parseBook = (htmlFragment) => {
   const beforeAfterAfter = R.pipe(
     partialBefore,
     R.partialRight(partialAfter, [">"]),
-    R.partialRight(partialAfter, ["by "])
+    R.partialRight(partialAfter, ["by "]),
   );
   const author0 = beforeAfterAfter(parts[1]);
   const author = replaceSpecialChars(author0);
@@ -70,7 +70,11 @@ class SYKMNomineeFetcher {
       };
 
       const url = this.createUrl();
-      const options = {};
+      const options = {
+        credentials: "omit",
+        method: "GET",
+        mode: "cors",
+      };
       FetchUtilities.fetchRetry(url, options, 3)
         .then((response) => response.text())
         .then(receiveData);
@@ -82,7 +86,7 @@ class SYKMNomineeFetcher {
     const books = [];
     const bookToNomination = {};
     const paragraphs = htmlDocument.split(
-      '<p align="center" class="AuthorSub">'
+      '<p align="center" class="AuthorSub">',
     );
 
     for (let i = 2; i < 4; i += 1) {
@@ -103,7 +107,7 @@ class SYKMNomineeFetcher {
     const categoryName = R.pipe(partialBetween, R.trim)(htmlFragment);
     const myCategoryName = R.pipe(
       R.replace(/ {2}/g, " "),
-      R.replace(":", "")
+      R.replace(":", ""),
     )(categoryName);
     const { properties } = this.award.categories;
 
