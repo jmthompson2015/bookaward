@@ -72,6 +72,11 @@ class SYKMNomineeFetcher {
       const url = this.createUrl();
       const options = {
         credentials: "omit",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Request-Method": "GET",
+          Vary: "Origin,Access-Control-Request-Headers,Access-Control-Request-Method",
+        },
         method: "GET",
         mode: "cors",
       };
