@@ -8,27 +8,27 @@ const SciFiAward = {
   properties: {
     britishFantasy: {
       name: "British Fantasy",
-      url: "http://www.sfadb.com/British_Fantasy_Awards_",
+      url: "https://www.sfadb.com/British_Fantasy_Awards_",
       key: "britishFantasy",
     },
     britishSf: {
       name: "British SF",
-      url: "http://www.sfadb.com/British_SF_Association_Awards_",
+      url: "https://www.sfadb.com/British_SF_Association_Awards_",
       key: "britishSf",
     },
     hugo: {
       name: "Hugo",
-      url: "http://www.sfadb.com/Hugo_Awards_",
+      url: "https://www.sfadb.com/Hugo_Awards_",
       key: "hugo",
     },
     locus: {
       name: "Locus",
-      url: "http://www.sfadb.com/Locus_Awards_",
+      url: "https://www.sfadb.com/Locus_Awards_",
       key: "locus",
     },
     nebula: {
       name: "Nebula",
-      url: "http://www.sfadb.com/Nebula_Awards_",
+      url: "https://www.sfadb.com/Nebula_Awards_",
       key: "nebula",
     },
   },
@@ -54,7 +54,7 @@ SciFiAward.properties[SciFiAward.BRITISH_FANTASY].categories = {
 
   keys() {
     return Object.keys(
-      SciFiAward.properties[SciFiAward.BRITISH_FANTASY].categories.properties
+      SciFiAward.properties[SciFiAward.BRITISH_FANTASY].categories.properties,
     );
   },
 };
@@ -70,7 +70,7 @@ SciFiAward.properties[SciFiAward.BRITISH_SF].categories = {
 
   keys() {
     return Object.keys(
-      SciFiAward.properties[SciFiAward.BRITISH_SF].categories.properties
+      SciFiAward.properties[SciFiAward.BRITISH_SF].categories.properties,
     );
   },
 };
@@ -86,7 +86,7 @@ SciFiAward.properties[SciFiAward.HUGO].categories = {
 
   keys() {
     return Object.keys(
-      SciFiAward.properties[SciFiAward.HUGO].categories.properties
+      SciFiAward.properties[SciFiAward.HUGO].categories.properties,
     );
   },
 };
@@ -117,7 +117,7 @@ SciFiAward.properties[SciFiAward.LOCUS].categories = {
 
   keys() {
     return Object.keys(
-      SciFiAward.properties[SciFiAward.LOCUS].categories.properties
+      SciFiAward.properties[SciFiAward.LOCUS].categories.properties,
     );
   },
 };
@@ -133,7 +133,7 @@ SciFiAward.properties[SciFiAward.NEBULA].categories = {
 
   keys() {
     return Object.keys(
-      SciFiAward.properties[SciFiAward.NEBULA].categories.properties
+      SciFiAward.properties[SciFiAward.NEBULA].categories.properties,
     );
   },
 };

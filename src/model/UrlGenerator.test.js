@@ -16,7 +16,7 @@ QUnit.test("createAmazonSearchUrl()", (assert) => {
   assert.ok(result);
   assert.equal(
     result,
-    "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=something"
+    "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&field-keywords=something",
   );
 });
 
@@ -32,7 +32,7 @@ QUnit.test("createAwardUrl()", (assert) => {
   assert.ok(result);
   assert.equal(
     result,
-    "http://stopyourekillingme.com/Awards/Agatha_Awards.html"
+    "https://stopyourekillingme.com/Awards/Agatha_Awards.html",
   );
 });
 
@@ -60,7 +60,7 @@ QUnit.test("createLibrarySearchUrl()", (assert) => {
   assert.ok(result);
   assert.equal(
     result,
-    "http://dcl.bibliocommons.com/search?q=something&t=smart&search_category=keyword"
+    "https://dcl.bibliocommons.com/search?q=something&t=smart&search_category=keyword",
   );
 });
 
