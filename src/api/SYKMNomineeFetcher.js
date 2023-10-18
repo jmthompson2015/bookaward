@@ -74,6 +74,8 @@ class SYKMNomineeFetcher {
         headers: {
           Origin: "https://jmthompson2015.github.io",
         },
+        method: "GET",
+        mode: "no-cors",
       };
       FetchUtilities.fetchRetry(url, options, 3)
         .then((response) => response.text())
