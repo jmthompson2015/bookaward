@@ -39,54 +39,47 @@ const fetchData2022 = (books, bookToNomination, award) => {
     // Contemporary
     let categoryKey = MysteryAward.categories(award.key).CONTEMPORARY;
     let category = MysteryAward.category(award.key, categoryKey);
-    let nomination = new Nomination(award, category, 2022);
-    let nominationWin = new Nomination(award, category, 2022, true);
-
-    let titleAndAuthor = ["A World of Curiosities", "Louise Penny"];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nominationWin);
-    titleAndAuthor = ["Bayou Book Thief", "Ellen Byron"];
+    let nomination = new Nomination(award, category, 2022, true);
+    let titleAndAuthor = [["A World of Curiosities", "Louise Penny"]];
     addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-    titleAndAuthor = ["Death by Bubble Tea", "Jennifer J. Chow"];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-    titleAndAuthor = ["Fatal Reunion", "Annette Dashofy"];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-    titleAndAuthor = ["Dead Man's Leap", "Tina de Bellegarde"];
+    nomination = new Nomination(award, category, 2022);
+    titleAndAuthor = [
+      ["Bayou Book Thief", "Ellen Byron"],
+      ["Death by Bubble Tea", "Jennifer J. Chow"],
+      ["Fatal Reunion", "Annette Dashofy"],
+      ["Dead Man's Leap", "Tina de Bellegarde"],
+    ];
     addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
 
     // First
     categoryKey = MysteryAward.categories(award.key).FIRST;
     category = MysteryAward.category(award.key, categoryKey);
+    nomination = new Nomination(award, category, 2022, true);
+    titleAndAuthor = [["Cheddar Off Dead", "Korina Moss"]];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
     nomination = new Nomination(award, category, 2022);
-    nominationWin = new Nomination(award, category, 2022, true);
-
-    titleAndAuthor = ["Cheddar Off Dead", "Korina Moss"];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nominationWin);
-    titleAndAuthor = ["The Finalist", "Joan Long"];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-    titleAndAuthor = ["Death in the Aegean", "M.A. Monnin"];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-    titleAndAuthor = ["The Bangalore Detectives Club", "Harini Nagendra"];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-    titleAndAuthor = ["Devil's Chew Toy", "Rob Osler"];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-    titleAndAuthor = ["The Gallery of Beauties", "Nina Wachsman"];
+    titleAndAuthor = [
+      ["The Finalist", "Joan Long"],
+      ["Death in the Aegean", "M.A. Monnin"],
+      ["The Bangalore Detectives Club", "Harini Nagendra"],
+      ["Devil's Chew Toy", "Rob Osler"],
+      ["The Gallery of Beauties", "Nina Wachsman"],
+    ];
     addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
 
     // Historical
     categoryKey = MysteryAward.categories(award.key).HISTORICAL;
     category = MysteryAward.category(award.key, categoryKey);
+    nomination = new Nomination(award, category, 2022, true);
+    titleAndAuthor = [["Because I Could Not Stop for Death", "Amanda Flower"]];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
     nomination = new Nomination(award, category, 2022);
-    nominationWin = new Nomination(award, category, 2022, true);
-
-    titleAndAuthor = ["Because I Could Not Stop for Death", "Amanda Flower"];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nominationWin);
-    titleAndAuthor = ["The Counterfeit Wife", "Mally Becker"];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-    titleAndAuthor = ["The Lindbergh Nanny", "Mariah Fredericks"];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-    titleAndAuthor = ["In Place of Fear", "Catriona McPherson"];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-    titleAndAuthor = ["Under a Vieled Moon", "Karen Odden"];
+    titleAndAuthor = [
+      ["The Counterfeit Wife", "Mally Becker"],
+      ["The Lindbergh Nanny", "Mariah Fredericks"],
+      ["In Place of Fear", "Catriona McPherson"],
+      ["Under a Vieled Moon", "Karen Odden"],
+    ];
     addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
   }
 };
