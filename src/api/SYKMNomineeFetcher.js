@@ -21,6 +21,78 @@ const add = (bookToNomination0, book, nomination) => {
   }
 };
 
+const addTitleAndAuthor = (
+  books,
+  bookToNomination0,
+  titleAndAuthor,
+  nomination,
+) => {
+  const bookToNomination = bookToNomination0;
+
+  for (let i = 0; i < titleAndAuthor.length; i += 1) {
+    const book = new Book(titleAndAuthor[i][0], titleAndAuthor[i][1]);
+    books.push(book);
+    bookToNomination[book] = [nomination];
+  }
+};
+
+const fetchData2022 = (books, bookToNomination, award) => {
+  if (award.key === MysteryAward.AGATHA) {
+    // Contemporary
+    let categoryKey = MysteryAward.categories(award.key).CONTEMPORARY;
+    let category = MysteryAward.category(award.key, categoryKey);
+    let nomination = new Nomination(award, category, 2022);
+    let nominationWin = new Nomination(award, category, 2022, true);
+
+    let titleAndAuthor = ["A World of Curiosities", "Louise Penny"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nominationWin);
+    titleAndAuthor = ["Bayou Book Thief", "Ellen Byron"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+    titleAndAuthor = ["Death by Bubble Tea", "Jennifer J. Chow"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+    titleAndAuthor = ["Fatal Reunion", "Annette Dashofy"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+    titleAndAuthor = ["Dead Man's Leap", "Tina de Bellegarde"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+
+    // First
+    categoryKey = MysteryAward.categories(award.key).FIRST;
+    category = MysteryAward.category(award.key, categoryKey);
+    nomination = new Nomination(award, category, 2022);
+    nominationWin = new Nomination(award, category, 2022, true);
+
+    titleAndAuthor = ["Cheddar Off Dead", "Korina Moss"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nominationWin);
+    titleAndAuthor = ["The Finalist", "Joan Long"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+    titleAndAuthor = ["Death in the Aegean", "M.A. Monnin"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+    titleAndAuthor = ["The Bangalore Detectives Club", "Harini Nagendra"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+    titleAndAuthor = ["Devil's Chew Toy", "Rob Osler"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+    titleAndAuthor = ["The Gallery of Beauties", "Nina Wachsman"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+
+    // Historical
+    categoryKey = MysteryAward.categories(award.key).HISTORICAL;
+    category = MysteryAward.category(award.key, categoryKey);
+    nomination = new Nomination(award, category, 2022);
+    nominationWin = new Nomination(award, category, 2022, true);
+
+    titleAndAuthor = ["Because I Could Not Stop for Death", "Amanda Flower"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nominationWin);
+    titleAndAuthor = ["The Counterfeit Wife", "Mally Becker"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+    titleAndAuthor = ["The Lindbergh Nanny", "Mariah Fredericks"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+    titleAndAuthor = ["In Place of Fear", "Catriona McPherson"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+    titleAndAuthor = ["Under a Vieled Moon", "Karen Odden"];
+    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+  }
+};
+
 const parseBook = (htmlFragment) => {
   const parts = htmlFragment.split("</a>");
   const title0 = EX.after(parts[0], ">", true);
@@ -61,26 +133,41 @@ class SYKMNomineeFetcher {
   }
 
   fetchData() {
-    return new Promise((resolve) => {
-      const receiveData = (htmlDocument) => {
-        const { books, bookToNomination } = this.parse(htmlDocument);
+    let answer;
+
+    try {
+      answer = new Promise((resolve) => {
+        const receiveData = (htmlDocument) => {
+          const { books, bookToNomination } = this.parse(htmlDocument);
+          console.info(`${this.award.name} books.length = ${books.length}`);
+
+          resolve({ books, bookToNomination });
+        };
+
+        const url = this.createUrl();
+        const options = {
+          headers: {
+            Origin: "https://jmthompson2015.github.io",
+          },
+          method: "GET",
+          mode: "no-cors",
+        };
+        FetchUtilities.fetchRetry(url, options, 3)
+          .then((response) => response.text())
+          .then(receiveData);
+      });
+    } catch (error) {
+      answer = new Promise((resolve) => {
+        const books = [];
+        const bookToNomination = {};
+        fetchData2022(books, bookToNomination, this.award);
         console.info(`${this.award.name} books.length = ${books.length}`);
 
         resolve({ books, bookToNomination });
-      };
-
-      const url = this.createUrl();
-      const options = {
-        headers: {
-          Origin: "https://jmthompson2015.github.io",
-        },
-        method: "GET",
-        mode: "no-cors",
-      };
-      FetchUtilities.fetchRetry(url, options, 3)
-        .then((response) => response.text())
-        .then(receiveData);
-    });
+      });
+    } finally {
+      return answer;
+    }
   }
 
   parse(htmlDocument) {

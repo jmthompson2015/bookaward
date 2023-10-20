@@ -243,6 +243,12 @@ MysteryAward.properties[MysteryAward.SHAMUS].categories = {
   },
 };
 
+MysteryAward.categories = (awardKey) =>
+  MysteryAward.properties[awardKey].categories;
+
+MysteryAward.category = (awardKey, categoryKey) =>
+  MysteryAward.properties[awardKey].categories.properties[categoryKey];
+
 MysteryAward.findByName = (properties, name) => {
   let answer;
   const keys = Object.getOwnPropertyNames(properties);
