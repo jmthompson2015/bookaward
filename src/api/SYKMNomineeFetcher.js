@@ -6,8 +6,6 @@ import MysteryAward from "../artifact/MysteryAward.js";
 import Book from "../state/Book.js";
 import Nomination from "../state/Nomination.js";
 
-import FetchUtilities from "./FetchUtilities.js";
-
 const { Extractor: EX } = StringUtilities;
 
 const add = (bookToNomination0, book, nomination) => {
@@ -150,18 +148,17 @@ class SYKMNomineeFetcher {
         mode: "no-cors",
       };
 
-      try {
-        FetchUtilities.fetchRetry(url, options, 3)
-          .then((response) => response.text())
-          .then(receiveData);
-      } catch (error) {
-        const books = [];
-        const bookToNomination = {};
-        fetchData2022(books, bookToNomination, this.award);
-        console.info(`${this.award.name} books.length = ${books.length}`);
+      fetch(url, options)
+        .then((response) => response.text())
+        .then(receiveData)
+        .catch((error) => {
+          const books = [];
+          const bookToNomination = {};
+          fetchData2022(books, bookToNomination, this.award);
+          console.info(`${this.award.name} books.length = ${books.length}`);
 
-        resolve({ books, bookToNomination });
-      }
+          resolve({ books, bookToNomination });
+        });
     });
   }
 
