@@ -133,41 +133,36 @@ class SYKMNomineeFetcher {
   }
 
   fetchData() {
-    let answer;
+    return new Promise((resolve) => {
+      const receiveData = (htmlDocument) => {
+        const { books, bookToNomination } = this.parse(htmlDocument);
+        console.info(`${this.award.name} books.length = ${books.length}`);
 
-    try {
-      answer = new Promise((resolve) => {
-        const receiveData = (htmlDocument) => {
-          const { books, bookToNomination } = this.parse(htmlDocument);
-          console.info(`${this.award.name} books.length = ${books.length}`);
+        resolve({ books, bookToNomination });
+      };
 
-          resolve({ books, bookToNomination });
-        };
+      const url = this.createUrl();
+      const options = {
+        headers: {
+          Origin: "https://jmthompson2015.github.io",
+        },
+        method: "GET",
+        mode: "no-cors",
+      };
 
-        const url = this.createUrl();
-        const options = {
-          headers: {
-            Origin: "https://jmthompson2015.github.io",
-          },
-          method: "GET",
-          mode: "no-cors",
-        };
+      try {
         FetchUtilities.fetchRetry(url, options, 3)
           .then((response) => response.text())
           .then(receiveData);
-      });
-    } catch (error) {
-      answer = new Promise((resolve) => {
+      } catch (error) {
         const books = [];
         const bookToNomination = {};
         fetchData2022(books, bookToNomination, this.award);
         console.info(`${this.award.name} books.length = ${books.length}`);
 
         resolve({ books, bookToNomination });
-      });
-    } finally {
-      return answer;
-    }
+      }
+    });
   }
 
   parse(htmlDocument) {
