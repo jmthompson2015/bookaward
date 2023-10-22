@@ -89,8 +89,8 @@ class SYKMNomineeFetcher {
         .then((response) => response.text())
         .then(receiveData)
         .catch((error) => {
-          const books = [];
-          const bookToNomination = {};
+          let books = [];
+          let bookToNomination = {};
 
           if (this.award.key === MysteryAward.AGATHA) {
             books = SYKMBookData;
