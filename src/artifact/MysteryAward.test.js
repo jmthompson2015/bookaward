@@ -76,5 +76,41 @@ QUnit.test("keys()", (assert) => {
   assert.equal(R.last(result), MysteryAward.SHAMUS);
 });
 
+QUnit.test("keysWithoutCB()", (assert) => {
+  // Run.
+  const result = MysteryAward.keysWithoutCB();
+
+  // Verify.
+  assert.ok(result);
+  const length = 5;
+  assert.equal(result.length, length);
+  assert.equal(R.head(result), MysteryAward.AGATHA);
+  assert.equal(R.last(result), MysteryAward.SHAMUS);
+});
+
+QUnit.test("values()", (assert) => {
+  // Run.
+  const result = MysteryAward.values();
+
+  // Verify.
+  assert.ok(result);
+  const length = 6;
+  assert.equal(result.length, length);
+  assert.equal(R.head(result).key, MysteryAward.AGATHA);
+  assert.equal(R.last(result).key, MysteryAward.SHAMUS);
+});
+
+QUnit.test("valuesOmitCB()", (assert) => {
+  // Run.
+  const result = MysteryAward.valuesOmitCB();
+
+  // Verify.
+  assert.ok(result);
+  const length = 5;
+  assert.equal(result.length, length);
+  assert.equal(R.head(result).key, MysteryAward.AGATHA);
+  assert.equal(R.last(result).key, MysteryAward.SHAMUS);
+});
+
 const MysteryAwardTest = {};
 export default MysteryAwardTest;

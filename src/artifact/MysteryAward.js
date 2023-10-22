@@ -54,7 +54,18 @@ const MysteryAward = {
 
 MysteryAward.keys = () => Object.keys(MysteryAward.properties);
 
+MysteryAward.keysWithoutCB = () => [
+  MysteryAward.AGATHA,
+  MysteryAward.ANTHONY,
+  MysteryAward.BARRY,
+  MysteryAward.EDGAR,
+  MysteryAward.SHAMUS,
+];
+
 MysteryAward.values = () => Object.values(MysteryAward.properties);
+
+MysteryAward.valuesOmitCB = () =>
+  MysteryAward.keysWithoutCB().map((key) => MysteryAward.properties[key]);
 
 MysteryAward.properties[MysteryAward.AGATHA].categories = {
   CONTEMPORARY: "contemporary",
@@ -195,12 +206,33 @@ MysteryAward.properties[MysteryAward.CRIME_AND_BEYOND].categories = {
 
 MysteryAward.properties[MysteryAward.EDGAR].categories = {
   FIRST: "first",
+  FIRST2: "first2",
+  HARDCOVER: "hardcover",
+  HARDCOVER2: "hardcover2",
+  MYSTERY: "mystery",
   NOVEL: "novel",
   PAPERBACK: "paperback",
   properties: {
     first: {
-      name: "Best First Novel by an American Author",
+      // name: "Best First Novel by an American Author",
+      name: "Best First Novel",
       key: "first",
+    },
+    first2: {
+      name: "Best First Mystery",
+      key: "first2",
+    },
+    hardcover: {
+      name: "Best Hardcover Novel",
+      key: "hardcover",
+    },
+    hardcover2: {
+      name: "Best Hardcover",
+      key: "hardcover2",
+    },
+    mystery: {
+      name: "Best Mystery Novel",
+      key: "mystery",
     },
     novel: {
       name: "Best Mystery Novel",

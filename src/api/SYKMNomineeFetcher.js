@@ -1,12 +1,21 @@
 /* eslint no-console: ["error", { allow: ["info"] }] */
 /* eslint no-underscore-dangle: ["error", { "allow": ["_award"] }] */
 
+// Need for nodeJS
+// import fetch from "node-fetch";
+// import R from "ramda/dist/ramda.min.js";
+// import StringUtilities from "string-utilities/dist/string-utilities.min.js";
+// End Need
+
 import MysteryAward from "../artifact/MysteryAward.js";
 
 import Book from "../state/Book.js";
 import Nomination from "../state/Nomination.js";
 
-const { Extractor: EX } = StringUtilities;
+import SYKMBookData from "../api/SYKMBookData.js";
+import SYKMBookToNominationData from "../api/SYKMBookToNominationData.js";
+
+const EX = StringUtilities.Extractor;
 
 const add = (bookToNomination0, book, nomination) => {
   const bookToNomination = bookToNomination0;
@@ -16,71 +25,6 @@ const add = (bookToNomination0, book, nomination) => {
     nominations.push(nomination);
   } else {
     bookToNomination[book] = [nomination];
-  }
-};
-
-const addTitleAndAuthor = (
-  books,
-  bookToNomination0,
-  titleAndAuthor,
-  nomination,
-) => {
-  const bookToNomination = bookToNomination0;
-
-  for (let i = 0; i < titleAndAuthor.length; i += 1) {
-    const book = new Book(titleAndAuthor[i][0], titleAndAuthor[i][1]);
-    books.push(book);
-    bookToNomination[book] = [nomination];
-  }
-};
-
-const fetchData2022 = (books, bookToNomination, award) => {
-  if (award.key === MysteryAward.AGATHA) {
-    // Contemporary
-    let categoryKey = MysteryAward.categories(award.key).CONTEMPORARY;
-    let category = MysteryAward.category(award.key, categoryKey);
-    let nomination = new Nomination(award, category, 2022, true);
-    let titleAndAuthor = [["A World of Curiosities", "Louise Penny"]];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-    nomination = new Nomination(award, category, 2022);
-    titleAndAuthor = [
-      ["Bayou Book Thief", "Ellen Byron"],
-      ["Death by Bubble Tea", "Jennifer J. Chow"],
-      ["Fatal Reunion", "Annette Dashofy"],
-      ["Dead Man's Leap", "Tina de Bellegarde"],
-    ];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-
-    // First
-    categoryKey = MysteryAward.categories(award.key).FIRST;
-    category = MysteryAward.category(award.key, categoryKey);
-    nomination = new Nomination(award, category, 2022, true);
-    titleAndAuthor = [["Cheddar Off Dead", "Korina Moss"]];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-    nomination = new Nomination(award, category, 2022);
-    titleAndAuthor = [
-      ["The Finalist", "Joan Long"],
-      ["Death in the Aegean", "M.A. Monnin"],
-      ["The Bangalore Detectives Club", "Harini Nagendra"],
-      ["Devil's Chew Toy", "Rob Osler"],
-      ["The Gallery of Beauties", "Nina Wachsman"],
-    ];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-
-    // Historical
-    categoryKey = MysteryAward.categories(award.key).HISTORICAL;
-    category = MysteryAward.category(award.key, categoryKey);
-    nomination = new Nomination(award, category, 2022, true);
-    titleAndAuthor = [["Because I Could Not Stop for Death", "Amanda Flower"]];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
-    nomination = new Nomination(award, category, 2022);
-    titleAndAuthor = [
-      ["The Counterfeit Wife", "Mally Becker"],
-      ["The Lindbergh Nanny", "Mariah Fredericks"],
-      ["In Place of Fear", "Catriona McPherson"],
-      ["Under a Vieled Moon", "Karen Odden"],
-    ];
-    addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
   }
 };
 
@@ -145,10 +89,8 @@ class SYKMNomineeFetcher {
         .then((response) => response.text())
         .then(receiveData)
         .catch((error) => {
-          const books = [];
-          const bookToNomination = {};
-          fetchData2022(books, bookToNomination, this.award);
-          console.info(`${this.award.name} books.length = ${books.length}`);
+          const books = SYKMBookData;
+          const bookToNomination = SYKMBookToNominationData;
 
           resolve({ books, bookToNomination });
         });

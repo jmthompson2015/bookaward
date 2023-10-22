@@ -33,7 +33,7 @@ BookAward.execute = (appName, bookLoader, winnerImage) => {
     //   )
     // );
     store.dispatch(
-      Action.setAssessments(UserSettings.loadBookToAssessment(appName))
+      Action.setAssessments(UserSettings.loadBookToAssessment(appName)),
     );
 
     const state = store.getState();
@@ -47,10 +47,9 @@ BookAward.execute = (appName, bookLoader, winnerImage) => {
         nominations && nominations.length > 0
           ? R.map(
               (n) => (n.isWinner ? `winner ` : "") + n.toString(),
-              nominations
+              nominations,
             ).join(", ")
           : "";
-      console.log(`nominationsString = :${nominationsString}:`);
       const assessmentKey = Book.isClubNominee(nominations)
         ? Assessment.BOOK_CLUB_PICK
         : state.bookToAssessment[book] || Assessment.NONE;
@@ -91,15 +90,15 @@ BookAward.execute = (appName, bookLoader, winnerImage) => {
     const dataTableProps = { rowClass: "striped--ba-light" };
     ReactDOM.render(
       frt.filterPanel(collapsiblePaneProps),
-      document.getElementById("filter")
+      document.getElementById("filter"),
     );
     ReactDOM.render(
       frt.showColumnsPanel(collapsiblePaneProps),
-      document.getElementById("showColumns")
+      document.getElementById("showColumns"),
     );
     ReactDOM.render(
       frt.tableElement(dataTableProps),
-      document.getElementById("tabPanel")
+      document.getElementById("tabPanel"),
     );
   };
 

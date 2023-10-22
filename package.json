@@ -2,6 +2,7 @@
   "name": "bookaward",
   "version": "1.0.0",
   "description": "Provides an application to view book award nominees. Currently supports select Mystery and Science Fiction book awards.",
+  "type": "module",
   "main": "index.js",
   "directories": {
     "lib": "lib"
@@ -37,6 +38,8 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.2",
+    "fs": "0.0.1-security",
+    "node-fetch": "^2.6.1",
     "qunit": "^2.15.0"
   }
 }
