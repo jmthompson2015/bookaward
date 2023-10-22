@@ -275,6 +275,8 @@ MysteryAward.properties[MysteryAward.SHAMUS].categories = {
   },
 };
 
+MysteryAward.award = (awardKey) => MysteryAward.properties[awardKey];
+
 MysteryAward.categories = (awardKey) =>
   MysteryAward.properties[awardKey].categories;
 

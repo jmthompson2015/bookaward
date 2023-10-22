@@ -181,7 +181,7 @@ QUnit.test("fetchData() Edgar", (assert) => {
     // Verify.
     assert.ok(true, "test resumed from async operation");
     assert.ok(books);
-    assert.equal(books.length, 32);
+    assert.equal(books.length, 22);
 
     let i = 0;
     assert.equal(books[i].title, "Notes on an Execution");
@@ -191,7 +191,7 @@ QUnit.test("fetchData() Edgar", (assert) => {
     assert.equal(nominations.length, 1);
     let j = 0;
     assert.equal(nominations[j].award, award);
-    let category = award.categories.properties[award.categories.NOVEL];
+    let category = award.categories.properties[award.categories.MYSTERY];
     assert.equal(nominations[j].category, category);
     assert.equal(nominations[j].year, 2023);
 

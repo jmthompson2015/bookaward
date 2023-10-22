@@ -34,7 +34,7 @@ SYKMGenerator.generate = () => {
         const awardKey = nomination.award.key;
         const categoryKey = nomination.category.key;
         return (
-          `        new Nomination(MysteryAward["${awardKey}"],` +
+          `        new Nomination(MysteryAward.award("${awardKey}"),` +
           ` MysteryAward.category("${awardKey}", "${categoryKey}"),` +
           ` ${nomination.year}, ${nomination.isWinner}),\n`
         );
