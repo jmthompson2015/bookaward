@@ -261,6 +261,12 @@ const TableColumns = [
       createNominationsCell(row.nominations, row.winnerImage),
   },
   {
+    key: "nominationCount",
+    label: "Nom. Count",
+    type: "number",
+    cellFunction: (row) => row.nominationCount,
+  },
+  {
     key: "library",
     label: "Library Search",
     type: "none",
