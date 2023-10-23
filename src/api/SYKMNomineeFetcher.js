@@ -40,6 +40,8 @@ const parseBook = (htmlFragment) => {
   );
   const title = replaceSpecialChars(title0);
 
+  if (title.length === 0) return null;
+
   const partialBefore = R.partialRight(EX.before, ["</td>", false, false]);
   const partialAfter = R.partialRight(EX.after, [true, false]);
   const beforeAfterAfter = R.pipe(
@@ -110,7 +112,7 @@ class SYKMNomineeFetcher {
       '<p align="center" class="AuthorSub">',
     );
 
-    for (let i = 2; i < 4; i += 1) {
+    for (let i = 2; i < 5; i += 1) {
       const paragraph = paragraphs[i];
       this.parseNominees(books, bookToNomination, paragraph.trim());
     }
@@ -144,9 +146,17 @@ class SYKMNomineeFetcher {
       for (let i = 3; i < cells.length; i += 2) {
         const isWinner = cells[i - 1].includes(">*<");
         const book = parseBook(cells[i].trim());
-        const nomination = new Nomination(this.award, category, year, isWinner);
-        books.push(book);
-        add(bookToNomination, book, nomination);
+
+        if (book) {
+          const nomination = new Nomination(
+            this.award,
+            category,
+            year,
+            isWinner,
+          );
+          books.push(book);
+          add(bookToNomination, book, nomination);
+        }
       }
     }
   }

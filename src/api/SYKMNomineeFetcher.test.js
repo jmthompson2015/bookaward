@@ -13,7 +13,7 @@ QUnit.test("fetchData() Agatha", (assert) => {
     assert.ok(true, "test resumed from async operation");
     assert.ok(books, "books");
     assert.ok(bookToNomination, "bookToNomination");
-    assert.equal(books.length, 31);
+    assert.equal(books.length, 46, `books.length = ${books.length}`);
 
     let i = 0;
     assert.equal(books[i].title, "A World of Curiosities");
@@ -29,8 +29,8 @@ QUnit.test("fetchData() Agatha", (assert) => {
     assert.ok(nominations[j].isWinner);
 
     i = books.length - 1;
-    assert.equal(books[i].title, "Mango, Mambo, and Murder");
-    assert.equal(books[i].author, "Raquel V. Reyes");
+    assert.equal(books[i].title, "Murder Most Sweet");
+    assert.equal(books[i].author, "Laura Jensen Walker");
     nominations = bookToNomination[books[i]];
     assert.ok(nominations);
     assert.equal(nominations.length, 1);
@@ -38,7 +38,7 @@ QUnit.test("fetchData() Agatha", (assert) => {
     assert.equal(nominations[j].award, award);
     category = award.categories.properties[award.categories.FIRST];
     assert.equal(nominations[j].category, category);
-    assert.equal(nominations[j].year, 2021);
+    assert.equal(nominations[j].year, 2020);
     assert.ok(!nominations[j].isWinner);
     done();
   };
@@ -56,31 +56,31 @@ QUnit.test("fetchData() Anthony", (assert) => {
     // Verify.
     assert.ok(true, "test resumed from async operation");
     assert.ok(books);
-    assert.equal(books.length, 10);
+    assert.equal(books.length, 52, `books.length = ${books.length}`);
 
     let i = 0;
-    assert.equal(books[i].title, "Razorblade Tears");
-    assert.equal(books[i].author, "S.A. Cosby");
+    assert.equal(books[i].title, "Like a Sister");
+    assert.equal(books[i].author, "Kellye Garrett");
     let nominations = bookToNomination[books[i]];
     assert.ok(nominations);
     assert.equal(nominations.length, 1);
     let j = 0;
     assert.equal(nominations[j].award, award);
-    let category = award.categories.properties[award.categories.MYSTERY];
+    let category = award.categories.properties[award.categories.HARDCOVER];
     assert.equal(nominations[j].category, category);
-    assert.equal(nominations[j].year, 2022);
+    assert.equal(nominations[j].year, 2023);
 
     i = books.length - 1;
-    assert.equal(books[i].title, "All Her Little Secrets");
-    assert.equal(books[i].author, "Wanda M. Morris");
+    assert.equal(books[i].title, "Dirty Old Town");
+    assert.equal(books[i].author, "Gabriel Valjan");
     nominations = bookToNomination[books[i]];
     assert.ok(nominations);
     assert.equal(nominations.length, 1);
     j = 0;
     assert.equal(nominations[j].award, award);
-    category = award.categories.properties[award.categories.FIRST];
+    category = award.categories.properties[award.categories.PAPERBACK3];
     assert.equal(nominations[j].category, category);
-    assert.equal(nominations[j].year, 2022);
+    assert.equal(nominations[j].year, 2021);
     done();
   };
   const fetcher = new SYKMNomineeFetcher(award);
@@ -97,7 +97,7 @@ QUnit.test("fetchData() Barry", (assert) => {
     // Verify.
     assert.ok(true, "test resumed from async operation");
     assert.ok(books);
-    assert.equal(books.length, 36);
+    assert.equal(books.length, 66, `books.length = ${books.length}`);
 
     let i = 0;
     assert.equal(books[i].title, "The Accomplice");
@@ -112,8 +112,8 @@ QUnit.test("fetchData() Barry", (assert) => {
     assert.equal(nominations[j].year, 2023);
 
     i = books.length - 1;
-    assert.equal(books[i].title, "Slough House");
-    assert.equal(books[i].author, "Mick Herron");
+    assert.equal(books[i].title, "The Wild One");
+    assert.equal(books[i].author, "Nick Petrie");
     nominations = bookToNomination[books[i]];
     assert.ok(nominations);
     assert.equal(nominations.length, 1);
@@ -121,7 +121,7 @@ QUnit.test("fetchData() Barry", (assert) => {
     assert.equal(nominations[j].award, award);
     category = award.categories.properties[award.categories.THRILLER];
     assert.equal(nominations[j].category, category);
-    assert.equal(nominations[j].year, 2022);
+    assert.equal(nominations[j].year, 2021);
     done();
   };
   const fetcher = new SYKMNomineeFetcher(award);
@@ -181,7 +181,7 @@ QUnit.test("fetchData() Edgar", (assert) => {
     // Verify.
     assert.ok(true, "test resumed from async operation");
     assert.ok(books);
-    assert.equal(books.length, 22);
+    assert.equal(books.length, 48, `books.length = ${books.length}`);
 
     let i = 0;
     assert.equal(books[i].title, "Notes on an Execution");
@@ -196,8 +196,8 @@ QUnit.test("fetchData() Edgar", (assert) => {
     assert.equal(nominations[j].year, 2023);
 
     i = books.length - 1;
-    assert.equal(books[i].title, "The Shape of Darkness");
-    assert.equal(books[i].author, "Laura Purcell");
+    assert.equal(books[i].title, "East of Hounslow");
+    assert.equal(books[i].author, "Khurrum Rahman");
     nominations = bookToNomination[books[i]];
     assert.ok(nominations);
     assert.equal(nominations.length, 1);
@@ -205,7 +205,7 @@ QUnit.test("fetchData() Edgar", (assert) => {
     assert.equal(nominations[j].award, award);
     category = award.categories.properties[award.categories.PAPERBACK];
     assert.equal(nominations[j].category, category);
-    assert.equal(nominations[j].year, 2022);
+    assert.equal(nominations[j].year, 2021);
     done();
   };
   const fetcher = new SYKMNomineeFetcher(award);
@@ -263,7 +263,7 @@ QUnit.test("fetchData() Shamus", (assert) => {
     // Verify.
     assert.ok(true, "test resumed from async operation");
     assert.ok(books);
-    assert.equal(books.length, 30);
+    assert.equal(books.length, 44, `books.length = ${books.length}`);
 
     let i = 0;
     assert.equal(books[i].title, "The Wheel of Doll");
@@ -278,8 +278,8 @@ QUnit.test("fetchData() Shamus", (assert) => {
     assert.equal(nominations[j].year, 2023);
 
     i = books.length - 1;
-    assert.equal(books[i].title, "The Arrangement");
-    assert.equal(books[i].author, "M. Ravenel");
+    assert.equal(books[i].title, "Winter Counts");
+    assert.equal(books[i].author, "David Heska Wanbli Weiden");
     nominations = bookToNomination[books[i]];
     assert.ok(nominations);
     assert.equal(nominations.length, 1);
@@ -287,7 +287,7 @@ QUnit.test("fetchData() Shamus", (assert) => {
     assert.equal(nominations[j].award, award);
     category = award.categories.properties[award.categories.FIRST];
     assert.equal(nominations[j].category, category);
-    assert.equal(nominations[j].year, 2022);
+    assert.equal(nominations[j].year, 2021);
     done();
   };
   const fetcher = new SYKMNomineeFetcher(award);

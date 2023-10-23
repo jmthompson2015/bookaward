@@ -95,20 +95,50 @@ MysteryAward.properties[MysteryAward.AGATHA].categories = {
 
 MysteryAward.properties[MysteryAward.ANTHONY].categories = {
   FIRST: "first",
+  FIRST2: "first2",
+  HARDCOVER: "hardcover",
+  HARDCOVER2: "hardcover2",
+  HISTORICAL: "historical",
   MYSTERY: "mystery",
   PAPERBACK: "paperback",
+  PAPERBACK2: "paperback2",
+  PAPERBACK3: "paperback3",
   properties: {
     first: {
       name: "Best First Mystery",
       key: "first",
+    },
+    first2: {
+      name: "Best First Novel",
+      key: "first2",
+    },
+    hardcover: {
+      name: "Best Hardcover",
+      key: "hardcover",
+    },
+    hardcover2: {
+      name: "Best Hardcover Novel",
+      key: "hardcover2",
+    },
+    historical: {
+      name: "Best Historical",
+      key: "historical",
     },
     mystery: {
       name: "Best Mystery Novel",
       key: "mystery",
     },
     paperback: {
-      name: "Best Paperback Original",
+      name: "Best Paperback/EBook/Audiobook",
       key: "paperback",
+    },
+    paperback2: {
+      name: "Best Paperback/EBook/AudioBook",
+      key: "paperback2",
+    },
+    paperback3: {
+      name: "Best Paperback Original/E-Book/Audiobook Original Novel",
+      key: "paperback3",
     },
   },
 
@@ -120,6 +150,7 @@ MysteryAward.properties[MysteryAward.ANTHONY].categories = {
 };
 
 MysteryAward.properties[MysteryAward.BARRY].categories = {
+  DEBUT: "debut",
   FIRST: "first",
   FIRST_MYSTERY: "first mystery",
   MYSTERY: "mystery",
@@ -129,6 +160,10 @@ MysteryAward.properties[MysteryAward.BARRY].categories = {
   PAPERBACK_MYSTERY: "paperback mystery",
   THRILLER: "thriller",
   properties: {
+    debut: {
+      name: "Best Debut Mystery/Crime Novel",
+      key: "debut",
+    },
     first: {
       name: "Best First Novel",
       key: "first",
@@ -207,6 +242,7 @@ MysteryAward.properties[MysteryAward.CRIME_AND_BEYOND].categories = {
 MysteryAward.properties[MysteryAward.EDGAR].categories = {
   FIRST: "first",
   FIRST2: "first2",
+  FIRST3: "first3",
   HARDCOVER: "hardcover",
   HARDCOVER2: "hardcover2",
   MYSTERY: "mystery",
@@ -214,13 +250,16 @@ MysteryAward.properties[MysteryAward.EDGAR].categories = {
   PAPERBACK: "paperback",
   properties: {
     first: {
-      // name: "Best First Novel by an American Author",
-      name: "Best First Novel",
+      name: "Best First Novel by an American Author",
       key: "first",
     },
     first2: {
-      name: "Best First Mystery",
+      name: "Best First Novel",
       key: "first2",
+    },
+    first3: {
+      name: "Best First Mystery",
+      key: "first3",
     },
     hardcover: {
       name: "Best Hardcover Novel",
