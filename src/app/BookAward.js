@@ -59,6 +59,7 @@ BookAward.execute = (appName, bookLoader, winnerImage) => {
         author: book.author,
         book,
         nominations,
+        nominations2: nominations,
         nominationsString,
         assessmentKey,
         winnerImage: state.winnerImage,
