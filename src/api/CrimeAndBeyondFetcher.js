@@ -182,7 +182,26 @@ const fetchData2024 = (books, bookToNomination, award, category) => {
     ["Exiles", "Jane Harper"],
     ["I Will Find You", "Harlan Coben"],
     ["Mother-Daughter Murder Night", "Nina Simon"],
+    ["Resurrection Walk", "Michael Connelly"],
+    ["End of Story", "AJ Finn"],
+    ["Listen for the Lie", "Amy Tintera"],
+    ["The Mystery Guest", "Nita Prose"],
+    ["The Midnight Feast", "Lucy Foley"],
     ["The Man with a Load of Mischief", "Martha Grimes"],
+  ];
+  addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
+};
+
+const fetchData2025 = (books, bookToNomination, award, category) => {
+  let nomination = new Nomination(award, category, 2025, true);
+  let titleAndAuthor = [
+    ["We Solve Murders", "Richard Osman"],
+    ["The New Couple in 5B", "Lisa Unger"],
+    ["Middle of the Night", "Riley Sager"],
+    ["Here One Moment", "Liane Moriarty"],
+    ["Beautiful Ugly", "Alice Feeney"],
+    ["The Waiting", "Michael Connelly"],
+    ["Everyone This Christmas Has a Secret", "Benjamin Stevenson"],
   ];
   addTitleAndAuthor(books, bookToNomination, titleAndAuthor, nomination);
 };
@@ -214,10 +233,11 @@ class CrimeAndBeyondFetcher {
         // fetchData2018(books, bookToNomination, this.award, this.category);
         // fetchData2019(books, bookToNomination, this.award, this.category);
         // fetchData2020(books, bookToNomination, this.award, this.category);
-        fetchData2021(books, bookToNomination, this.award, this.category);
+        // fetchData2021(books, bookToNomination, this.award, this.category);
         fetchData2022(books, bookToNomination, this.award, this.category);
         fetchData2023(books, bookToNomination, this.award, this.category);
         fetchData2024(books, bookToNomination, this.award, this.category);
+        fetchData2025(books, bookToNomination, this.award, this.category);
 
         console.info(`${this.award.name} books.length = ${books.length}`);
         resolve({ books, bookToNomination });

@@ -37,6 +37,7 @@ const parseBook = (htmlFragment) => {
     R.replace("&amp;", "&"),
     R.replace("&oslash;", "o"),
     R.replace("&rsquo;", "'"),
+    R.replace("&rsquo;", "'"),
   );
   const title = replaceSpecialChars(title0);
 
