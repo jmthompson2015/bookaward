@@ -34,6 +34,7 @@ const parseBook = (htmlFragment) => {
   const replaceSpecialChars = R.pipe(
     R.replace("&#8217;", "'"),
     R.replace("&#x2019;", "'"),
+    R.replace("&aacute;", "a"),
     R.replace("&amp;", "&"),
     R.replace("&oslash;", "o"),
     R.replace("&rsquo;", "'"),
